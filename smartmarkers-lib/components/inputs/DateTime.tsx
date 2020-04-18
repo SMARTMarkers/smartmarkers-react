@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItem, Item, Left, Right, Radio, Text, Button } from "native-base";
+import { Item, Text, Button, Left, Right } from "native-base";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 
 export interface DateTimeProps {
@@ -24,11 +24,15 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
 
   const dateValue = value ? new Date(value) : new Date();
   return (
-    <Item>
-      <Text>{value ? new Date(value).toLocaleDateString() : ""}</Text>
-      <Button onPress={onSelectPress}>
-        <Text>Select</Text>
-      </Button>
+    <Item regular>
+      <Left>
+        <Text>{value ? new Date(value).toLocaleDateString() : ""}</Text>
+      </Left>
+      <Right>
+        <Button onPress={onSelectPress}>
+          <Text>Select</Text>
+        </Button>
+      </Right>
       {show && (
         <DateTimePicker
           value={dateValue}

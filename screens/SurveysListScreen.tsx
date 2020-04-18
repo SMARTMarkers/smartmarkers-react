@@ -10,6 +10,7 @@ const SurveysListScreen: React.FC = () => {
     <List>
       {items.map((item, index) => (
         <ListItem
+          button
           noIndent
           key={index}
           onPress={() => {

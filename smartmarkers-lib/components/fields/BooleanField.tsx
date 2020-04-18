@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text } from "native-base";
 import { BaseFieldProps } from "./BaseFieldProps";
-import { RadioGroup } from "../inputs";
+import { RadioGroup, ButtonGroup } from "../inputs";
 import { getLabel, setFormValue, getFormValue } from "./utils";
 import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
 
@@ -23,7 +23,8 @@ export const BooleanField: React.FC<BooleanFieldProps> = (props) => {
   return (
     <View>
       <Text>{getLabel(item)}</Text>
-      <RadioGroup items={choices} onChange={onChange} value={value} />
+      {/* <RadioGroup items={choices} onChange={onChange} value={value} /> */}
+      <ButtonGroup items={choices} onChange={onChange} value={value} />
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
     </View>
   );

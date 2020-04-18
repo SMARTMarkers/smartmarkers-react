@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@types/react": "~16.9.23",
+    "@types/react-dom": "^16.9.6",
     "@types/react-native": "~0.61.17",
     "@types/react-router-dom": "^5.1.4",
     "@types/react-router-native": "^5.1.0",

@@ -1,14 +1,10 @@
 import React from "react";
 import { GestureResponderEvent } from "react-native";
 import { ListItem, Content, Left, Right, Radio, Text } from "native-base";
-
-export interface RadioGroupItem<T> {
-  label: string;
-  value: T;
-}
+import { GroupItem } from "./GroupItem";
 
 export interface RadioGroupProps<T> {
-  items: RadioGroupItem<T>[];
+  items: GroupItem<T>[];
   value?: T;
   onChange?: (value: T) => void;
 }

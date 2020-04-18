@@ -1,50 +1,71 @@
 import React from "react";
+import { View, Text } from "native-base";
 import { BaseFieldProps } from "./BaseFieldProps";
 import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
 import { QuestionnaireItem } from "../../models";
+import { setFormValue, getLabel, getFormValue, extractChoices } from "./utils";
+import { RadioGroup, DropDown, ButtonGroup } from "../inputs";
 
-import { Content, Text } from "native-base";
-import { setFormValue, getLabel, getFormValue } from "./utils";
-import { RadioGroupItem, RadioGroup } from "../inputs";
+const DROP_DOWN_CODE = "drop-down";
+const AUTOCOMPLETE_CODE = "autocomplete";
+const EXTERNALLY_DEFINED_URL =
+  "http://hl7.org/fhir/StructureDefinition/questionnaire-externallydefined";
 
 export interface ChoiceFieldProps extends BaseFieldProps {}
 
-const renderDropDown = (item: QuestionnaireItem, props: BaseFieldProps) => {};
-
 const renderAutocomplete = (
   item: QuestionnaireItem,
-  props: BaseFieldProps
-) => {};
+  onChange: (value: any) => void,
+  value: any
+) => {
+  const autocompleteUri = item.extension.find(
+    (v) => v.url && v.url === EXTERNALLY_DEFINED_URL
+  );
 
-const renderRadioGroup = (item: QuestionnaireItem, props: BaseFieldProps) => {
-  let choices: RadioGroupItem<any>[] = [
-    {
-      label: "Yes",
-      value: "Y",
-    },
-    {
-      label: "No",
-      value: "N",
-    },
-    {
-      label: "Don't know",
-      value: "asked-unknown",
-    },
-  ];
+  return <Text>autocomplete {item.linkId}</Text>;
+};
 
-  if (item.answerOption) {
-    choices = item.answerOption.map((option) => {
-      if (option.valueCoding) {
-        return {
-          value: option.valueCoding.code,
-          label: option.valueCoding.display,
-        } as RadioGroupItem<any>;
+const renderChoice = (
+  item: QuestionnaireItem,
+  onChange: (value: any) => void,
+  value: any
+) => {
+  const choices = extractChoices(item);
+  if (item.extension) {
+    const dropDown = item.extension.find(
+      (v) =>
+        v.valueCodeableConcept &&
+        v.valueCodeableConcept.coding &&
+        v.valueCodeableConcept.coding.find((c) => c.code === DROP_DOWN_CODE)
+    );
+    if (dropDown) {
+      return <DropDown items={choices} onChange={onChange} value={value} />;
+    } else {
+      const autocomplete = item.extension.find(
+        (v) =>
+          v.valueCodeableConcept &&
+          v.valueCodeableConcept.coding &&
+          v.valueCodeableConcept.coding.find(
+            (c) => c.code === AUTOCOMPLETE_CODE
+          )
+      );
+      if (autocomplete) {
+        return renderAutocomplete(item, onChange, value);
       } else {
-        return { value: "NoOptions", label: "NoOptions" };
+        return (
+          <ButtonGroup items={choices} onChange={onChange} value={value} />
+        );
+        // return <RadioGroup items={choices} onChange={onChange} value={value} />;
       }
-    });
+    }
+  } else {
+    return <ButtonGroup items={choices} onChange={onChange} value={value} />;
+    // return <RadioGroup items={choices} onChange={onChange} value={value} />;
   }
+};
 
+export const ChoiceField: React.FC<ChoiceFieldProps> = (props) => {
+  const { item, id, ...propsToPass } = props;
   const onChange = (value: any) => {
     const newFormData = setFormValue(props.formData, item.linkId, value);
     if (props.onChange) {
@@ -52,44 +73,11 @@ const renderRadioGroup = (item: QuestionnaireItem, props: BaseFieldProps) => {
     }
   };
   const value = getFormValue(props.formData, item.linkId);
-  return <RadioGroup items={choices} onChange={onChange} value={value} />;
-};
-
-const renderChoice = (item: QuestionnaireItem, props: BaseFieldProps) => {
-  if (item.extension) {
-    const dropDown = item.extension.find(
-      (v) =>
-        v.valueCodeableConcept &&
-        v.valueCodeableConcept.coding &&
-        v.valueCodeableConcept.coding.find((c) => c.code === "drop-down")
-    );
-    if (dropDown) {
-      return renderDropDown(item, props);
-    } else {
-      const autocomplete = item.extension.find(
-        (v) =>
-          v.valueCodeableConcept &&
-          v.valueCodeableConcept.coding &&
-          v.valueCodeableConcept.coding.find((c) => c.code === "autocomplete")
-      );
-      if (autocomplete) {
-        return renderAutocomplete(item, props);
-      } else {
-        return renderRadioGroup(item, props);
-      }
-    }
-  } else {
-    return renderRadioGroup(item, props);
-  }
-};
-
-export const ChoiceField: React.FC<ChoiceFieldProps> = (props) => {
-  const { item, id, ...propsToPass } = props;
   return (
-    <Content style={{ flex: 1 }}>
+    <View>
       <Text>{getLabel(item)}</Text>
-      {renderChoice(item, props)}
+      {renderChoice(item, onChange, value)}
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
-    </Content>
+    </View>
   );
 };

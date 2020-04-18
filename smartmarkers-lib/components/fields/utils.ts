@@ -3,6 +3,22 @@ import {
   QuestionnaireItemOperator,
   QuestionnaireItem,
 } from "../../models";
+import { GroupItem } from "../inputs/GroupItem";
+
+const DEFAULT_CHOICES = [
+  {
+    label: "Yes",
+    value: "Y",
+  },
+  {
+    label: "No",
+    value: "N",
+  },
+  {
+    label: "Don't know",
+    value: "asked-unknown",
+  },
+];
 
 const compareValues = (
   operator: QuestionnaireItemOperator,
@@ -100,4 +116,23 @@ export const getLabel = (item: QuestionnaireItem) => {
   }
 
   if (item.linkId) return item.linkId;
+};
+
+export const extractChoices = <
+  T extends { label: string; value: any } = GroupItem<any>
+>(
+  item: QuestionnaireItem
+) => {
+  if (!item.answerOption) return DEFAULT_CHOICES as T[];
+
+  return item.answerOption.map((option) => {
+    if (option.valueCoding) {
+      return {
+        value: option.valueCoding.code,
+        label: option.valueCoding.display,
+      } as T;
+    } else {
+      return { value: "NoOptions", label: "NoOptions" } as T;
+    }
+  });
 };

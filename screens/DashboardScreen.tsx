@@ -33,7 +33,7 @@ const DashboardScreen: React.FC<any> = () => {
         </Body>
       </ListItem>
       {items.map((item, index) => (
-        <ListItem key={index} noIndent>
+        <ListItem key={index} noIndent button>
           <Body>
             <Text>{item.title}</Text>
             <Text note>{item.subTitle}</Text>
