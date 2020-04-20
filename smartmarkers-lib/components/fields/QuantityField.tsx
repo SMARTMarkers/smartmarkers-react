@@ -15,12 +15,16 @@ export const QuantityField: React.FC<QuantityFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const value = getFormValue(props.formData, item.linkId);
+  const { value } = getFormValue(props.formData, item.linkId);
   return (
     <Content>
       <Text>{getLabel(item)}</Text>
       <Item regular>
-        <Input value={value} onChangeText={onChange} />
+        <Input
+          value={value}
+          onChangeText={onChange}
+          keyboardType={"numbers-and-punctuation"}
+        />
       </Item>
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
     </Content>

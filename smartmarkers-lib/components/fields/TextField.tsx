@@ -15,7 +15,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const value = getFormValue(props.formData, item.linkId);
+  const { value } = getFormValue(props.formData, item.linkId);
   return (
     <Content>
       <Text>{getLabel(item)}</Text>

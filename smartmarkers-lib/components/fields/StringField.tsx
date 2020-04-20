@@ -15,7 +15,7 @@ export const StringField: React.FC<StringFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const value = getFormValue(props.formData, item.linkId);
+  const { value } = getFormValue(props.formData, item.linkId);
   return (
     <View>
       <Text>{getLabel(item)}</Text>

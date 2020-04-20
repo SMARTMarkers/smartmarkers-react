@@ -5,12 +5,13 @@ import {
   QuestionnaireItemType,
 } from "../../models";
 import { QuestionnaireItemField } from "./QuestionnaireItemField";
-import { Content } from "native-base";
+import { View } from "native-base";
 import { EnumDictionary } from "../Form";
 import { BaseFieldProps } from "./BaseFieldProps";
 
 export interface QuestionnaireItemFieldsProps {
   id?: string;
+  testID?: string;
   questionnaire: Questionnaire;
   items: QuestionnaireItem[];
   fieldsMap: EnumDictionary<QuestionnaireItemType, React.FC<BaseFieldProps>>;
@@ -25,9 +26,9 @@ export interface QuestionnaireItemFieldsProps {
 export const QuestionnaireItemFields: React.FC<QuestionnaireItemFieldsProps> = (
   props
 ) => {
-  const { id, items, ...propsToPass } = props;
+  const { id, testID, items, ...propsToPass } = props;
   return (
-    <Content testID={id}>
+    <View testID={testID} style={{ flex: 1 }}>
       {items &&
         items.length > 0 &&
         items.map((q, index) => {
@@ -40,6 +41,6 @@ export const QuestionnaireItemFields: React.FC<QuestionnaireItemFieldsProps> = (
             />
           );
         })}
-    </Content>
+    </View>
   );
 };

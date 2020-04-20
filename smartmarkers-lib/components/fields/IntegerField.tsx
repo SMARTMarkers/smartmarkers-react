@@ -15,12 +15,12 @@ export const IntegerField: React.FC<IntegerFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const value = getFormValue(props.formData, item.linkId);
+  const { value } = getFormValue(props.formData, item.linkId);
   return (
     <Content>
       <Text>{getLabel(item)}</Text>
       <Item regular>
-        <Input value={value} onChangeText={onChange} />
+        <Input value={value} onChangeText={onChange} keyboardType={"numeric"} />
       </Item>
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
     </Content>

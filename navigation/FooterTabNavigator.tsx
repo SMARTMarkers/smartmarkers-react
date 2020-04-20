@@ -13,19 +13,22 @@ const FooterTabNavigator: React.FC = () => {
   }
   return (
     <FooterTab>
-      {FooterRoutes.map((route, index) => (
-        <Button
-          key={index}
-          active={index == position}
-          vertical
-          onPress={() => {
-            history.push(route.path);
-          }}
-        >
-          <Icon active={index == position} name={route.icon} />
-          <Text>{route.name}</Text>
-        </Button>
-      ))}
+      {FooterRoutes.map((route, index) => {
+        const isActive = index === position;
+        return (
+          <Button
+            key={index}
+            active={isActive}
+            vertical
+            onPress={() => {
+              history.push(route.path);
+            }}
+          >
+            <Icon active={isActive} name={route.icon} />
+            <Text>{route.name}</Text>
+          </Button>
+        );
+      })}
     </FooterTab>
   );
 };

@@ -4,6 +4,7 @@ import {
   QuestionnaireItem,
 } from "../../models";
 import { GroupItem } from "../inputs/GroupItem";
+import { FieldData, FormData } from "../types";
 
 const DEFAULT_CHOICES = [
   {
@@ -25,7 +26,6 @@ const compareValues = (
   value: any,
   expectedValue: any
 ) => {
-  console.log({ operator, value, expectedValue });
   if (value === undefined) return false;
   switch (operator) {
     case QuestionnaireItemOperator.Equals:
@@ -65,7 +65,6 @@ const getExpectedRuleValue = (rule: QuestionnaireItemRule) => {
 };
 
 const checkRule = (rule: QuestionnaireItemRule, formData: any) => {
-  console.log({ formData, question: rule.question });
   const value = getFormValue(formData, rule.question);
   const expectedValue = getExpectedRuleValue(rule);
   return compareValues(rule.operator, value, expectedValue);
@@ -81,7 +80,6 @@ export const checkEnableRules = (
     enabled = false;
     for (const rule of rules) {
       enabled = checkRule(rule, formData);
-      console.log({ enabled, rule, formData });
       if (enabled) break;
     }
   }
@@ -89,14 +87,26 @@ export const checkEnableRules = (
   return enabled;
 };
 
-export const getFormValue = (formData: any, linkId: string) => {
-  if (!formData) return undefined;
-  return formData[`${linkId}`];
+export const getFormValue = <T = any>(
+  formData: FormData,
+  linkId: string
+): FieldData<T> => {
+  if (!formData || !formData[linkId])
+    return { touched: false, value: null, error: null };
+  return formData[linkId];
 };
 
-export const setFormValue = (formData: any, linkId: string, newValue: any) => {
-  if (formData) return { ...formData, [`${linkId}`]: newValue };
-  return { [`${linkId}`]: newValue };
+export const setFormValue = <T = any>(
+  formData: FormData,
+  linkId: string,
+  newValue: T
+) => {
+  if (formData)
+    return {
+      ...formData,
+      [linkId]: { touched: true, value: newValue, error: null },
+    };
+  return { [linkId]: { touched: true, value: newValue, error: null } };
 };
 
 export const getLabel = (item: QuestionnaireItem) => {

@@ -7,6 +7,7 @@ import { EnumDictionary } from "../Form";
 
 export interface BaseFieldProps {
   id?: string;
+  testID?: string;
   questionnaire: Questionnaire;
   item: QuestionnaireItem;
   fieldsMap: EnumDictionary<QuestionnaireItemType, React.FC<BaseFieldProps>>;

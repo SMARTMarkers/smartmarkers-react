@@ -1,12 +1,13 @@
 import React from "react";
 import { Questionnaire, QuestionnaireItemType } from "../../models";
 import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
-import { Content, Text } from "native-base";
+import { View, Content, Text } from "native-base";
 import { EnumDictionary } from "../Form";
 import { BaseFieldProps } from "./BaseFieldProps";
 
 export interface QuestionnaireFieldProps {
   id?: string;
+  testID?: string;
   questionnaire: Questionnaire;
   fieldsMap: EnumDictionary<QuestionnaireItemType, React.FC<BaseFieldProps>>;
   formData?: any;
@@ -21,9 +22,9 @@ export const QuestionnaireField: React.FC<QuestionnaireFieldProps> = (
   props
 ) => {
   const { questionnaire } = props;
-  const { id, ...propsToPass } = props;
+  const { id, testID, ...propsToPass } = props;
   return (
-    <Content testID={id}>
+    <Content testID={testID}>
       {questionnaire.item && (
         <QuestionnaireItemFields
           id={props.id}

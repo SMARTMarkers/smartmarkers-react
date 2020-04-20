@@ -16,7 +16,7 @@ export const TimeField: React.FC<TimeFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const value = getFormValue(props.formData, item.linkId);
+  const { value } = getFormValue(props.formData, item.linkId);
   return (
     <View>
       <Text>{getLabel(item)}</Text>
