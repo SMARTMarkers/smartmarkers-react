@@ -1,10 +1,11 @@
 import React from "react";
-import { Item } from "native-base";
+import { Item, Icon } from "native-base";
 
 export interface DateTimeProps {
   mode?: "date" | "time" | "datetime";
   value?: Date | string;
   onChange?: (date?: Date) => void;
+  error?: string;
 }
 
 const formatDate = (date: string | Date | null | undefined) => {
@@ -21,9 +22,8 @@ const formatDate = (date: string | Date | null | undefined) => {
 };
 
 export const DateTime: React.FC<DateTimeProps> = (props) => {
-  const { mode, value, onChange } = props;
+  const { mode, value, onChange, error } = props;
   const onLocalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log({ target: event.target });
     const date = event.target.valueAsDate
       ? event.target.valueAsDate
       : undefined;
@@ -32,8 +32,10 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
     }
   };
 
+  const hasError = !!error;
+
   return (
-    <Item regular>
+    <Item regular error={hasError}>
       <input
         style={{
           height: 50,
@@ -53,6 +55,7 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
         max={formatDate(new Date())}
         min={"1880-01-01"}
       />
+      {hasError && <Icon name="close-circle" />}
     </Item>
   );
 };

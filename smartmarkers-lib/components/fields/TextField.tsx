@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseFieldProps } from "./BaseFieldProps";
-import { Content, Input, Item, Text } from "native-base";
+import { View, Input, Item, Text, Icon } from "native-base";
 import { setFormValue, getLabel, getFormValue } from "./utils";
 import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
 
@@ -15,14 +15,17 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const { value } = getFormValue(props.formData, item.linkId);
+  const { value, touched } = getFormValue(props.formData, item.linkId);
+  const error = props.errorData && touched ? props.errorData[item.linkId] : "";
+  const hasError = !!error;
   return (
-    <Content>
+    <View>
       <Text>{getLabel(item)}</Text>
-      <Item regular>
+      <Item regular error={hasError}>
         <Input value={value} onChangeText={onChange} />
+        {hasError && <Icon name="close-circle" />}
       </Item>
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
-    </Content>
+    </View>
   );
 };

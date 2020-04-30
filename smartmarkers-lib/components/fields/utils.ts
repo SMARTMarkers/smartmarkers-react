@@ -41,7 +41,7 @@ const compareValues = (
     case QuestionnaireItemOperator.NotEquals:
       return value != expectedValue;
     case QuestionnaireItemOperator.Exists:
-      return value in expectedValue; // Todo: verify this comparison
+      return expectedValue ? !!value : !value;
     default:
       return false;
   }
@@ -65,7 +65,7 @@ const getExpectedRuleValue = (rule: QuestionnaireItemRule) => {
 };
 
 const checkRule = (rule: QuestionnaireItemRule, formData: any) => {
-  const value = getFormValue(formData, rule.question);
+  const value = getFormValue(formData, rule.question).value;
   const expectedValue = getExpectedRuleValue(rule);
   return compareValues(rule.operator, value, expectedValue);
 };
@@ -85,6 +85,35 @@ export const checkEnableRules = (
   }
 
   return enabled;
+};
+
+export const getActiveQuestionsCount = (
+  items: QuestionnaireItem[] | undefined,
+  formData: FormData
+) => {
+  let count = 0;
+  if (!items) return count;
+  items.forEach((item) => {
+    if (checkEnableRules(item.enableWhen, formData)) {
+      count += 1;
+    }
+  });
+  return count;
+};
+
+export const getActiveQuestions = (
+  items: QuestionnaireItem[] | undefined,
+  formData: FormData
+) => {
+  const result: QuestionnaireItem[] = [];
+  if (!items) return result;
+  items.forEach((item) => {
+    if (checkEnableRules(item.enableWhen, formData)) {
+      result.push(item);
+    }
+  });
+
+  return result;
 };
 
 export const getFormValue = <T = any>(

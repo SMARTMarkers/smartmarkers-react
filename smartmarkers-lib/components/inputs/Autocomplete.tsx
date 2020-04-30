@@ -1,10 +1,11 @@
 import React from "react";
 import AutocompleteInput from "react-native-autocomplete-input";
-import { Text, Item, Input, Spinner, ListItem, View } from "native-base";
+import { Text, Item, Input, Spinner, ListItem, View, Icon } from "native-base";
 
 export interface AutocompleteProps<T> {
   value?: FetchResponseItem;
   onChange?: (value: FetchResponseItem) => void;
+  error?: string;
   fetchUrl: string;
 }
 
@@ -14,7 +15,7 @@ export interface FetchResponseItem {
 }
 
 export const Autocomplete: React.FC<AutocompleteProps<any>> = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, error } = props;
 
   const [query, setQuery] = React.useState(value ? value.text : "");
   const [options, setOptions] = React.useState<FetchResponseItem[]>([]);
@@ -67,6 +68,8 @@ export const Autocomplete: React.FC<AutocompleteProps<any>> = (props) => {
     };
   }, [query, props.value, props.fetchUrl]);
 
+  const hasError = !!error;
+
   return (
     <View>
       <AutocompleteInput
@@ -78,9 +81,10 @@ export const Autocomplete: React.FC<AutocompleteProps<any>> = (props) => {
         onBlur={() => setHideResults(true)}
         onFocus={() => setHideResults(false)}
         renderTextInput={(props) => (
-          <Item regular>
+          <Item regular error={hasError}>
             <Input {...props} value={query} style={{ borderWidth: 0 }} />
             {loading && <Spinner style={{ height: 50 }} />}
+            {hasError && <Icon name="close-circle" />}
           </Item>
         )}
         renderItem={({ item, index }) => (

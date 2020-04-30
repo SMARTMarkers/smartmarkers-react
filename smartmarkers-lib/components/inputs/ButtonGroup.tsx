@@ -1,16 +1,17 @@
 import React from "react";
-import { Text, Button, Segment } from "native-base";
+import { Text, Button, Segment, Icon } from "native-base";
 import { GroupItem } from "./GroupItem";
 
 export interface ButtonGroupProps<T> {
   items: GroupItem<T>[];
   value?: T;
+  error?: string;
   onChange?: (value: T) => void;
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps<any>> = (props) => {
-  const { items, value, onChange } = props;
-
+  const { items, value, onChange, error } = props;
+  const hasError = !!error;
   const onPress = (value: any) => () => {
     if (onChange) {
       onChange(value);
@@ -31,6 +32,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps<any>> = (props) => {
           <Text>{item.label}</Text>
         </Button>
       ))}
+      {hasError && <Icon name="close-circle" />}
     </Segment>
   );
 };

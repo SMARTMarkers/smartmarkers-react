@@ -16,7 +16,9 @@ export const DateField: React.FC<DateFieldProps> = (props) => {
       props.onChange(newFormData, item.linkId);
     }
   };
-  const { value } = getFormValue(props.formData, item.linkId);
+  const { value, touched } = getFormValue(props.formData, item.linkId);
+  const error = props.errorData && touched ? props.errorData[item.linkId] : "";
+  const hasError = !!error;
   return (
     <View>
       <Text>{getLabel(item)}</Text>

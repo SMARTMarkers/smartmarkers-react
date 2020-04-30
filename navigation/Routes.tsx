@@ -10,6 +10,7 @@ import {
   SettingsScreen,
   SurveyScreen,
   SurveysListScreen,
+  SurveyWizardScreen,
 } from "../screens";
 
 const Routes = () => {
@@ -39,6 +40,12 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/survey/:example"
+      />
+      <RouteWithLayout
+        component={SurveyWizardScreen}
+        exact
+        layout={MainLayout}
+        path="/survey-wizard/:example"
       />
       <RouteWithLayout
         component={NotFoundScreen}

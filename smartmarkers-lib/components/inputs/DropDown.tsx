@@ -5,12 +5,13 @@ import { GroupItem } from "./GroupItem";
 export interface DropDownProps<T> {
   items: GroupItem<T>[];
   value?: T;
+  error?: string;
   onChange?: (value: T) => void;
   placeholder?: string;
 }
 
 export const DropDown: React.FC<DropDownProps<any>> = (props) => {
-  const { items, value, onChange, placeholder } = props;
+  const { items, value, onChange, placeholder, error } = props;
 
   const onValueChange = (value: any) => {
     if (onChange) {
@@ -19,9 +20,10 @@ export const DropDown: React.FC<DropDownProps<any>> = (props) => {
   };
   const empty = { label: "Select answer", value: "" };
   const finalItems = [empty, ...items];
+  const hasError = !!error;
 
   return (
-    <Item picker regular>
+    <Item picker regular error={hasError}>
       <Picker
         mode="dropdown"
         iosIcon={<Icon name="arrow-down" />}
@@ -36,6 +38,7 @@ export const DropDown: React.FC<DropDownProps<any>> = (props) => {
           <Picker.Item key={index} label={item.label} value={item.value} />
         ))}
       </Picker>
+      {hasError && <Icon name="close-circle" />}
     </Item>
   );
 };

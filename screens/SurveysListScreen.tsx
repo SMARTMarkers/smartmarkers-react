@@ -26,6 +26,24 @@ const SurveysListScreen: React.FC = () => {
           </Right>
         </ListItem>
       ))}
+      {items.map((item, index) => (
+        <ListItem
+          button
+          noIndent
+          key={index}
+          onPress={() => {
+            history.push(`/survey-wizard/${(ExampleType as any)[item]}`);
+          }}
+        >
+          <Body>
+            <Text>Wizard {item}</Text>
+            <Text note>{(ExampleType as any)[item]}</Text>
+          </Body>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+        </ListItem>
+      ))}
     </List>
   );
 };

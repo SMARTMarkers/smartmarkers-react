@@ -1,6 +1,6 @@
 import React from "react";
 import { GestureResponderEvent } from "react-native";
-import { ListItem, Content, Left, Right, Radio, Text } from "native-base";
+import { ListItem, View, Left, Right, Radio, Text } from "native-base";
 import { GroupItem } from "./GroupItem";
 
 export interface RadioGroupProps<T> {
@@ -17,7 +17,7 @@ export const RadioGroup: React.FC<RadioGroupProps<any>> = (props) => {
     }
   };
   return (
-    <Content>
+    <View>
       {items &&
         items.map((item, index) => {
           const isSelected = item.value === value;
@@ -36,6 +36,6 @@ export const RadioGroup: React.FC<RadioGroupProps<any>> = (props) => {
             </ListItem>
           );
         })}
-    </Content>
+    </View>
   );
 };

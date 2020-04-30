@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "Kaushald4/vector-icons#master",
-    "@react-native-community/datetimepicker": "~2.2.2",
+    "@react-native-community/datetimepicker": "2.2.2",
     "expo": "~37.0.7",
     "expo-font": "^8.1.1",
     "native-base": "^2.13.12",

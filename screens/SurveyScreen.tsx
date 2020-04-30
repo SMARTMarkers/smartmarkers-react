@@ -3,7 +3,6 @@ import { useParams } from "../react-router";
 import { ExampleType, ExampleMap } from "../example";
 
 import { Form } from "../smartmarkers-lib";
-import { View } from "native-base";
 
 interface RouteParams {
   example: string;
