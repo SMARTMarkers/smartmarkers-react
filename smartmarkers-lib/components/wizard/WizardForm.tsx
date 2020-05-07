@@ -5,7 +5,8 @@ import { Form as NativeBaseForm, Button, Text } from "native-base";
 import { FieldsMap } from "../../FieldsMap";
 import { FormData } from "../types";
 import { validate } from "../validation";
-import { getActiveQuestions } from "../fields/utils";
+import { getActiveQuestions, getResponse } from "../fields/utils";
+import { QuestionnaireResponse } from "../../models/QuestionnaireResponse";
 
 export interface WizardFormProps {
   questionnaire: Questionnaire;
@@ -13,7 +14,7 @@ export interface WizardFormProps {
   id?: string;
   onChange?: (formData: FormData) => void;
   // onError?: Function;
-  onSubmit?: (formData: FormData) => void;
+  onSubmit?: (formData: FormData, reponse: QuestionnaireResponse) => void;
   onFocus?: Function;
   onBlur?: Function;
 }
@@ -54,7 +55,7 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
   };
   const onSubmit = (formData: FormData) => {
     if (props.onSubmit) {
-      props.onSubmit(formData);
+      props.onSubmit(formData, getResponse(questionnaire, formData));
     }
   };
   const onBlur = (...args: any[]) => {

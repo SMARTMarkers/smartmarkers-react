@@ -2,9 +2,17 @@ import {
   QuestionnaireItemRule,
   QuestionnaireItemOperator,
   QuestionnaireItem,
+  Questionnaire,
+  QuestionnaireItemType,
 } from "../../models";
 import { GroupItem } from "../inputs/GroupItem";
 import { FieldData, FormData } from "../types";
+import {
+  QuestionnaireResponse,
+  QuestionnaireResponseStatus,
+  QuestionnaireResponseItem,
+  QuestionnaireResponseItemAnswer,
+} from "../../models/QuestionnaireResponse";
 
 const DEFAULT_CHOICES = [
   {
@@ -174,4 +182,147 @@ export const extractChoices = <
       return { value: "NoOptions", label: "NoOptions" } as T;
     }
   });
+};
+
+export const getResponse = (
+  questionnaire: Questionnaire,
+  formData: FormData
+): QuestionnaireResponse => {
+  const response: QuestionnaireResponse = {
+    resourceType: "QuestionnaireResponse",
+    status: QuestionnaireResponseStatus.InProgress,
+    questionnaire: questionnaire,
+    item: [],
+  };
+
+  const items = questionnaire.item ? questionnaire.item : [];
+
+  response.item = getResponseItems(items, formData);
+
+  return response;
+};
+
+const getResponseItems = (
+  items: QuestionnaireItem[],
+  formData: FormData
+): QuestionnaireResponseItem[] => {
+  const response: QuestionnaireResponseItem[] = [];
+
+  items.forEach((item) => {
+    const responseItem: QuestionnaireResponseItem = {
+      id: item.id,
+      linkId: item.linkId,
+      definition: item.definition,
+      text: item.text,
+      extension: item.extension,
+      answer: getResponseItemAnswers(item, formData),
+      item: [],
+    };
+
+    if (
+      ![
+        QuestionnaireItemType.Group,
+        QuestionnaireItemType.Question,
+        QuestionnaireItemType.Display,
+      ].includes(item.type) &&
+      item.item &&
+      item.item.length > 0
+    ) {
+      responseItem.item = getResponseItems(item.item, formData);
+    }
+
+    response.push(responseItem);
+  });
+
+  return response;
+};
+
+const getResponseItemAnswers = (
+  item: QuestionnaireItem,
+  formData: FormData
+): QuestionnaireResponseItemAnswer[] => {
+  const answers: QuestionnaireResponseItemAnswer[] = [];
+  const value = getFormValue(formData, item.linkId);
+  let valueProp = "";
+  let id = 1;
+  const repeats = !!item.repeats;
+  switch (item.type) {
+    case QuestionnaireItemType.Boolean:
+      valueProp = "valueBoolean";
+      break;
+    case QuestionnaireItemType.Decimal:
+      valueProp = "valueDecimal";
+      break;
+    case QuestionnaireItemType.Integer:
+      valueProp = "valueInteger";
+      break;
+    case QuestionnaireItemType.Date:
+      valueProp = "valueDate";
+      break;
+    case QuestionnaireItemType.DateTime:
+      valueProp = "valueDateTime";
+      break;
+    case QuestionnaireItemType.Time:
+      valueProp = "valueTime";
+      break;
+    case QuestionnaireItemType.String:
+      valueProp = "valueString";
+      break;
+    case QuestionnaireItemType.Url:
+      valueProp = "valueUri";
+      break;
+    case QuestionnaireItemType.Attachment:
+      valueProp = "valueAttachment";
+      break;
+    case QuestionnaireItemType.Choice:
+      valueProp = "valueCoding";
+      break;
+    case QuestionnaireItemType.OpenChoice:
+      valueProp = "valueCoding";
+      break;
+    case QuestionnaireItemType.Quantity:
+      valueProp = "valueQuantity";
+      break;
+    case QuestionnaireItemType.Reference:
+      valueProp = "valueReference";
+      break;
+    case QuestionnaireItemType.Group:
+    case QuestionnaireItemType.Question:
+    case QuestionnaireItemType.Display:
+      answers.push({
+        id: id.toString(),
+        extension: [],
+        item: getResponseItems(item.item, formData),
+      });
+      break;
+  }
+
+  if (valueProp && value.value != null) {
+    console.log({
+      linkId: item.linkId,
+      type: item.type,
+      repeats,
+      valueProp,
+      value: value.value,
+    });
+    if (repeats) {
+      value.value.forEach((answer: any) => {
+        answers.push({
+          id: id.toString(),
+          extension: [],
+          [valueProp]: answer,
+        });
+
+        id += 1;
+      });
+    } else {
+      answers.push({
+        id: id.toString(),
+        extension: [],
+        [valueProp]: value.value,
+      });
+    }
+  }
+
+  return answers;
 };

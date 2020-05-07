@@ -6,6 +6,8 @@ import { FieldsMap } from "../FieldsMap";
 import { FormData } from "./types";
 import { WizardForm } from "./wizard/WizardForm";
 import { validate } from "./validation";
+import { QuestionnaireResponse } from "../models/QuestionnaireResponse";
+import { getResponse } from "./fields/utils";
 
 export enum FormMode {
   Form,
@@ -19,7 +21,7 @@ export interface FormProps {
   mode?: FormMode;
   onChange?: (formData: FormData) => void;
   // onError?: Function;
-  onSubmit?: (formData: FormData) => void;
+  onSubmit?: (formData: FormData, response: QuestionnaireResponse) => void;
   onFocus?: Function;
   onBlur?: Function;
 }
@@ -50,7 +52,7 @@ export const Form: React.FC<FormProps> = (props) => {
   };
   const onSubmit = (formData: FormData) => {
     if (props.onSubmit) {
-      props.onSubmit(formData);
+      props.onSubmit(formData, getResponse(questionnaire, formData));
     }
   };
   const onBlur = (...args: any[]) => {
