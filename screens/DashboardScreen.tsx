@@ -1,48 +1,31 @@
 import React from "react";
+import { List, ListItem, Text, Body, Right, Icon } from "native-base";
+import { useFhirContext } from "../smartmarkers-lib";
 import {
-  List,
-  ListItem,
-  Text,
-  Body,
-  Right,
-  Icon,
-  Card,
-  CardItem,
-} from "native-base";
+  InstrumentList,
+  InstrumentType,
+} from "../smartmarkers-lib/instruments/InstrumentList";
 
 const DashboardScreen: React.FC<any> = () => {
-  const items = [
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-    { title: "SCI-FI V1.2 Fine", subTitle: "EXPIRE TODAY" },
-  ];
+  const { user } = useFhirContext();
+
   return (
     <List>
       <ListItem noIndent>
         <Body>
-          <Text>Hello, Paul</Text>
+          <Text>Hello, {user?.name}</Text>
           <Text note>You have a 3 surveys they will expire today</Text>
         </Body>
       </ListItem>
-      {items.map((item, index) => (
-        <ListItem key={index} noIndent button>
-          <Body>
-            <Text>{item.title}</Text>
-            <Text note>{item.subTitle}</Text>
-          </Body>
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </ListItem>
-      ))}
+      {/*<InstrumentList type={InstrumentType.Questionnaire} />
+      <InstrumentList
+        type={InstrumentType.ServiceRequest}
+        filter={"status=active"}
+      /> */}
+      <InstrumentList
+        type={InstrumentType.ServiceRequest}
+        filter={"status=active"}
+      />
     </List>
   );
 };

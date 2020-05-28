@@ -298,13 +298,6 @@ const getResponseItemAnswers = (
   }
 
   if (valueProp && value.value != null) {
-    console.log({
-      linkId: item.linkId,
-      type: item.type,
-      repeats,
-      valueProp,
-      value: value.value,
-    });
     if (repeats) {
       value.value.forEach((answer: any) => {
         answers.push({

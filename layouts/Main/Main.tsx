@@ -14,6 +14,7 @@ import {
   Body,
 } from "native-base";
 import { FooterRoutes } from "../../navigation/FooterRoutes";
+import { useFhirContext } from "../../smartmarkers-lib";
 
 interface MainProps {
   children: React.ReactNode;
@@ -22,9 +23,14 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ ...props }) => {
   const { children } = props;
   const history = useHistory();
+  const { isAuthenticated } = useFhirContext();
 
   const footerRoutePaths = FooterRoutes.map((route) => route.path);
   const isFooterRoute = footerRoutePaths.includes(history.location.pathname);
+  const isLoginOrNotFound = ["/not-found", "/login"].includes(
+    history.location.pathname
+  );
+  const showBackButton = !isFooterRoute && !isLoginOrNotFound;
   const onPress = () => {
     history.goBack();
   };
@@ -36,7 +42,7 @@ const Main: React.FC<MainProps> = ({ ...props }) => {
   return (
     <Container>
       <Header noLeft={isFooterRoute}>
-        {!isFooterRoute && (
+        {showBackButton && (
           <Left>
             <Button transparent onPress={onPress}>
               <Icon name="md-arrow-back" />
@@ -44,13 +50,15 @@ const Main: React.FC<MainProps> = ({ ...props }) => {
           </Left>
         )}
         <Body>
-          <Title>Testing app</Title>
+          <Title style={{ alignSelf: "center" }}>Testing app</Title>
         </Body>
-        <Right>
-          <Button transparent onPress={onPersonPress}>
-            <Icon name="person" />
-          </Button>
-        </Right>
+        {isAuthenticated && (
+          <Right>
+            <Button transparent onPress={onPersonPress}>
+              <Icon name="person" />
+            </Button>
+          </Right>
+        )}
       </Header>
       <Content>{children}</Content>
       {isFooterRoute && (

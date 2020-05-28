@@ -4,6 +4,8 @@ import Routes from "./navigation/Routes";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
+import { FhirProvider, FhirProviderProps } from "./smartmarkers-lib";
 
 const App: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
@@ -24,10 +26,28 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
 
+  const redirectUri = Linking.makeUrl("auth-callback");
+  // Practitioner
+  // const iss =
+  //   "https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEsMTU1ZDNkODAtZjNmMC00YjM5LTkyMDctMGQxMjJjZjk0YTExIiwiZSI6IjM3ODgxMDg2LTdiMDUtNGIxOC1hMjc5LTA4ZTMzMWY1MGU5YiJ9/fhir";
+  // Patient
+  const iss =
+    "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEifQ/fhir";
+  const scope =
+    "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile";
+  const settings: FhirProviderProps = {
+    client_id: "my_web_app",
+    scope,
+    iss,
+    redirectUri,
+  };
+
   return (
-    <Router>
-      <Routes />
-    </Router>
+    <FhirProvider {...settings}>
+      <Router>
+        <Routes />
+      </Router>
+    </FhirProvider>
   );
 };
 
