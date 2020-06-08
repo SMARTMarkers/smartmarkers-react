@@ -10,6 +10,7 @@ import { ValueSet, PublicationStatus } from "./ValueSet";
 import { Reference } from "./Reference";
 import { Attachment } from "./Attachment";
 import { Quantity } from "./Quantity";
+import { ResourceType } from "./ResourceType";
 
 export interface Questionnaire extends DomainResource {
   url?: string;
@@ -129,5 +130,3 @@ export enum QuestionnaireItemOperator {
   GreaterOrEquals = ">=",
   LessOrEquals = "<=",
 }
-
-export interface ResourceType {}

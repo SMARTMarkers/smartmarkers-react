@@ -1,13 +1,49 @@
 import React from "react";
-import { List, ListItem, Text, Body, Right, Icon } from "native-base";
-import { useFhirContext } from "../smartmarkers-lib";
+import { useHistory } from "../react-router";
 import {
+  List,
+  ListItem,
+  Text,
+  Body,
+  View,
+  Right,
+  Icon,
+  Toast,
+} from "native-base";
+import { useFhirContext } from "../smartmarkers-lib";
+import { RequestList } from "../smartmarkers-lib/requests/RequestList";
+import { ServiceRequest } from "../smartmarkers-lib/requests/ServiceRequest";
+import {
+  Instrument,
   InstrumentList,
   InstrumentType,
-} from "../smartmarkers-lib/instruments/InstrumentList";
+} from "../smartmarkers-lib/instruments";
+import { Modal } from "../smartmarkers-lib/components/tools/Modal";
 
 const DashboardScreen: React.FC<any> = () => {
-  const { user } = useFhirContext();
+  const { user, createServiceRequest } = useFhirContext();
+  const history = useHistory();
+
+  const onItemPress = async (item: ServiceRequest) => {
+    const instrument = await item.getInstrument();
+    //console.log({ instrument });
+    if (instrument) {
+      history.push(
+        `${instrument.resourceType.toLowerCase()}/${item.id}/${instrument.id}`
+      );
+    }
+  };
+
+  const onInstrumentPress = async (item: Instrument<any>) => {
+    const req = await createServiceRequest<any>(item);
+    console.log({ req });
+    /*Toast.show({
+      text: `${item.getTitle()} requested ${req.id} to ${
+        req.subject.reference
+      }`,
+      buttonText: "OK",
+    });*/
+  };
 
   return (
     <List>
@@ -17,15 +53,11 @@ const DashboardScreen: React.FC<any> = () => {
           <Text note>You have a 3 surveys they will expire today</Text>
         </Body>
       </ListItem>
-      {/*<InstrumentList type={InstrumentType.Questionnaire} />
-      <InstrumentList
-        type={InstrumentType.ServiceRequest}
-        filter={"status=active"}
+      <RequestList onItemPress={onItemPress} filter={"status=active"} />
+      {/* <InstrumentList
+        onItemPress={onInstrumentPress}
+        type={InstrumentType.Questionnaire}
       /> */}
-      <InstrumentList
-        type={InstrumentType.ServiceRequest}
-        filter={"status=active"}
-      />
     </List>
   );
 };

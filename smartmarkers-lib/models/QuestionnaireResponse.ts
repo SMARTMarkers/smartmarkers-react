@@ -18,8 +18,8 @@ export enum QuestionnaireResponseStatus {
 export interface QuestionnaireResponse extends DomainResource {
   identified?: Identifier;
   basedOn?: Array<Reference>;
-  pardOf?: Array<Reference>;
-  questionnaire?: Questionnaire;
+  partOf?: Array<Reference>;
+  questionnaire?: string;
   status: QuestionnaireResponseStatus;
   subject?: Reference;
   encounter?: Reference;

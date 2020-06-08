@@ -189,9 +189,10 @@ export const getResponse = (
   formData: FormData
 ): QuestionnaireResponse => {
   const response: QuestionnaireResponse = {
+    id: "",
     resourceType: "QuestionnaireResponse",
-    status: QuestionnaireResponseStatus.InProgress,
-    questionnaire: questionnaire,
+    status: QuestionnaireResponseStatus.Completed,
+    questionnaire: `https://r4.smarthealthit.org/${questionnaire.resourceType}/${questionnaire.id}`,
     item: [],
   };
 

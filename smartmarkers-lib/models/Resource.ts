@@ -1,3 +1,10 @@
+import { Meta } from "./Meta";
+import { ResourceType } from "./ResourceType";
+
 export interface Resource {
-  resourceType: string;
+  id: string;
+  resourceType: ResourceType;
+  meta?: Meta;
+  implicitRules?: string;
+  language?: string;
 }
