@@ -2,22 +2,28 @@ import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
 import { Report, ReportType } from "./Report";
+import { ReportFactory } from "./ReportFactory";
 
 export interface ReportListProps {
   type: ReportType;
   filter?: string;
   renderItem?: (item: Report, key: any) => React.ReactNode;
+  onItemPress: (item: Report) => void;
 }
 
 export const ReportList: React.FC<ReportListProps> = (props) => {
-  const { type, renderItem, filter } = props;
+  const { type, renderItem, filter, onItemPress } = props;
   const typeStr = ReportType[type];
   const [isReady, setIsReady] = React.useState(false);
   const [items, setItems] = React.useState<Report[] | undefined>([]);
   const { fhirClient } = useFhirContext();
 
-  const defaultRenderItem = (item: Report, key: any) => (
-    <ListItem key={key}>
+  const defaultRenderItem = (
+    item: Report,
+    key: any,
+    onItemPress: (item: Report) => void
+  ) => (
+    <ListItem key={key} onPress={() => onItemPress(item)}>
       <Body>
         <Text>{item.getTitle()}</Text>
         <Text note>{item.getNote()}</Text>
@@ -31,14 +37,20 @@ export const ReportList: React.FC<ReportListProps> = (props) => {
 
   React.useEffect(() => {
     const loadItems = async () => {
-      const items = await fhirClient?.patient.request(
-        filter ? `${typeStr}?${filter}` : typeStr,
-        {
-          pageLimit: 0,
-          flat: true,
-        }
-      );
-      setItems(items as Report[]);
+      if (fhirClient) {
+        const items = await fhirClient?.patient.request(
+          filter ? `${typeStr}?${filter}` : typeStr,
+          {
+            pageLimit: 0,
+            flat: true,
+          }
+        );
+
+        const factory = new ReportFactory(fhirClient);
+        const reports = items.map((i: any) => factory.createReport(i));
+        setItems(reports);
+      }
+
       setIsReady(true);
     };
     loadItems();
@@ -47,5 +59,16 @@ export const ReportList: React.FC<ReportListProps> = (props) => {
   if (!isReady) {
     return <Spinner />;
   }
-  return <>{items?.map((item, index) => render(item, index))}</>;
+
+  if (items?.length) {
+    return <>{items?.map((item, index) => render(item, index, onItemPress))}</>;
+  } else {
+    return (
+      <ListItem>
+        <Body>
+          <Text note>NO ITEMS</Text>
+        </Body>
+      </ListItem>
+    );
+  }
 };

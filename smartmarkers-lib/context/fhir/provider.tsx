@@ -17,7 +17,7 @@ import {
 } from "../../instruments";
 import { fhirclient } from "fhirclient/lib/types";
 import { ServiceRequest } from "../../requests";
-import { Report, QuestionnaireResponse, Observation } from "../../reports";
+import { Report, QuestionnaireResponse } from "../../reports";
 
 export interface FhirProviderProps {
   iss: string;

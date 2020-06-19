@@ -50,7 +50,7 @@ const Main: React.FC<MainProps> = ({ ...props }) => {
           </Left>
         )}
         <Body>
-          <Title style={{ alignSelf: "center" }}>Testing app</Title>
+          <Title style={{ alignSelf: "center" }}>Patient app</Title>
         </Body>
         {isAuthenticated && (
           <Right>

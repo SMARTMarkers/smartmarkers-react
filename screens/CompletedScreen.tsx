@@ -8,13 +8,13 @@ import {
   Status,
 } from "../smartmarkers-lib/requests/ServiceRequest";
 
-const DashboardScreen: React.FC<any> = () => {
+const CompletedScreen: React.FC<any> = () => {
   const { user } = useFhirContext();
   const history = useHistory();
 
   const onItemPress = async (item: ServiceRequest) => {
     const q = await item.getInstrument();
-    history.push(`history/${item.id}/${q?.id}/false`);
+    history.push(`history/${item.id}/${q?.id}/true`);
   };
 
   return (
@@ -27,10 +27,10 @@ const DashboardScreen: React.FC<any> = () => {
       <RequestList
         onItemPress={onItemPress}
         filter={"status=active"}
-        statuses={[Status.Due, Status.Overdue, Status.Upcoming]}
+        statuses={[Status.Completed]}
       />
     </List>
   );
 };
 
-export default DashboardScreen;
+export default CompletedScreen;

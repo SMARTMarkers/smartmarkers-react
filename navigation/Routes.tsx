@@ -12,6 +12,9 @@ import {
   SurveyWizardScreen,
   LoginScreen,
   QuestionnaireScreen,
+  CompletedScreen,
+  HistoryScreen,
+  ResponseScreen,
 } from "../screens";
 import { useFhirContext } from "../smartmarkers-lib/context";
 import { LoginCallback } from "../smartmarkers-lib";
@@ -59,6 +62,27 @@ const Routes: React.FC = () => {
         exact
         layout={MainLayout}
         path="/my-surveys"
+        isAuthenticated={fhirContext.isAuthenticated}
+      />
+      <PrivateRouteWithLayout
+        component={HistoryScreen}
+        exact
+        layout={MainLayout}
+        path="/history/:srId/:qId/:completed"
+        isAuthenticated={fhirContext.isAuthenticated}
+      />
+      <PrivateRouteWithLayout
+        component={ResponseScreen}
+        exact
+        layout={MainLayout}
+        path="/response/:qrId"
+        isAuthenticated={fhirContext.isAuthenticated}
+      />
+      <PrivateRouteWithLayout
+        component={CompletedScreen}
+        exact
+        layout={MainLayout}
+        path="/completed"
         isAuthenticated={fhirContext.isAuthenticated}
       />
       <PrivateRouteWithLayout

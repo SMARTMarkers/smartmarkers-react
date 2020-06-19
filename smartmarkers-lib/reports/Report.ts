@@ -4,6 +4,7 @@ export enum ReportType {
 }
 
 export interface Report {
+  id: string;
   getTitle: () => string;
   getNote: () => string;
 }

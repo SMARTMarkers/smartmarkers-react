@@ -6,7 +6,7 @@ export const FooterRoutes = [
   },
   {
     name: "My Surveys",
-    path: "/my-surveys",
+    path: "/completed",
     icon: "md-square-outline",
   },
 ];

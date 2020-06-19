@@ -6,3 +6,6 @@ export { default as SurveysListScreen } from "./SurveysListScreen";
 export { default as SurveyWizardScreen } from "./SurveyWizardScreen";
 export { default as LoginScreen } from "./LoginScreen";
 export { default as QuestionnaireScreen } from "./QuestionnaireScreen";
+export { default as CompletedScreen } from "./CompletedScreen";
+export { default as HistoryScreen } from "./HistoryScreen";
+export { default as ResponseScreen } from "./ResponseScreen";
