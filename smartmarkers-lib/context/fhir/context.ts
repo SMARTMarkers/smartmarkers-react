@@ -22,15 +22,15 @@ export interface FhirContextProps {
   loginCallback: () => Promise<void>;
   getPatientRequests: (filter?: string) => Promise<ServiceRequest[]>;
   getRequest: (id: string) => Promise<ServiceRequest>;
-  getInstruments: <T>(
+  getInstruments: <T extends Report>(
     type: InstrumentType,
     filter?: string
   ) => Promise<Instrument<T>[]>;
-  getInstrument: <T>(
+  getInstrument: <T extends Report>(
     type: InstrumentType,
     id: string
   ) => Promise<Instrument<T> | undefined>;
-  createServiceRequest: <T>(
+  createServiceRequest: <T extends Report>(
     instrument: Instrument<T>
   ) => Promise<ServiceRequest>;
   createReport: (
@@ -53,15 +53,15 @@ export const FhirContext = React.createContext<FhirContextProps>({
     new Promise<ServiceRequest>((resolve) => {
       resolve({} as ServiceRequest);
     }),
-  getInstruments: async <T>(type: InstrumentType) =>
+  getInstruments: async <T extends Report>(type: InstrumentType) =>
     new Promise<Instrument<T>[]>((resolve) => {
       resolve([]);
     }),
-  getInstrument: <T>(type: InstrumentType, id: string) =>
+  getInstrument: <T extends Report>(type: InstrumentType, id: string) =>
     new Promise<Instrument<T>>((resolve) => {
       resolve({} as Instrument<T>);
     }),
-  createServiceRequest: async <T>(instrument: Instrument<T>) =>
+  createServiceRequest: async <T extends Report>(instrument: Instrument<T>) =>
     new Promise<ServiceRequest>((resolve) => {
       resolve({} as ServiceRequest);
     }),

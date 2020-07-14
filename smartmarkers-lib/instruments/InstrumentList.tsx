@@ -2,8 +2,9 @@ import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
 import { Instrument, InstrumentType } from "./Instrument";
+import { Report } from "../reports";
 
-export interface InstrumentListProps<T> {
+export interface InstrumentListProps<T extends Report> {
   type: InstrumentType;
   filter?: string;
   renderItem?: (

@@ -22,6 +22,9 @@ import Client from "fhirclient/lib/Client";
 import { Instrument } from "./Instrument";
 import { QuestionnaireResponse } from "../reports/QuestionnaireResponse";
 import { ReportFactory } from "../reports/ReportFactory";
+import { Observation } from "../reports";
+
+export class Stepcounter implements IQuestionnaire, Instrument<Observation> {}
 
 export class Questionnaire
   implements IQuestionnaire, Instrument<QuestionnaireResponse> {

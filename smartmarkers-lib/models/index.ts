@@ -44,3 +44,4 @@ export * from "./Timing";
 export * from "./TriggerDefinition";
 export * from "./UsageContext";
 export * from "./ValueSet";
+export * from "./Bundle";

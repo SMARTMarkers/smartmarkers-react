@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useHistory } from "../react-router";
 import { List, ListItem, Text, Body } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
