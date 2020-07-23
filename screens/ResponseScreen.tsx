@@ -9,25 +9,19 @@ interface RouteParams {
 }
 
 const ResponseScreen: React.FC<any> = (props) => {
-  const { fhirClient } = useFhirContext();
+  const { server } = useFhirContext();
   const { qrId } = useParams<RouteParams>();
   const [isReady, setIsReady] = React.useState(false);
   const [item, setItem] = React.useState<Report | undefined>(undefined);
 
   React.useEffect(() => {
     const loadItems = async () => {
-      if (fhirClient) {
-        const item = await fhirClient?.request(
-          `QuestionnaireResponse/${qrId}/`,
-          {
-            pageLimit: 0,
-            flat: true,
-          }
-        );
-
-        const factory = new ReportFactory(fhirClient);
+      if (server) {
+        const item = (await server.getQuestionnaireResponseById(
+          qrId
+        )) as Report;
         if (item) {
-          setItem(factory.createReport(item));
+          setItem(item);
         }
       }
 
@@ -43,7 +37,7 @@ const ResponseScreen: React.FC<any> = (props) => {
   return (
     <View>
       <Text>RESPONSE</Text>
-      <Text>{JSON.stringify(item)}</Text>
+      <Text>{item?.getSummary()}</Text>
     </View>
   );
 };

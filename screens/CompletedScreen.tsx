@@ -2,19 +2,15 @@ import React from "react";
 import { useHistory } from "../react-router";
 import { List, ListItem, Text, Body } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
-import { RequestList } from "../smartmarkers-lib/requests/RequestList";
-import {
-  ServiceRequest,
-  Status,
-} from "../smartmarkers-lib/requests/ServiceRequest";
+import { RequestList } from "../smartmarkers-lib/components/RequestList";
+import { Task, TaskScheduleStatus } from "../smartmarkers-lib/models/internal";
 
 const CompletedScreen: React.FC<any> = () => {
   const { user } = useFhirContext();
   const history = useHistory();
 
-  const onItemPress = async (item: ServiceRequest) => {
-    const q = await item.getInstrument();
-    history.push(`history/${item.id}/${q?.id}/true`);
+  const onItemPress = async (item: Task) => {
+    history.push(`history/${item.request?.id}/${item.instrument?.id}/true`);
   };
 
   return (
@@ -27,7 +23,7 @@ const CompletedScreen: React.FC<any> = () => {
       <RequestList
         onItemPress={onItemPress}
         filter={"status=active"}
-        statuses={[Status.Completed]}
+        statuses={[TaskScheduleStatus.Completed]}
       />
     </List>
   );

@@ -18,6 +18,7 @@ import {
 } from "../screens";
 import { useFhirContext } from "../smartmarkers-lib/context";
 import { LoginCallback } from "../smartmarkers-lib";
+import ManualScreen from "../screens/ManualScreen";
 
 const Routes: React.FC = () => {
   const fhirContext = useFhirContext();
@@ -90,6 +91,13 @@ const Routes: React.FC = () => {
         exact
         layout={MainLayout}
         path="/survey/:example"
+        isAuthenticated={fhirContext.isAuthenticated}
+      />
+      <PrivateRouteWithLayout
+        component={ManualScreen}
+        exact
+        layout={MainLayout}
+        path="/manual"
         isAuthenticated={fhirContext.isAuthenticated}
       />
       <PrivateRouteWithLayout

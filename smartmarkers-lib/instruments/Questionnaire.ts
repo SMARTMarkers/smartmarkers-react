@@ -1,6 +1,5 @@
 import {
   Questionnaire as IQuestionnaire,
-  QuestionnaireResponse as IQuestionnaireResponse,
   Identifier,
   PublicationStatus,
   ResourceType,
@@ -18,16 +17,12 @@ import {
   RequestStatus,
   RequestIntent,
 } from "../models";
-import Client from "fhirclient/lib/Client";
 import { Instrument } from "./Instrument";
 import { QuestionnaireResponse } from "../reports/QuestionnaireResponse";
 import { ReportFactory } from "../reports/ReportFactory";
-import { Observation } from "../reports";
+import { Server } from "../models/internal";
 
-export class Stepcounter implements IQuestionnaire, Instrument<Observation> {}
-
-export class Questionnaire
-  implements IQuestionnaire, Instrument<QuestionnaireResponse> {
+export class Questionnaire implements IQuestionnaire, Instrument {
   id: string;
   resourceType: ResourceType = "Questionnaire";
   status: PublicationStatus;
@@ -61,11 +56,7 @@ export class Questionnaire
   language?: string | undefined;
   private reports?: QuestionnaireResponse[] | undefined;
 
-  constructor(
-    item: IQuestionnaire,
-    private fhirClient: Client,
-    private serviceRequestId: string
-  ) {
+  constructor(item: IQuestionnaire, private server: Server) {
     this.id = item.id;
     this.status = item.status;
     Object.assign(this, item);
@@ -86,10 +77,10 @@ export class Questionnaire
       status: RequestStatus.Active,
       intent: RequestIntent.Directive,
       subject: {
-        reference: `Patient/${this.fhirClient.patient.id}`,
+        reference: `Patient/${this.server.client.patient.id}`,
       },
       requester: {
-        reference: this.fhirClient.getFhirUser(),
+        reference: this.server.client.getFhirUser(),
       },
     } as Exclude<ServiceRequest, "id">;
   }
@@ -108,22 +99,17 @@ export class Questionnaire
     return `Q ${this.id}`;
   }
 
-  async getReports() {
+  async getReports(serviceRequestId?: string) {
     if (this.reports) {
       return this.reports;
     }
 
-    const response = await this.fhirClient
-      .request<IQuestionnaireResponse[]>(
-        `QuestionnaireResponse?patient=${this.fhirClient.patient.id}&based-on=ServiceRequest/${this.serviceRequestId}`,
-        { flat: true }
-      )
-      .catch((err) => {
-        console.error(err);
-        return [] as IQuestionnaireResponse[];
-      });
+    const response = await this.server.getQuestionnaireReports(
+      this.id,
+      serviceRequestId
+    );
 
-    const reportFactory = new ReportFactory(this.fhirClient);
+    const reportFactory = new ReportFactory(this.server);
     this.reports = response.map((item) => reportFactory.createReport(item));
     console.log({ reports: this.reports });
     return this.reports;

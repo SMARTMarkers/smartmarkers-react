@@ -1,20 +1,16 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useHistory } from "../react-router";
 import { List, ListItem, Text, Body } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
-import { RequestList } from "../smartmarkers-lib/requests/RequestList";
-import {
-  ServiceRequest,
-  Status,
-} from "../smartmarkers-lib/requests/ServiceRequest";
+import { RequestList } from "../smartmarkers-lib/components/RequestList";
+import { Task, TaskScheduleStatus } from "../smartmarkers-lib/models/internal";
 
 const DashboardScreen: React.FC<any> = () => {
   const { user } = useFhirContext();
   const history = useHistory();
 
-  const onItemPress = async (item: ServiceRequest) => {
-    const q = await item.getInstrument();
-    history.push(`history/${item.id}/${q?.id}/false`);
+  const onItemPress = async (item: Task) => {
+    history.push(`history/${item.request?.id}/${item.instrument?.id}/false`);
   };
 
   return (
@@ -27,8 +23,18 @@ const DashboardScreen: React.FC<any> = () => {
       <RequestList
         onItemPress={onItemPress}
         filter={"status=active"}
-        statuses={[Status.Due, Status.Overdue, Status.Upcoming]}
+        statuses={[
+          TaskScheduleStatus.Due,
+          TaskScheduleStatus.Upcoming,
+          TaskScheduleStatus.Overdue,
+        ]}
       />
+
+      <ListItem onPress={() => history.push("/manual")}>
+        <Body>
+          <Text>Manual DEMO</Text>
+        </Body>
+      </ListItem>
     </List>
   );
 };

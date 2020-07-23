@@ -18,7 +18,7 @@ import {
   ResourceType,
   Meta,
 } from "../models";
-import Client from "fhirclient/lib/Client";
+import { Server } from "../models/internal";
 import { Report } from "./Report";
 
 export class Observation implements IObservation, Report {
@@ -70,11 +70,15 @@ export class Observation implements IObservation, Report {
   implicitRules?: string | undefined;
   language?: string | undefined;
 
-  constructor(item: IObservation, private fhirClient: Client) {
+  constructor(item: IObservation, private server: Server) {
     this.id = item.id;
     this.status = item.status;
     this.code = item.code;
     Object.assign(this, item);
+  }
+
+  public getSummary() {
+    return this.getTitle();
   }
 
   public getTitle() {

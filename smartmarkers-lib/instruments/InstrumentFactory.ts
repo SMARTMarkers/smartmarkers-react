@@ -1,20 +1,19 @@
 import { Questionnaire as IQuestionnaire, DomainResource } from "../models";
 import { Questionnaire } from "./Questionnaire";
 import { Instrument } from "./Instrument";
-import Client from "fhirclient/lib/Client";
+import { Server } from "../models/internal";
 
 export class InstrumentFactory {
-  constructor(private fhirClient: Client, private serviceRequestId: string) {}
+  constructor(private server: Server) {}
 
   createInstrument(serviceRequestOptions: IQuestionnaire): Questionnaire;
-  createInstrument(serviceRequestOptions: DomainResource): Instrument<any>;
+  createInstrument(serviceRequestOptions: DomainResource): Instrument;
 
   public createInstrument(questionnaireOptions: DomainResource) {
     if (questionnaireOptions.resourceType === "Questionnaire") {
       return new Questionnaire(
         questionnaireOptions as IQuestionnaire,
-        this.fhirClient,
-        this.serviceRequestId
+        this.server
       );
     } else {
       throw new Error("Select Questionnaire");

@@ -1,4 +1,4 @@
-import { ServiceRequest } from "../models";
+import { ServiceRequest, ResourceType } from "../models";
 import { Report } from "../reports";
 
 export enum InstrumentType {
@@ -6,9 +6,11 @@ export enum InstrumentType {
   Questionnaire,
 }
 
-export interface Instrument<TReport extends Report> {
+export interface Instrument {
+  id: string;
+  resourceType: ResourceType;
   getTitle: () => string;
   getNote: () => string;
-  getReports: () => Promise<TReport[]>;
+  getReports: (serviceRequestId?: string) => Promise<Report[]>;
   createServiceRequest: () => Exclude<ServiceRequest, "id">;
 }

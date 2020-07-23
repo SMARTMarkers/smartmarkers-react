@@ -5,10 +5,10 @@ import {
 } from "../models";
 import { QuestionnaireResponse } from "./QuestionnaireResponse";
 import { Observation } from "./Observation";
-import Client from "fhirclient/lib/Client";
+import { Server } from "../models/internal";
 
 export class ReportFactory {
-  constructor(private fhirClient: Client) {}
+  constructor(private server: Server) {}
 
   createReport(reportOptions: IQuestionnaireResponse): QuestionnaireResponse;
   createReport(reportOptions: IObservation): Observation;
@@ -17,10 +17,10 @@ export class ReportFactory {
     if (reportOptions.resourceType === "QuestionnaireResponse") {
       return new QuestionnaireResponse(
         reportOptions as IQuestionnaireResponse,
-        this.fhirClient
+        this.server
       );
     } else if (reportOptions.resourceType === "Observation") {
-      return new Observation(reportOptions as IObservation, this.fhirClient);
+      return new Observation(reportOptions as IObservation, this.server);
     } else {
       throw new Error("Select either a QuestionnaireResponse or a Observation");
     }

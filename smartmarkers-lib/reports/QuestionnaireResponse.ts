@@ -11,7 +11,7 @@ import {
   Extension,
   Meta,
 } from "../models";
-import Client from "fhirclient/lib/Client";
+import { Server } from "../models/internal";
 import { Report } from "./Report";
 
 export class QuestionnaireResponse implements IQuestionnaireResponse, Report {
@@ -36,10 +36,13 @@ export class QuestionnaireResponse implements IQuestionnaireResponse, Report {
   implicitRules?: string | undefined;
   language?: string | undefined;
 
-  constructor(item: IQuestionnaireResponse, private fhirClient: Client) {
+  constructor(item: IQuestionnaireResponse, private server: Server) {
     this.id = item.id;
     this.status = item.status;
     Object.assign(this, item);
+  }
+  public getSummary() {
+    return JSON.stringify(this.item);
   }
 
   public getTitle() {

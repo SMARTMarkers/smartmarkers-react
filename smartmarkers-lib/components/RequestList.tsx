@@ -1,37 +1,39 @@
 import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
-import { ServiceRequest, Status } from "./ServiceRequest";
+import { ServiceRequest } from "../requests/ServiceRequest";
+import { Task, TaskScheduleStatus } from "../models/internal";
 
 export interface RequestListProps {
   filter?: string;
-  statuses: Status[];
+  statuses: TaskScheduleStatus[];
   renderItem?: (
-    item: ServiceRequest,
+    item: Task,
     key: any,
-    onItemPress: (item: ServiceRequest) => void,
+    onItemPress: (item: Task) => void,
     isLast: boolean
   ) => React.ReactNode;
-  onItemPress: (item: ServiceRequest) => void;
+  onItemPress: (item: Task) => void;
 }
 
 export const RequestList: React.FC<RequestListProps> = (props) => {
   const { renderItem, filter, onItemPress } = props;
   const [isReady, setIsReady] = React.useState(false);
-  const [items, setItems] = React.useState<ServiceRequest[]>([]);
-  const { getPatientRequests } = useFhirContext();
+  const [items, setItems] = React.useState<Task[]>([]);
+  const { server } = useFhirContext();
 
   const defaultRenderItem = (
-    item: ServiceRequest,
+    item: Task,
     key: any,
-    onItemPress: (item: ServiceRequest) => void,
+    onItemPress: (item: Task) => void,
     isLast: boolean
   ) => (
     <ListItem key={key} onPress={() => onItemPress(item)} last={isLast}>
       <Body>
         <Text>{item.getTitle()}</Text>
         <Text note>
-          {item.getNote()} {Status[item.getStatus()]}
+          {item.getNote()}{" "}
+          {item.schedule ? TaskScheduleStatus[item.schedule?.status] : ""}
         </Text>
       </Body>
       <Right>
@@ -41,7 +43,7 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
   );
   const render = renderItem ? renderItem : defaultRenderItem;
 
-  const renderStatues = (items: ServiceRequest[], status: string) => (
+  const renderStatues = (items: Task[], status: string) => (
     <>
       <ListItem itemHeader>
         <Text>{status.toUpperCase()}</Text>
@@ -53,11 +55,18 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
   );
 
   React.useEffect(() => {
+    const createTaskParams = async (request: ServiceRequest) => {
+      const instrument = await request.getInstrument();
+      const reports = await instrument?.getReports(request.id);
+      return new Task({ request, instrument, reports });
+    };
     const loadItems = async () => {
-      if (getPatientRequests) {
-        const items = await getPatientRequests(filter);
-        //.sort((a, b) => a.getStatus() - b.getStatus())
-        setItems(items);
+      if (server) {
+        const items = await server.getPatientRequests(filter);
+        const tasks = await Promise.all(
+          items.map((item) => createTaskParams(item))
+        );
+        setItems(tasks);
       }
       setIsReady(true);
     };
@@ -70,8 +79,8 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
 
   const statusesItems: any = {};
   for (let status of props.statuses) {
-    statusesItems[Status[status]] = items.filter(
-      (value) => value.getStatus() == status
+    statusesItems[TaskScheduleStatus[status]] = items.filter(
+      (value) => value.schedule?.status == status
     );
   }
 

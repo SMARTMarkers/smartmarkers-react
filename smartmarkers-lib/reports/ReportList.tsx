@@ -13,10 +13,9 @@ export interface ReportListProps {
 
 export const ReportList: React.FC<ReportListProps> = (props) => {
   const { type, renderItem, filter, onItemPress } = props;
-  const typeStr = ReportType[type];
   const [isReady, setIsReady] = React.useState(false);
   const [items, setItems] = React.useState<Report[] | undefined>([]);
-  const { fhirClient } = useFhirContext();
+  const { server } = useFhirContext();
 
   const defaultRenderItem = (
     item: Report,
@@ -37,16 +36,10 @@ export const ReportList: React.FC<ReportListProps> = (props) => {
 
   React.useEffect(() => {
     const loadItems = async () => {
-      if (fhirClient) {
-        const items = await fhirClient?.patient.request(
-          filter ? `${typeStr}?${filter}` : typeStr,
-          {
-            pageLimit: 0,
-            flat: true,
-          }
-        );
+      if (server) {
+        const items = await server?.getPatientReports(type, filter);
 
-        const factory = new ReportFactory(fhirClient);
+        const factory = new ReportFactory(server);
         const reports = items.map((i: any) => factory.createReport(i));
         setItems(reports);
       }

@@ -1,71 +1,53 @@
 import React from "react";
 import { useParams, useHistory } from "../react-router";
 
-import { Form, FormMode, FormData, useFhirContext } from "../smartmarkers-lib";
+import { useFhirContext } from "../smartmarkers-lib";
 import { View, Spinner } from "native-base";
-import { QuestionnaireResponse } from "../smartmarkers-lib/models/QuestionnaireResponse";
-import { InstrumentType, Questionnaire } from "../smartmarkers-lib/instruments";
+
+import { SessionWizard } from "../smartmarkers-lib/components/SessionWizard";
+import { Task } from "../smartmarkers-lib/models/internal";
 
 interface RouteParams {
   rid: string;
-  id: string;
 }
 
 const QuestionnaireScreen: React.FC<any> = (props) => {
-  const { rid, id } = useParams<RouteParams>();
+  const { rid } = useParams<RouteParams>();
   const history = useHistory();
-  const { getInstrument, createReport } = useFhirContext();
+  const { server } = useFhirContext();
   const [isReady, setIsReady] = React.useState(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [response, setResponse] = React.useState<
-    QuestionnaireResponse | undefined
-  >(undefined);
-
-  const [item, setItem] = React.useState<Questionnaire | undefined>(undefined);
-
-  const onSubmit = async (
-    formData: FormData,
-    response: QuestionnaireResponse
-  ) => {
-    console.log({ formData, response });
-    setIsSubmitting(true);
-    response.basedOn = [
-      {
-        reference: `ServiceRequest/${rid}`,
-      },
-    ];
-    setResponse(response);
-
-    const res = await createReport(response);
-    console.log({ res });
-    history.push(`/dashboard`);
-  };
+  const [task, setTask] = React.useState<Task | null>(null);
 
   React.useEffect(() => {
     if (!isReady) {
       const loadItem = async () => {
-        const item = await getInstrument<QuestionnaireResponse>(
-          InstrumentType.Questionnaire,
-          id
-        );
-        setItem(item as Questionnaire);
+        if (server) {
+          const request = await server.getRequest(rid);
+          const instrument = await request.getInstrument();
+          const reports = await instrument?.getReports();
+          const task = new Task({ request, instrument, reports });
+          setTask(task);
+        }
         setIsReady(true);
       };
       loadItem();
     }
   }, []);
 
-  if (!isReady || isSubmitting) {
+  if (!isReady) {
     return <Spinner />;
   }
 
-  return (
-    <View>
-      {item && (
-        <Form questionnaire={item} mode={FormMode.Wizard} onSubmit={onSubmit} />
-      )}
-    </View>
-  );
+  if (task) {
+    return (
+      <SessionWizard
+        tasks={[task]}
+        onCompleted={() => history.push(`/dashboard`)}
+      ></SessionWizard>
+    );
+  } else {
+    return <View>Failed to load task</View>;
+  }
 };
 
 export default QuestionnaireScreen;

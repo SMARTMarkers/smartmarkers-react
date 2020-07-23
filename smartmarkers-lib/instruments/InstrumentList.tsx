@@ -2,29 +2,28 @@ import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
 import { Instrument, InstrumentType } from "./Instrument";
-import { Report } from "../reports";
 
-export interface InstrumentListProps<T extends Report> {
+export interface InstrumentListProps {
   type: InstrumentType;
   filter?: string;
   renderItem?: (
-    item: Instrument<T>,
+    item: Instrument,
     key: any,
-    onItemPress: (item: Instrument<T>) => void
+    onItemPress: (item: Instrument) => void
   ) => React.ReactNode;
-  onItemPress: (item: Instrument<T>) => void;
+  onItemPress: (item: Instrument) => void;
 }
 
-export const InstrumentList: React.FC<InstrumentListProps<any>> = (props) => {
+export const InstrumentList: React.FC<InstrumentListProps> = (props) => {
   const { type, renderItem, filter, onItemPress } = props;
   const [isReady, setIsReady] = React.useState(false);
-  const [items, setItems] = React.useState<Instrument<any>[] | undefined>([]);
-  const { getInstruments } = useFhirContext();
+  const [items, setItems] = React.useState<Instrument[] | undefined>([]);
+  const { server } = useFhirContext();
 
   const defaultRenderItem = (
-    item: Instrument<any>,
+    item: Instrument,
     key: any,
-    onItemPress: (item: Instrument<any>) => void
+    onItemPress: (item: Instrument) => void
   ) => (
     <ListItem key={key} onPress={() => onItemPress(item)}>
       <Body>
@@ -40,7 +39,7 @@ export const InstrumentList: React.FC<InstrumentListProps<any>> = (props) => {
 
   React.useEffect(() => {
     const loadItems = async () => {
-      const items = await getInstruments<any>(type, filter);
+      const items = await server?.getInstruments(type, filter);
       setItems(items);
       setIsReady(true);
     };
