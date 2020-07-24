@@ -22,10 +22,7 @@ const QuestionnaireScreen: React.FC<any> = (props) => {
     if (!isReady) {
       const loadItem = async () => {
         if (server) {
-          const request = await server.getRequest(rid);
-          const instrument = await request.getInstrument();
-          const reports = await instrument?.getReports();
-          const task = new Task({ request, instrument, reports });
+          const task = await server.getTaskByRequestId(rid);
           setTask(task);
         }
         setIsReady(true);

@@ -4,11 +4,13 @@ import { Report, QuestionnaireResponse } from "../../reports";
 import { ServiceRequest } from "../../requests";
 import { ResultBundle } from "./ResultBundle";
 import { TaskSchedule } from "./TaskSchedule";
+import { Server } from "./Server";
 
 export interface TaskStateBase {
   patient?: User;
   reports?: Report[];
   schedule?: TaskSchedule;
+  server: Server;
 }
 
 export interface TaskInstrument extends TaskStateBase {
@@ -26,6 +28,7 @@ export type TaskType = TaskInstrument | TaskRequest;
 export class Task {
   public patient: User | null;
   public reports: Report[] | undefined;
+  public server: Server;
 
   public instrument: Instrument | undefined;
   public request: ServiceRequest | null;
@@ -39,22 +42,23 @@ export class Task {
     this.instrument = params.instrument ? params.instrument : undefined;
     this.request = params.request ? params.request : null;
     this.schedule = params.schedule ? params.schedule : null;
+    this.server = params.server;
     this.calculateSchedule();
   }
 
   getTitle() {
-    if (this.request) {
-      return this.request.getTitle();
-    } else if (this.instrument) {
+    if (this.instrument) {
       return this.instrument.getTitle();
+    } else if (this.request) {
+      return this.request.getTitle();
     }
   }
 
   getNote() {
-    if (this.request) {
-      return this.request.getNote();
-    } else if (this.instrument) {
+    if (this.instrument) {
       return this.instrument.getNote();
+    } else if (this.request) {
+      return this.request.getNote();
     }
   }
 

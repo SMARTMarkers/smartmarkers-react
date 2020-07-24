@@ -163,29 +163,4 @@ export class ServiceRequest implements IServiceRequest {
     }
     return undefined;
   }
-
-  async getReports() {
-    if (this.reports) {
-      return this.reports;
-    }
-    const instrument = await this.getInstrument();
-    if (instrument) {
-      this.reports = await instrument.getReports();
-    }
-
-    return this.reports;
-  }
-
-  setReports(reports: QuestionnaireResponse[] | undefined) {
-    this.reports = reports;
-  }
-
-  getReportsCount() {
-    const r = this.reports;
-
-    if (r) {
-      return r.length;
-    }
-    return 0;
-  }
 }

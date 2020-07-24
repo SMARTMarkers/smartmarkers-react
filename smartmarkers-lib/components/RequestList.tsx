@@ -55,17 +55,9 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
   );
 
   React.useEffect(() => {
-    const createTaskParams = async (request: ServiceRequest) => {
-      const instrument = await request.getInstrument();
-      const reports = await instrument?.getReports(request.id);
-      return new Task({ request, instrument, reports });
-    };
     const loadItems = async () => {
       if (server) {
-        const items = await server.getPatientRequests(filter);
-        const tasks = await Promise.all(
-          items.map((item) => createTaskParams(item))
-        );
+        const tasks = await server.getPatientTasksByRequests(filter);
         setItems(tasks);
       }
       setIsReady(true);

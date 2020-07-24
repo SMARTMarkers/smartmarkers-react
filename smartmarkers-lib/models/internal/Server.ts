@@ -20,6 +20,7 @@ import {
   DomainResource,
 } from "..";
 import { User } from "../../context";
+import { Task } from "./Task";
 
 export class Server {
   public client: Client;
@@ -28,12 +29,13 @@ export class Server {
     this.client = client;
   }
 
-  async getPatientRequests(filter?: string) {
+  async getPatientTasksByRequests(filter?: string, patientId?: string) {
     const serviceRequestFactory = new ServiceRequestFactory(this);
-    const patientId = this.client.patient.id;
+    console.log({ patientId });
+    const ptId = patientId ? patientId : this.client.patient.id;
     const reqUrl = filter
-      ? `ServiceRequest?patient=${patientId}&${filter}`
-      : `ServiceRequest?patient=${patientId}`;
+      ? `ServiceRequest?patient=${ptId}&${filter}`
+      : `ServiceRequest?patient=${ptId}`;
     const reqOptions = {
       pageLimit: 0,
       flat: true,
@@ -45,19 +47,22 @@ export class Server {
         return [] as IServiceRequest[];
       });
 
-    const requests = await Promise.all(
-      items.map(async (item) => {
-        const s = serviceRequestFactory.createServiceRequest(item);
-        const i = await s.getInstrument();
-        const r = await i?.getReports();
-        s.setReports(r);
-        return s;
+    const tasks = await Promise.all(
+      items.map(async (serviceRequest) => {
+        const request = serviceRequestFactory.createServiceRequest(
+          serviceRequest
+        );
+        const instrument = await request.getInstrument();
+        const reports = await instrument?.getReports();
+        const task = new Task({ request, instrument, reports, server: this });
+        return task;
       })
     );
-    return requests;
+
+    return tasks;
   }
 
-  async getRequest(id: string) {
+  async getTaskByRequestId(id: string) {
     const serviceRequestFactory = new ServiceRequestFactory(this);
     const reqUrl = `ServiceRequest/${id}`;
     const reqOptions = {
@@ -70,12 +75,11 @@ export class Server {
         console.error(err);
         return {} as IServiceRequest;
       });
-
-    const s = serviceRequestFactory.createServiceRequest(item);
-    const i = await s.getInstrument();
-    const r = await i?.getReports();
-    s.setReports(r);
-    return s;
+    const request = serviceRequestFactory.createServiceRequest(item);
+    const instrument = await request.getInstrument();
+    const reports = await instrument?.getReports();
+    const task = new Task({ request, instrument, reports, server: this });
+    return task;
   }
 
   async getInstruments(type: InstrumentType, filter?: string) {

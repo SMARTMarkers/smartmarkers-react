@@ -31,7 +31,7 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
     return <View>FHIR Client is not initialized</View>;
   }
   const [isReady, setIsReady] = React.useState(false);
-  const [session, setSession] = React.useState(
+  const [session] = React.useState(
     new Session(tasks, patient ? patient : (user as User), server)
   );
 
@@ -39,6 +39,7 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const [task, setTask] = React.useState(session.currentTask());
+  const [showTaskDetails, setShowTaskDetails] = React.useState(true);
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -50,10 +51,11 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
     const reportFactory = new ReportFactory(server);
     const report = reportFactory.createReport(response);
     const bundle = new ResultBundle(task, report);
-    console.log({ bundle });
+
     session.currentTask().setResultBundle(bundle);
     if (session.hasNextTask()) {
       setTask(session.getNextTask() as Task);
+      setShowTaskDetails(true);
     } else {
       setIsReady(true);
     }
@@ -86,12 +88,28 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
     }
   };
 
+  const onStartTask = () => {
+    setShowTaskDetails(false);
+  };
+
   if (isSubmitting) {
     return <Spinner />;
   }
 
+  if (showTaskDetails) {
+    return (
+      <View>
+        <Text>{task.getTitle()}</Text>
+        <Text>{task.getNote()}</Text>
+
+        <Button onPress={onStartTask}>
+          <Text>Proceed</Text>
+        </Button>
+      </View>
+    );
+  }
+
   if (isReady) {
-    console.log({ tasks: session.tasks });
     return (
       <View>
         <List>
