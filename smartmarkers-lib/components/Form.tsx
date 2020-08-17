@@ -1,5 +1,6 @@
 import React from "react";
-import { Questionnaire } from "../models";
+import { Questionnaire } from "../instruments/Questionnaire";
+import { PromisQuestionnaire } from "../instruments/PromisQuestionnaire";
 import { QuestionnaireField } from "./fields";
 import { Form as NativeBaseForm, Button, Text } from "native-base";
 import { FieldsMap } from "../FieldsMap";
@@ -12,6 +13,7 @@ import { getResponse } from "./fields/utils";
 export enum FormMode {
   Form,
   Wizard,
+  Adaptive,
 }
 
 export interface FormProps {
@@ -32,7 +34,11 @@ export type EnumDictionary<T extends string | symbol | number, U> = {
 
 export const Form: React.FC<FormProps> = (props) => {
   const { questionnaire } = props;
-  const formMode = props.mode ? props.mode : FormMode.Form;
+  const formMode = questionnaire.isAdaptive()
+    ? FormMode.Adaptive
+    : props.mode
+    ? props.mode
+    : FormMode.Form;
   const isFormMode = formMode === FormMode.Form;
   const [formData, setFormData] = React.useState<any>(
     props.formData ? props.formData : {}
@@ -99,6 +105,7 @@ export const Form: React.FC<FormProps> = (props) => {
       {!isFormMode && (
         <WizardForm
           questionnaire={props.questionnaire}
+          mode={formMode}
           formData={props.formData}
           onChange={props.onChange}
           onBlur={props.onBlur}

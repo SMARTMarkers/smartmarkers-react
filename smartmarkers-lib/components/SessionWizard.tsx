@@ -62,17 +62,14 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
   };
 
   const onToggleSelect = (index: number) => {
-    console.log({ selected, index });
     if (selected.includes(index)) {
       const itemIndex = selected.indexOf(index);
       if (itemIndex > -1) {
         selected.splice(itemIndex, 1);
-        console.log({ selected });
         setSelected(selected);
       }
     } else {
       selected.push(index);
-      console.log({ selected });
       setSelected(selected);
     }
     forceUpdate();
@@ -115,7 +112,6 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
         <List>
           {session.tasks.map((task, index) => {
             const isSelected = selected.includes(index);
-            console.log({ isSelected, task, index });
             return (
               <ListItem
                 key={`selectionItem${index}`}
@@ -145,7 +141,7 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
     <View>
       {task.instrument && (
         <Form
-          questionnaire={task.instrument as Questionnaire}
+          questionnaire={(task.instrument as unknown) as Questionnaire}
           mode={FormMode.Wizard}
           onSubmit={onTaskSubmit}
         />

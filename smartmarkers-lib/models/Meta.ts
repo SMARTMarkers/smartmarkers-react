@@ -4,5 +4,5 @@ export interface Meta extends Element {
   versionId?: string;
   lastUpdated?: string; // DateTime TimeZone
   source?: string;
-  profile?: StructureDefinition[];
+  profile?: (StructureDefinition | string)[];
 }

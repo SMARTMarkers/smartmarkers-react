@@ -47,7 +47,6 @@ export class Session {
       if (task.resultBundle) {
         if (task.resultBundle.canSubmit) {
           try {
-            console.log({ submitting: task.resultBundle.report });
             const report = await this.server.createReport(
               task.resultBundle.report
             );

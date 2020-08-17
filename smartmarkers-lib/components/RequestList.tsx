@@ -43,9 +43,9 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
   );
   const render = renderItem ? renderItem : defaultRenderItem;
 
-  const renderStatues = (items: Task[], status: string) => (
+  const renderStatues = (items: Task[], status: string, index: number) => (
     <>
-      <ListItem itemHeader>
+      <ListItem key={index} itemHeader>
         <Text>{status.toUpperCase()}</Text>
       </ListItem>
       {items.map((item, index) =>
@@ -79,10 +79,10 @@ export const RequestList: React.FC<RequestListProps> = (props) => {
   return (
     <>
       {Object.keys(statusesItems).map(
-        (key: string) =>
+        (key: string, index) =>
           statusesItems[key] &&
           statusesItems[key].length > 0 &&
-          renderStatues(statusesItems[key], key)
+          renderStatues(statusesItems[key], key, index)
       )}
     </>
   );

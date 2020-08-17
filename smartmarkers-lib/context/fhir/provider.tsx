@@ -12,18 +12,50 @@ export interface FhirProviderProps {
   clientSecret?: string;
   scope?: string;
   children?: React.ReactNode;
+  promisSettings?: FhirPromisProps;
 }
+
+export interface FhirPromisProps {
+  identifier: string;
+  token: string;
+  url: string;
+}
+
+const createPromisClient = (settings?: FhirPromisProps) => {
+  if (!settings) return undefined;
+  const client: Client = FHIR.client({
+    serverUrl: settings.url,
+    tokenResponse: {
+      clientSecret: settings.token,
+      client_id: settings.identifier,
+    },
+  });
+  return client;
+};
 
 export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
   const IS_AUTHENTICATED = "isAuthenticated";
   const store = new ExpoStorage();
   const defaultScope =
     "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile";
-  const { iss, client_id, redirectUri, clientSecret, scope } = props;
+  const {
+    iss,
+    client_id,
+    redirectUri,
+    clientSecret,
+    scope,
+    promisSettings,
+  } = props;
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [user, setUser] = React.useState<User | null>(null);
   const [fhirClient, setFhirClient] = React.useState<Client | null>(null);
+  const [fhirPromisClient, setFhirPromisClient] = React.useState<
+    Client | undefined
+  >(createPromisClient(promisSettings));
   const [server, setServer] = React.useState<Server | null>(null);
+  const [proimisServer, setPromisServer] = React.useState<Server | null>(
+    fhirPromisClient ? new Server(fhirPromisClient) : null
+  );
 
   React.useEffect(() => {
     const retrieve = async () => {
@@ -33,7 +65,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
           .ready()
           .then((client) => {
             setFhirClient(client);
-            setServer(new Server(client));
+            setServer(new Server(client, fhirPromisClient));
             return client;
           })
           .then((client) => client.user.read())
@@ -75,7 +107,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
       .ready()
       .then((client) => {
         setFhirClient(client);
-        setServer(new Server(client));
+        setServer(new Server(client, fhirPromisClient));
         return client;
       })
       .then(async (client) => {
@@ -105,7 +137,9 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
   const logout = async () => {
     await AsyncStorage.clear();
     setFhirClient(null);
+    setFhirPromisClient(undefined);
     setServer(null);
+    setPromisServer(null);
     setUser(null);
     setIsAuthenticated(false);
   };
@@ -116,6 +150,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
         isAuthenticated,
         user,
         server,
+        proimisServer,
         login,
         logout,
         loginCallback,

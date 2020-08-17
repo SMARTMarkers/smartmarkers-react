@@ -3,14 +3,18 @@ import { ServiceRequest } from "./ServiceRequest";
 import { Server } from "../models/internal";
 
 export class ServiceRequestFactory {
-  constructor(private server: Server) {}
+  constructor(
+    private server: Server,
+    private promisServer: Server | undefined
+  ) {}
   createServiceRequest(serviceRequestOptions: IServiceRequest): ServiceRequest;
 
   public createServiceRequest(serviceRequestOptions: DomainResource) {
     if (serviceRequestOptions.resourceType === "ServiceRequest") {
       return new ServiceRequest(
         serviceRequestOptions as IServiceRequest,
-        this.server
+        this.server,
+        this.promisServer
       );
     } else {
       throw new Error("Select either a ServiceRequest");

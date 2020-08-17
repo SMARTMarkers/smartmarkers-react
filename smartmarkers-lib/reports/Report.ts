@@ -1,4 +1,5 @@
-import { ResourceType, Reference } from "../models";
+import { ResourceType, Reference, Meta } from "../models";
+import { Server } from "../models/internal";
 
 export enum ReportType {
   Observation,
@@ -6,7 +7,9 @@ export enum ReportType {
 }
 
 export interface Report {
+  server: Server;
   resourceType: ResourceType;
+  meta?: Meta | undefined;
   subject?: Reference;
   basedOn?: Reference[];
   id: string;

@@ -1,15 +1,27 @@
 import React from "react";
-import { Questionnaire } from "../../models";
+import { Questionnaire as IQuestionnaire } from "../../models";
+import { Questionnaire } from "../../instruments/Questionnaire";
+import { PromisQuestionnaire } from "../../instruments/PromisQuestionnaire";
 import { QuestionnaireItemField } from "../fields";
-import { Form as NativeBaseForm, Button, Text } from "native-base";
+import { Form as NativeBaseForm, Button, Text, Spinner } from "native-base";
 import { FieldsMap } from "../../FieldsMap";
 import { FormData } from "../types";
 import { validate } from "../validation";
-import { getActiveQuestions, getResponse } from "../fields/utils";
-import { QuestionnaireResponse } from "../../models/QuestionnaireResponse";
+import {
+  getActiveQuestions,
+  getResponse,
+  getAdaptiveResponse,
+} from "../fields/utils";
+import {
+  QuestionnaireResponse,
+  QuestionnaireResponseStatus,
+} from "../../models/QuestionnaireResponse";
+import { FormMode } from "../Form";
+import { QuestionnaireItem } from "../../models";
 
 export interface WizardFormProps {
   questionnaire: Questionnaire;
+  mode: FormMode;
   formData?: FormData;
   id?: string;
   onChange?: (formData: FormData) => void;
@@ -24,7 +36,8 @@ export type EnumDictionary<T extends string | symbol | number, U> = {
 };
 
 export const WizardForm: React.FC<WizardFormProps> = (props) => {
-  const { questionnaire } = props;
+  const { questionnaire, mode } = props;
+  const isAdaptive = mode == FormMode.Adaptive;
   const [formData, setFormData] = React.useState<any>(
     props.formData ? props.formData : {}
   );
@@ -33,12 +46,59 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
   const previousTitle = "Previous";
   const submitTitle = "Submit";
   const nextTitle = "Next";
-  const questions = getActiveQuestions(questionnaire.item, formData);
+  const [questions, setQuestions] = React.useState<QuestionnaireItem[]>(
+    isAdaptive ? [] : getActiveQuestions(questionnaire.item, formData)
+  );
   const isLast = step == questions.length - 1;
   const isFirst = step == 0;
+  const [isReady, setIsReady] = React.useState(isAdaptive ? false : true);
+  const [questionnaireResponse, setQuestionnaireResponse] = React.useState<
+    QuestionnaireResponse
+  >();
 
-  const onNext = () => {
-    setStep(step + 1);
+  React.useEffect(() => {
+    if (isAdaptive) {
+      const loadFirst = async () => {
+        const response = await (questionnaire as PromisQuestionnaire).getFirstNextStep();
+        if (response && response.contained) {
+          const q = response.contained[0] as IQuestionnaire;
+          setQuestionnaireResponse(response);
+          setQuestions(getActiveQuestions(q.item, formData));
+        }
+        setIsReady(true);
+      };
+      loadFirst();
+    }
+  }, []);
+
+  const onNext = async () => {
+    if (isAdaptive) {
+      if (questionnaireResponse) {
+        setIsReady(false);
+
+        const results = getAdaptiveResponse(questionnaireResponse, formData);
+
+        const response = await (questionnaire as PromisQuestionnaire).getNextStep(
+          results
+        );
+
+        if (response && response.contained) {
+          if (response.status == QuestionnaireResponseStatus.Completed) {
+            if (props.onSubmit) {
+              props.onSubmit(formData, response);
+            }
+          } else {
+            const q = response.contained[0] as IQuestionnaire;
+            setQuestionnaireResponse(response);
+            setQuestions(getActiveQuestions(q.item, formData));
+          }
+        }
+
+        setIsReady(true);
+      }
+    } else {
+      setStep(step + 1);
+    }
   };
 
   const onPrev = () => {
@@ -74,6 +134,10 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
     onSubmit(formData);
   };
 
+  if (!isReady) {
+    return <Spinner />;
+  }
+
   return (
     <NativeBaseForm testID="nativeBaseForm">
       <QuestionnaireItemField
@@ -88,12 +152,12 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
         onFocus={onFocus}
         onSubmit={onSubmit}
       />
-      {!isFirst && (
+      {!isFirst && !isAdaptive && (
         <Button onPress={onPrev}>
           <Text>{previousTitle}</Text>
         </Button>
       )}
-      {isLast ? (
+      {isLast && !isAdaptive ? (
         <Button onPress={onSubmitPress}>
           <Text>{submitTitle}</Text>
         </Button>

@@ -74,7 +74,11 @@ export class ServiceRequest implements IServiceRequest {
   patientInstruction?: String | undefined;
   relevantHistory?: Reference[] | undefined;
 
-  constructor(item: IServiceRequest, private server: Server) {
+  constructor(
+    item: IServiceRequest,
+    private server: Server,
+    private promisServer: Server | undefined
+  ) {
     this.id = item.id;
     this.status = item.status;
     this.intent = item.intent ? item.intent : RequestIntent.Option;
@@ -148,12 +152,20 @@ export class ServiceRequest implements IServiceRequest {
     }
     const reference = this.getExtensionReference();
     if (reference) {
-      const response = await this.server.getInstrumentByReference<
-        IQuestionnaire
-      >(reference);
+      const response =
+        reference
+          .toLocaleLowerCase()
+          .startsWith("https://mss.fsm.northwestern.edu") && this.promisServer
+          ? await this.promisServer.getPromisResource<IQuestionnaire>(reference)
+          : await this.server.getInstrumentByReference<IQuestionnaire>(
+              reference
+            );
 
       if (response) {
-        const instrumentFactory = new InstrumentFactory(this.server);
+        const instrumentFactory = new InstrumentFactory(
+          this.server,
+          this.promisServer
+        );
         this.instrument = instrumentFactory.createInstrument(response);
       } else {
         this.instrument = undefined;

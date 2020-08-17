@@ -24,14 +24,25 @@ import { Task } from "./Task";
 
 export class Server {
   public client: Client;
+  public promisClient?: Client;
 
-  constructor(client: Client) {
+  constructor(client: Client, promisClient?: Client) {
     this.client = client;
+    this.promisClient = promisClient;
+  }
+
+  getPromisServer() {
+    if (this.promisClient) {
+      return new Server(this.promisClient);
+    }
+    return undefined;
   }
 
   async getPatientTasksByRequests(filter?: string, patientId?: string) {
-    const serviceRequestFactory = new ServiceRequestFactory(this);
-    console.log({ patientId });
+    const serviceRequestFactory = new ServiceRequestFactory(
+      this,
+      this.getPromisServer()
+    );
     const ptId = patientId ? patientId : this.client.patient.id;
     const reqUrl = filter
       ? `ServiceRequest?patient=${ptId}&${filter}`
@@ -63,7 +74,10 @@ export class Server {
   }
 
   async getTaskByRequestId(id: string) {
-    const serviceRequestFactory = new ServiceRequestFactory(this);
+    const serviceRequestFactory = new ServiceRequestFactory(
+      this,
+      this.getPromisServer()
+    );
     const reqUrl = `ServiceRequest/${id}`;
     const reqOptions = {
       pageLimit: 0,
@@ -84,7 +98,10 @@ export class Server {
 
   async getInstruments(type: InstrumentType, filter?: string) {
     const typeStr = InstrumentType[type];
-    const instrumentFactory = new InstrumentFactory(this);
+    const instrumentFactory = new InstrumentFactory(
+      this,
+      this.getPromisServer()
+    );
 
     const reqUrl = filter ? `${typeStr}?${filter}` : `${typeStr}`;
     const reqOptions = {
@@ -110,7 +127,10 @@ export class Server {
 
   async getInstrument(type: InstrumentType, id: string) {
     const typeStr = InstrumentType[type];
-    const instrumentFactory = new InstrumentFactory(this);
+    const instrumentFactory = new InstrumentFactory(
+      this,
+      this.getPromisServer()
+    );
 
     const reqUrl = `${typeStr}/${id}`;
     const reqOptions = {
@@ -136,7 +156,6 @@ export class Server {
   }
 
   async createReport(report: Report, patient?: User) {
-    console.log({ report });
     if (patient) {
       report.subject = {
         reference: `Patient/${patient.id}`,
@@ -149,13 +168,14 @@ export class Server {
     const u = this.client.getFhirUser();
     if (report.resourceType == "QuestionnaireResponse") {
       if (u) {
-        (report as QuestionnaireResponse).source = {
+        (report as Partial<QuestionnaireResponse>).source = {
           reference: u,
         };
       }
     }
+    const { server, ...rest } = report;
     return (await this.client.create(
-      report as fhirclient.FHIR.Resource
+      rest as fhirclient.FHIR.Resource
     )) as Report;
   }
 
@@ -212,5 +232,55 @@ export class Server {
       console.error(err);
       return undefined;
     });
+  }
+
+  authenticateUser() {
+    const user = this.client.state.tokenResponse?.client_id;
+    const password = this.client.state.tokenResponse?.clientSecret;
+
+    if (!user || !password) return "";
+
+    const token = `${user}:${password}`;
+    const hash = btoa(token);
+
+    return `Basic ${hash}`;
+  }
+
+  async getPromisNextStep(
+    questionnaireId: string,
+    postResponse: IQuestionnaireResponse
+  ) {
+    return await this.client
+      .request<IQuestionnaireResponse>({
+        url: `Questionnaire/${questionnaireId}/next-q`,
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(postResponse),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.authenticateUser(),
+        },
+      })
+      .catch((err) => {
+        console.error(err);
+        return undefined;
+      });
+  }
+
+  async getPromisResource<T>(reference: string) {
+    return await this.client
+      .request<T>({
+        url: reference,
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.authenticateUser(),
+        },
+      })
+      .catch((err) => {
+        console.error(err);
+        return undefined;
+      });
   }
 }

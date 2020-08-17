@@ -45,6 +45,11 @@ const App: React.FC = () => {
     scope,
     iss,
     redirectUri,
+    promisSettings: {
+      url: "https://mss.fsm.northwestern.edu/ac_api_cr/2018-10/",
+      token: "",
+      identifier: "",
+    },
   };
 
   return (

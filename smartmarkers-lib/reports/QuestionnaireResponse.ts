@@ -36,7 +36,7 @@ export class QuestionnaireResponse implements IQuestionnaireResponse, Report {
   implicitRules?: string | undefined;
   language?: string | undefined;
 
-  constructor(item: IQuestionnaireResponse, private server: Server) {
+  constructor(item: IQuestionnaireResponse, public server: Server) {
     this.id = item.id;
     this.status = item.status;
     Object.assign(this, item);

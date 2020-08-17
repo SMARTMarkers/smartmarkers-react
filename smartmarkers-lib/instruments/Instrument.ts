@@ -9,6 +9,7 @@ export enum InstrumentType {
 export interface Instrument {
   id: string;
   resourceType: ResourceType;
+  isAdaptive: () => boolean;
   getTitle: () => string;
   getNote: () => string;
   getReports: (serviceRequestId?: string) => Promise<Report[]>;

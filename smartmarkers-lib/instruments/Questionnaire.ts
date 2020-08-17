@@ -54,12 +54,18 @@ export class Questionnaire implements IQuestionnaire, Instrument {
   meta?: Meta | undefined;
   implicitRules?: string | undefined;
   language?: string | undefined;
-  private reports?: QuestionnaireResponse[] | undefined;
+  protected reports?: QuestionnaireResponse[] | undefined;
+  protected server: Server;
 
-  constructor(item: IQuestionnaire, private server: Server) {
+  constructor(item: IQuestionnaire, server: Server) {
     this.id = item.id;
     this.status = item.status;
+    this.server = server;
     Object.assign(this, item);
+  }
+
+  public isAdaptive() {
+    return false;
   }
 
   public createServiceRequest() {
@@ -111,7 +117,6 @@ export class Questionnaire implements IQuestionnaire, Instrument {
 
     const reportFactory = new ReportFactory(this.server);
     this.reports = response.map((item) => reportFactory.createReport(item));
-    console.log({ reports: this.reports });
     return this.reports;
   }
 }

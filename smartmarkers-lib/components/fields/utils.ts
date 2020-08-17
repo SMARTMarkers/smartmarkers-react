@@ -175,7 +175,7 @@ export const extractChoices = <
   return item.answerOption.map((option) => {
     if (option.valueCoding) {
       return {
-        value: option.valueCoding.code,
+        value: option.valueCoding,
         label: option.valueCoding.display,
       } as T;
     } else {
@@ -203,6 +203,22 @@ export const getResponse = (
   return response;
 };
 
+export const getAdaptiveResponse = (
+  questionnaireResponse: QuestionnaireResponse,
+  formData: FormData
+): QuestionnaireResponse => {
+  if (
+    questionnaireResponse.contained &&
+    questionnaireResponse.contained.length > 0
+  ) {
+    const questionnaire = questionnaireResponse.contained[0] as Questionnaire;
+    const items = questionnaire.item ? questionnaire.item : [];
+    questionnaireResponse.item = getResponseItems(items, formData);
+  }
+
+  return questionnaireResponse;
+};
+
 const getResponseItems = (
   items: QuestionnaireItem[],
   formData: FormData
@@ -210,29 +226,38 @@ const getResponseItems = (
   const response: QuestionnaireResponseItem[] = [];
 
   items.forEach((item) => {
-    const responseItem: QuestionnaireResponseItem = {
-      id: item.id,
-      linkId: item.linkId,
-      definition: item.definition,
-      text: item.text,
-      extension: item.extension,
-      answer: getResponseItemAnswers(item, formData),
-      item: [],
-    };
+    if (![QuestionnaireItemType.Display].includes(item.type)) {
+      const answers = getResponseItemAnswers(item, formData);
+      const responseItem: QuestionnaireResponseItem = {
+        id: item.id,
+        linkId: item.linkId,
+      };
 
-    if (
-      ![
-        QuestionnaireItemType.Group,
-        QuestionnaireItemType.Question,
-        QuestionnaireItemType.Display,
-      ].includes(item.type) &&
-      item.item &&
-      item.item.length > 0
-    ) {
-      responseItem.item = getResponseItems(item.item, formData);
+      if (item.text) {
+        responseItem.text = item.text;
+      }
+      if (item.extension) {
+        responseItem.extension = item.extension;
+      }
+      if (item.definition) {
+        responseItem.definition = item.definition;
+      }
+      if (
+        ![QuestionnaireItemType.Group, QuestionnaireItemType.Question].includes(
+          item.type
+        ) &&
+        answers &&
+        answers.length > 0
+      ) {
+        responseItem.answer = answers;
+      }
+
+      if (item.item && item.item.length > 0) {
+        responseItem.item = getResponseItems(item.item, formData);
+      }
+
+      response.push(responseItem);
     }
-
-    response.push(responseItem);
   });
 
   return response;
@@ -289,12 +314,14 @@ const getResponseItemAnswers = (
       break;
     case QuestionnaireItemType.Group:
     case QuestionnaireItemType.Question:
+      if (item.item && item.item.length > 0) {
+        answers.push({
+          id: id.toString(),
+          item: getResponseItems(item.item, formData),
+        });
+      }
+      break;
     case QuestionnaireItemType.Display:
-      answers.push({
-        id: id.toString(),
-        extension: [],
-        item: getResponseItems(item.item, formData),
-      });
       break;
   }
 
@@ -303,7 +330,6 @@ const getResponseItemAnswers = (
       value.value.forEach((answer: any) => {
         answers.push({
           id: id.toString(),
-          extension: [],
           [valueProp]: answer,
         });
 
@@ -312,7 +338,6 @@ const getResponseItemAnswers = (
     } else {
       answers.push({
         id: id.toString(),
-        extension: [],
         [valueProp]: value.value,
       });
     }
