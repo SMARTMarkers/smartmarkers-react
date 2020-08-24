@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from "native-base";
-import { QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from '../smartmarkers-lib';
-import { QuestionnaireResponse } from '../smartmarkers-lib/reports';
+import { QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from '..';
+import { QuestionnaireResponse } from '../reports';
 
-interface Props {
+interface QuestionnaireResponseViewProps {
   response: QuestionnaireResponse;
 }
 
@@ -49,7 +49,7 @@ const renderItem = (item: QuestionnaireResponseItem) => {
   )
 };
 
-const QuestionnaireResponseViewer: React.FC<Props> = ({ response }) => {
+const QuestionnaireResponseView: React.FC<QuestionnaireResponseViewProps> = ({ response }) => {
   if (!response.item) return null;
 
   const res = response.item.map((item: QuestionnaireResponseItem) => {
@@ -63,4 +63,4 @@ const QuestionnaireResponseViewer: React.FC<Props> = ({ response }) => {
   )
 };
 
-export default QuestionnaireResponseViewer;
+export default QuestionnaireResponseView;

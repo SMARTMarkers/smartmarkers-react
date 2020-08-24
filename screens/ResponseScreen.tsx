@@ -4,7 +4,7 @@ import { View, Text, Spinner } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
 import { Report, QuestionnaireResponse } from "../smartmarkers-lib/reports";
 
-import QuestionnaireResponseViewer from '../components/QuestionnaireResponseViewer';
+import QuestionnaireResponseView from '../smartmarkers-lib/components/QuestionnaireResponseView';
 
 interface RouteParams {
   qrId: string;
@@ -42,7 +42,7 @@ const ResponseScreen: React.FC<any> = (props) => {
       {
         item &&
         item.resourceType === 'QuestionnaireResponse' &&
-        <QuestionnaireResponseViewer response={item as QuestionnaireResponse} />
+        <QuestionnaireResponseView response={item as QuestionnaireResponse} />
       }
     </View>
   );
