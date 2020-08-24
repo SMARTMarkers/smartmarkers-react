@@ -10,17 +10,18 @@ interface Props {
 const renderAnswer = (answer: QuestionnaireResponseItemAnswer) => {
   if (!answer) return null;
   let answerValue = null;
-  if (answer.valueBoolean !== undefined) answerValue = answer.valueBoolean ? 'yes' : 'no';
-  if (answer.valueDecimal) answerValue = answer.valueDecimal;
-  if (answer.valueInteger) answerValue = answer.valueInteger;
-  if (answer.valueDate) answerValue = answer.valueDate; // TODO: moment
-  if (answer.valueDateTime) answerValue = answer.valueDateTime; // TODO: moment
-  if (answer.valueTime) answerValue = answer.valueTime; // TODO: moment
-  if (answer.valueString) answerValue = answer.valueString;
-  if (answer.valueUri) answerValue = answer.valueUri;
-  if (answer.valueQuantity)
+  if (answer.valueBoolean !== undefined) answerValue = answer.valueBoolean ? 'yes' : 'no'
+  else if (answer.valueDecimal) answerValue = answer.valueDecimal
+  else if (answer.valueInteger) answerValue = answer.valueInteger
+  else if (answer.valueDate) answerValue = answer.valueDate // TODO: moment
+  else if (answer.valueDateTime) answerValue = answer.valueDateTime // TODO: moment
+  else if (answer.valueTime) answerValue = answer.valueTime // TODO: moment
+  else if (answer.valueString) answerValue = answer.valueString
+  else if (answer.valueUri) answerValue = answer.valueUri
+  else if (answer.valueQuantity)
     answerValue = `${answer.valueQuantity.comparator} ${answer.valueQuantity.value} ${answer.valueQuantity.unit}`;
-  if (answer.valueCoding) answerValue = answer.valueCoding.display;
+  else if (answer.valueCoding) answerValue = answer.valueCoding.display;
+
   let answerItems = null;
   if (answer.item) answerItems = answer.item.map((item: QuestionnaireResponseItem) => renderItem(item));
   return (
