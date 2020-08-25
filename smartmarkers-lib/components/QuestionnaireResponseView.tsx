@@ -1,65 +1,92 @@
-import React from 'react';
-import { View, Text } from "native-base";
+import React, { useMemo, useCallback } from 'react';
+import { Text, ListItem, Body, List } from "native-base";
 import { QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from '..';
 import { QuestionnaireResponse } from '../reports';
 
 interface QuestionnaireResponseViewProps {
   response: QuestionnaireResponse;
+  formatDate?: (date: Date) => string;
+  formatDateTime?: (date: Date) => string;
+  formatTime?: (date: Date) => string;
 }
 
-const renderAnswer = (answer: QuestionnaireResponseItemAnswer) => {
-  if (!answer) return null;
-  let answerValue = null;
-  if (answer.valueBoolean !== undefined) answerValue = answer.valueBoolean ? 'yes' : 'no'
-  else if (answer.valueDecimal) answerValue = answer.valueDecimal
-  else if (answer.valueInteger) answerValue = answer.valueInteger
-  else if (answer.valueDate) answerValue = answer.valueDate // TODO: moment
-  else if (answer.valueDateTime) answerValue = answer.valueDateTime // TODO: moment
-  else if (answer.valueTime) answerValue = answer.valueTime // TODO: moment
-  else if (answer.valueString) answerValue = answer.valueString
-  else if (answer.valueUri) answerValue = answer.valueUri
-  else if (answer.valueQuantity)
-    answerValue = `${answer.valueQuantity.comparator} ${answer.valueQuantity.value} ${answer.valueQuantity.unit}`;
-  else if (answer.valueCoding) answerValue = answer.valueCoding.display;
+interface QuestionWithAnswer {
+  question: string;
+  answer: string;
+}
 
-  let answerItems = null;
-  if (answer.item) answerItems = answer.item.map((item: QuestionnaireResponseItem) => renderItem(item));
-  return (
-    <View>
-      <Text>{answerValue}</Text>
-      <View>{answerItems}</View>
-    </View>
-  );
-};
+const defaultFormatDate = (date: Date) => date.toISOString();
 
-const renderAnswerArr = (answersArr?: Array<QuestionnaireResponseItemAnswer>) => {
-  if (!answersArr) return null;
-  return answersArr.map((answer: QuestionnaireResponseItemAnswer) => renderAnswer(answer));
-};
+const QuestionnaireResponseView: React.FC<QuestionnaireResponseViewProps> = ({
+  response,
+  formatDate = defaultFormatDate,
+  formatDateTime = defaultFormatDate,
+  formatTime = defaultFormatDate
+}) => {
+  const parseAnswer = useCallback((answer: QuestionnaireResponseItemAnswer, question: string, listOfElements: QuestionWithAnswer[]) => {
+    if (!answer) return null;
+    let answerValue = null;
+    if (answer.valueBoolean !== undefined) answerValue = answer.valueBoolean ? 'yes' : 'no'
+    else if (answer.valueDecimal) answerValue = answer.valueDecimal.toString()
+    else if (answer.valueInteger) answerValue = answer.valueInteger.toString()
+    else if (answer.valueDate) answerValue = formatDate(answer.valueDate)
+    else if (answer.valueDateTime) answerValue = formatDateTime(answer.valueDateTime)
+    else if (answer.valueTime) answerValue = formatTime(answer.valueTime)
+    else if (answer.valueString) answerValue = answer.valueString
+    else if (answer.valueUri) answerValue = answer.valueUri
+    else if (answer.valueQuantity)
+      answerValue = `${answer.valueQuantity.comparator} ${answer.valueQuantity.value} ${answer.valueQuantity.unit}`;
+    else if (answer.valueCoding) answerValue = answer.valueCoding.display;
 
-const renderItem = (item: QuestionnaireResponseItem) => {
-  const text = item.text || '';
-  const answerArr = renderAnswerArr(item.answer);
-  return (
-    <View key={item.linkId}>
-      {!!text && <Text>{text}</Text>}
-      {!!answerArr && <Text>{answerArr}</Text>}
-      {item.item && item.item.map((item: QuestionnaireResponseItem) => renderItem(item))}
-    </View>
-  )
-};
+    if (question && answerValue) listOfElements.push({
+      question,
+      answer: answerValue
+    });
 
-const QuestionnaireResponseView: React.FC<QuestionnaireResponseViewProps> = ({ response }) => {
+    if (answer.item) answer.item.forEach((item: QuestionnaireResponseItem) => parseItem(item, listOfElements));
+  }, []);
+
+  const parseItem = useCallback((item: QuestionnaireResponseItem, listOfElements: QuestionWithAnswer[]) => {
+    const question = `- ${item.text}` || '';
+
+    item.answer?.forEach((answer: QuestionnaireResponseItemAnswer) => parseAnswer(answer, question, listOfElements));
+    item.item?.forEach((item: QuestionnaireResponseItem) => {
+      parseItem(item, listOfElements);
+    });
+  }, []);
+
+  const getList = useCallback((response: QuestionnaireResponse) => {
+    const listOfElements: QuestionWithAnswer[] = [];
+
+    response.item?.forEach((item: QuestionnaireResponseItem) => {
+      parseItem(item, listOfElements);
+    });
+
+    return listOfElements;
+  }, []);
+
+  const list = useMemo(() => getList(response), [response]);
+
   if (!response.item) return null;
 
-  const res = response.item.map((item: QuestionnaireResponseItem) => {
-    return renderItem(item);
-  });
-
   return (
-    <View>
-      {res}
-    </View>
+    <List>
+      <ListItem header>
+        <Body>
+          <Text>QUESTIONS & ANSWERS</Text>
+        </Body>
+      </ListItem>
+      {
+        list.map((el: QuestionWithAnswer) => (
+          <ListItem>
+            <Body>
+              <Text>{el.answer}</Text>
+              <Text note>{el.question}</Text>
+            </Body>
+          </ListItem>
+        ))
+      }
+    </List>
   )
 };
 

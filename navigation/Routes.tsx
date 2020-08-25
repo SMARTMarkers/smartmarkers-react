@@ -15,6 +15,7 @@ import {
   CompletedScreen,
   HistoryScreen,
   ResponseScreen,
+  FhirResource,
 } from "../screens";
 import { useFhirContext } from "../smartmarkers-lib/context";
 import { LoginCallback } from "../smartmarkers-lib";
@@ -23,7 +24,7 @@ import ManualScreen from "../screens/ManualScreen";
 const Routes: React.FC = () => {
   const fhirContext = useFhirContext();
 
-  React.useEffect(() => {});
+  React.useEffect(() => { });
 
   return (
     <Switch>
@@ -119,6 +120,13 @@ const Routes: React.FC = () => {
         exact
         layout={MainLayout}
         path="/not-found"
+      />
+      <PrivateRouteWithLayout
+        component={FhirResource}
+        exact
+        layout={MainLayout}
+        path="/response/:qrId/resource"
+        isAuthenticated={fhirContext.isAuthenticated}
       />
       <Redirect to="/not-found" />
     </Switch>

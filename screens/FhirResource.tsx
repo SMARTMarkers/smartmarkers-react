@@ -1,22 +1,20 @@
 import React from "react";
 import { useParams } from "../react-router";
-import { View, Text, Spinner, ListItem, Body, List, Right, Icon } from "native-base";
+import { View, Spinner } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
 import { Report, QuestionnaireResponse } from "../smartmarkers-lib/reports";
 
-import QuestionnaireResponseView from '../smartmarkers-lib/components/QuestionnaireResponseView';
-import { useHistory } from "react-router-dom";
+import FhirResourceView from '../smartmarkers-lib/components/FhirResourceView';
 
 interface RouteParams {
   qrId: string;
 }
 
-const ResponseScreen: React.FC<any> = (props) => {
+const FhirResource: React.FC<any> = (props) => {
   const { server } = useFhirContext();
   const { qrId } = useParams<RouteParams>();
   const [isReady, setIsReady] = React.useState(false);
   const [item, setItem] = React.useState<Report | undefined>(undefined);
-  const history = useHistory();
 
   React.useEffect(() => {
     const loadItems = async () => {
@@ -38,27 +36,15 @@ const ResponseScreen: React.FC<any> = (props) => {
     return <Spinner />;
   }
 
-  const goToFhirResource = () => history.push(`/response/${qrId}/resource`)
-
   return (
     <View>
       {
         item &&
         item.resourceType === 'QuestionnaireResponse' &&
-        <QuestionnaireResponseView response={item as QuestionnaireResponse} />
+        <FhirResourceView response={item as QuestionnaireResponse} />
       }
-      <List>
-        <ListItem style={{ marginTop: '30px', borderTopWidth: 1 }} onPress={goToFhirResource}>
-          <Body>
-            <Text>FHIR Resource</Text>
-          </Body>
-          <Right>
-            <Icon active name="arrow-forward" />
-          </Right>
-        </ListItem>
-      </List>
     </View>
   );
 };
 
-export default ResponseScreen;
+export default FhirResource;
