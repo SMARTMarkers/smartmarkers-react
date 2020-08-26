@@ -48,7 +48,7 @@ export interface QuestionnaireResponseItemAnswer extends BackboneElement {
   valueUri?: string;
   valueAttachment?: Attachment;
   valueCoding?: Coding;
-  valueQuentity?: Quantity;
+  valueQuantity?: Quantity;
   valueReference?: Reference;
   item?: Array<QuestionnaireResponseItem>;
 }
