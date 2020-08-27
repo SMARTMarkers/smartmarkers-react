@@ -3,7 +3,7 @@ import {
   QuestionnaireItem,
   QuestionnaireItemType,
 } from "../../models";
-import { EnumDictionary } from "../Form";
+import { EnumDictionary, QuestionsLayout } from "../Form";
 
 export interface BaseFieldProps {
   id?: string;
@@ -17,4 +17,5 @@ export interface BaseFieldProps {
   onSubmit?: Function;
   onFocus?: Function;
   onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
 }

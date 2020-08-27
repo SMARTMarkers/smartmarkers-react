@@ -2,7 +2,7 @@ import React from "react";
 import { Questionnaire, QuestionnaireItemType } from "../../models";
 import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
 import { View, Content, Text } from "native-base";
-import { EnumDictionary } from "../Form";
+import { EnumDictionary, QuestionsLayout } from "../Form";
 import { BaseFieldProps } from "./BaseFieldProps";
 
 export interface QuestionnaireFieldProps {
@@ -16,6 +16,7 @@ export interface QuestionnaireFieldProps {
   onSubmit?: Function;
   onFocus?: Function;
   onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
 }
 
 export const QuestionnaireField: React.FC<QuestionnaireFieldProps> = (
@@ -23,6 +24,7 @@ export const QuestionnaireField: React.FC<QuestionnaireFieldProps> = (
 ) => {
   const { questionnaire } = props;
   const { id, testID, ...propsToPass } = props;
+
   return (
     <Content testID={testID}>
       {questionnaire.item && (

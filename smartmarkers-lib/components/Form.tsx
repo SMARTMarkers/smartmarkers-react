@@ -15,6 +15,11 @@ export enum FormMode {
   Adaptive,
 }
 
+export enum QuestionsLayout {
+  Horizontal,
+  Vertical,
+}
+
 export interface FormProps {
   questionnaire: Questionnaire;
   formData?: FormData;
@@ -25,6 +30,7 @@ export interface FormProps {
   onSubmit?: (formData: FormData, response: QuestionnaireResponse) => void;
   onFocus?: Function;
   onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
 }
 
 export type EnumDictionary<T extends string | symbol | number, U> = {
@@ -36,8 +42,8 @@ export const Form: React.FC<FormProps> = (props) => {
   const formMode = questionnaire.isAdaptive()
     ? FormMode.Adaptive
     : props.mode
-    ? props.mode
-    : FormMode.Form;
+      ? props.mode
+      : FormMode.Form;
   const isFormMode = formMode === FormMode.Form;
   const [formData, setFormData] = React.useState<any>(props.formData ? props.formData : {});
   const [errorData, setErrorData] = React.useState<any>(validate(formData, questionnaire));
@@ -101,6 +107,7 @@ export const Form: React.FC<FormProps> = (props) => {
           onBlur={props.onBlur}
           onFocus={props.onFocus}
           onSubmit={props.onSubmit}
+          questionsLayout={QuestionsLayout.Horizontal}
         />
       )}
     </NativeBaseForm>

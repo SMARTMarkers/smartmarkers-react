@@ -16,7 +16,7 @@ import {
   QuestionnaireResponse,
   QuestionnaireResponseStatus,
 } from "../../models/QuestionnaireResponse";
-import { FormMode } from "../Form";
+import { FormMode, QuestionsLayout } from "../Form";
 import { QuestionnaireItem } from "../../models";
 
 export interface WizardFormProps {
@@ -29,6 +29,7 @@ export interface WizardFormProps {
   onSubmit?: (formData: FormData, reponse: QuestionnaireResponse) => void;
   onFocus?: Function;
   onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
 }
 
 export type EnumDictionary<T extends string | symbol | number, U> = {
@@ -151,6 +152,7 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
         onChange={onChange}
         onFocus={onFocus}
         onSubmit={onSubmit}
+        questionsLayout={props.questionsLayout}
       />
       {!isFirst && !isAdaptive && (
         <Button onPress={onPrev}>
@@ -162,10 +164,10 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
           <Text>{submitTitle}</Text>
         </Button>
       ) : (
-        <Button onPress={onNext}>
-          <Text>{nextTitle}</Text>
-        </Button>
-      )}
+          <Button onPress={onNext}>
+            <Text>{nextTitle}</Text>
+          </Button>
+        )}
     </NativeBaseForm>
   );
 };

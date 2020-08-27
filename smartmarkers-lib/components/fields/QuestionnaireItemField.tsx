@@ -3,9 +3,9 @@ import { BaseFieldProps } from "./BaseFieldProps";
 import { QuestionnaireItem, QuestionnaireItemType } from "../../models";
 import { UnsupportedField } from "./UnsupportedField";
 import { checkEnableRules } from "./utils";
-import { EnumDictionary } from "../Form";
+import { EnumDictionary, QuestionsLayout } from "../Form";
 
-export interface QuestionnaireItemFieldProps extends BaseFieldProps {}
+export interface QuestionnaireItemFieldProps extends BaseFieldProps { }
 
 const getFieldComponent = (
   itemType: QuestionnaireItemType,

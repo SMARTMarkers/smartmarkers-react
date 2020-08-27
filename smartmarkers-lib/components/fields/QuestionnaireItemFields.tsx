@@ -6,7 +6,7 @@ import {
 } from "../../models";
 import { QuestionnaireItemField } from "./QuestionnaireItemField";
 import { View } from "native-base";
-import { EnumDictionary } from "../Form";
+import { EnumDictionary, QuestionsLayout } from "../Form";
 import { BaseFieldProps } from "./BaseFieldProps";
 
 export interface QuestionnaireItemFieldsProps {
@@ -21,6 +21,7 @@ export interface QuestionnaireItemFieldsProps {
   onSubmit?: Function;
   onFocus?: Function;
   onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
 }
 
 export const QuestionnaireItemFields: React.FC<QuestionnaireItemFieldsProps> = (
