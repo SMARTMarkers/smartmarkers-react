@@ -107,7 +107,6 @@ export const Form: React.FC<FormProps> = (props) => {
           onBlur={props.onBlur}
           onFocus={props.onFocus}
           onSubmit={props.onSubmit}
-          questionsLayout={QuestionsLayout.Horizontal}
         />
       )}
     </NativeBaseForm>
