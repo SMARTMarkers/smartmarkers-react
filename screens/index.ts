@@ -9,4 +9,7 @@ export { default as QuestionnaireScreen } from "./QuestionnaireScreen";
 export { default as CompletedScreen } from "./CompletedScreen";
 export { default as HistoryScreen } from "./HistoryScreen";
 export { default as ResponseScreen } from "./ResponseScreen";
-export { default as FhirResource } from './FhirResource';
+export { default as FhirResource } from "./FhirResource";
+export { default as PractitionerDashboardScreen } from "./PractitionerDashboardScreen";
+export { default as ChoosePatientScreen } from "./ChoosePatientScreen";
+export { default as CreateServiceRequestScreen } from "./CreateServiceRequestScreen";

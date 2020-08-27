@@ -23,13 +23,12 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ ...props }) => {
   const { children } = props;
   const history = useHistory();
-  const { isAuthenticated } = useFhirContext();
+  const { user, isAuthenticated } = useFhirContext();
+  const isPatient = user && user.resourceType.toLowerCase() == "patient";
 
   const footerRoutePaths = FooterRoutes.map((route) => route.path);
   const isFooterRoute = footerRoutePaths.includes(history.location.pathname);
-  const isLoginOrNotFound = ["/not-found", "/login"].includes(
-    history.location.pathname
-  );
+  const isLoginOrNotFound = ["/not-found", "/login"].includes(history.location.pathname);
   const showBackButton = !isFooterRoute && !isLoginOrNotFound;
   const onPress = () => {
     history.goBack();
@@ -50,7 +49,9 @@ const Main: React.FC<MainProps> = ({ ...props }) => {
           </Left>
         )}
         <Body>
-          <Title style={{ alignSelf: "center" }}>Patient app</Title>
+          <Title style={{ alignSelf: "center" }}>
+            {isPatient ? "Patient App" : "Practitioner App"}
+          </Title>
         </Body>
         {isAuthenticated && (
           <Right>

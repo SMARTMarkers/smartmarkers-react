@@ -16,6 +16,9 @@ import {
   HistoryScreen,
   ResponseScreen,
   FhirResource,
+  PractitionerDashboardScreen,
+  ChoosePatientScreen,
+  CreateServiceRequestScreen,
 } from "../screens";
 import { useFhirContext } from "../smartmarkers-lib/context";
 import { LoginCallback } from "../smartmarkers-lib";
@@ -24,33 +27,39 @@ import ManualScreen from "../screens/ManualScreen";
 const Routes: React.FC = () => {
   const fhirContext = useFhirContext();
 
-  React.useEffect(() => { });
+  const isPatient = fhirContext.user && fhirContext.user.resourceType.toLowerCase() == "patient";
 
   return (
     <Switch>
       <Redirect exact from="/" to={`/dashboard`} />
-      <RouteWithLayout
-        exact
-        path="/login"
-        component={LoginScreen}
-        layout={MainLayout}
-      />
+      <RouteWithLayout exact path="/login" component={LoginScreen} layout={MainLayout} />
       <Route
         exact
         path="/auth-callback"
         render={() => (
-          <LoginCallback
-            redirectTo="/dashboard"
-            loginCallback={fhirContext.loginCallback}
-          />
+          <LoginCallback redirectTo="/dashboard" loginCallback={fhirContext.loginCallback} />
         )}
       />
       <PrivateRouteWithLayout
-        component={DashboardScreen}
+        component={isPatient ? DashboardScreen : PractitionerDashboardScreen}
         exact
         layout={MainLayout}
         path="/dashboard"
         isAuthenticated={fhirContext.isAuthenticated}
+      />
+      <PrivateRouteWithLayout
+        component={ChoosePatientScreen}
+        exact
+        layout={MainLayout}
+        path="/choose-patient/:instrumentId"
+        isAuthenticated={fhirContext.isAuthenticated && !isPatient}
+      />
+      <PrivateRouteWithLayout
+        component={CreateServiceRequestScreen}
+        exact
+        layout={MainLayout}
+        path="/create-service-request/:instrumentId/:patientId/"
+        isAuthenticated={fhirContext.isAuthenticated && !isPatient}
       />
       <PrivateRouteWithLayout
         component={SettingsScreen}
@@ -115,12 +124,7 @@ const Routes: React.FC = () => {
         path="/questionnaire/:rid/:id"
         isAuthenticated={fhirContext.isAuthenticated}
       />
-      <RouteWithLayout
-        component={NotFoundScreen}
-        exact
-        layout={MainLayout}
-        path="/not-found"
-      />
+      <RouteWithLayout component={NotFoundScreen} exact layout={MainLayout} path="/not-found" />
       <PrivateRouteWithLayout
         component={FhirResource}
         exact

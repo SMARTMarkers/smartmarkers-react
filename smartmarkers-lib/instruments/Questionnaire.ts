@@ -20,7 +20,8 @@ import {
 import { Instrument } from "./Instrument";
 import { QuestionnaireResponse } from "../reports/QuestionnaireResponse";
 import { ReportFactory } from "../reports/ReportFactory";
-import { Server } from "../models/internal";
+import { Server, TaskSchedule } from "../models/internal";
+import { User } from "../context";
 
 export class Questionnaire implements IQuestionnaire, Instrument {
   id: string;
@@ -68,27 +69,37 @@ export class Questionnaire implements IQuestionnaire, Instrument {
     return false;
   }
 
-  public createServiceRequest() {
-    return {
+  public createServiceRequest(schedule: TaskSchedule, patientId: string) {
+    const serviceRequest = {
       resourceType: "ServiceRequest",
       modifierExtension: [
         {
-          url:
-            "http://hl7.org/fhir/StructureDefinition/servicerequest-questionnaireRequest",
+          url: "http://hl7.org/fhir/StructureDefinition/servicerequest-questionnaireRequest",
           valueReference: {
             reference: `${this.resourceType}/${this.id}`,
+            display: this.getTitle(),
           },
         },
       ],
       status: RequestStatus.Active,
-      intent: RequestIntent.Directive,
+      intent: RequestIntent.Order,
       subject: {
-        reference: `Patient/${this.server.client.patient.id}`,
+        reference: `Patient/${patientId}`,
       },
       requester: {
         reference: this.server.client.getFhirUser(),
       },
     } as Exclude<ServiceRequest, "id">;
+
+    if (schedule.occurrenceDateTime) {
+      serviceRequest.occurrenceDateTime = schedule.occurrenceDateTime;
+    } else if (schedule.occurrencePeriod) {
+      serviceRequest.occurrencePeriod = schedule.occurrencePeriod;
+    } else if (schedule.occurrenceTiming) {
+      serviceRequest.occurrenceTiming = schedule.occurrenceTiming;
+    }
+
+    return serviceRequest;
   }
 
   public getTitle() {
@@ -97,6 +108,9 @@ export class Questionnaire implements IQuestionnaire, Instrument {
     }
     if (this.name) {
       return this.name;
+    }
+    if (this.text && this.text.textContent) {
+      return this.text.textContent;
     }
     return this.id;
   }
@@ -110,10 +124,7 @@ export class Questionnaire implements IQuestionnaire, Instrument {
       return this.reports;
     }
 
-    const response = await this.server.getQuestionnaireReports(
-      this.id,
-      serviceRequestId
-    );
+    const response = await this.server.getQuestionnaireReports(this.id, serviceRequestId);
 
     const reportFactory = new ReportFactory(this.server);
     this.reports = response.map((item) => reportFactory.createReport(item));

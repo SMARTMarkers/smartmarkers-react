@@ -10,7 +10,7 @@ export enum TaskScheduleStatus {
   Inactive,
 }
 
-const WEEKDAY = new Array<DaysOfWeek>(7);
+export const WEEKDAY = new Array<DaysOfWeek>(7);
 WEEKDAY[0] = DaysOfWeek.Sun;
 WEEKDAY[1] = DaysOfWeek.Mon;
 WEEKDAY[2] = DaysOfWeek.Tue;
@@ -92,9 +92,7 @@ export class TaskSchedule {
       if (this.occurrenceTiming.repeat) {
         let inBounds = true;
         if (this.occurrenceTiming.repeat.boundsPeriod) {
-          inBounds = this.isTodayInPeriod(
-            this.occurrenceTiming.repeat.boundsPeriod
-          );
+          inBounds = this.isTodayInPeriod(this.occurrenceTiming.repeat.boundsPeriod);
         }
         if (!inBounds) {
           return undefined;
@@ -118,9 +116,7 @@ export class TaskSchedule {
             next += i;
             count += 1;
             if (next >= 7) next = 0;
-            if (
-              this.occurrenceTiming.repeat.dayOfWeek.indexOf(WEEKDAY[next]) > -1
-            ) {
+            if (this.occurrenceTiming.repeat.dayOfWeek.indexOf(WEEKDAY[next]) > -1) {
               return addDays(today, count);
             }
           }
@@ -131,11 +127,7 @@ export class TaskSchedule {
   }
 
   private getStatus() {
-    if (
-      this.occurrenceDateTime ||
-      this.occurrencePeriod ||
-      this.occurrenceTiming
-    ) {
+    if (this.occurrenceDateTime || this.occurrencePeriod || this.occurrenceTiming) {
       const today = new Date();
       if (this.occurrenceDateTime || this.occurrencePeriod) {
         const day = this.getOccurrenceDate();

@@ -1,8 +1,8 @@
 import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
-import { Report, ReportType } from "./Report";
-import { ReportFactory } from "./ReportFactory";
+import { Report, ReportType } from "../reports/Report";
+import { ReportFactory } from "../reports/ReportFactory";
 
 export interface ReportListProps {
   type: ReportType;
@@ -17,11 +17,7 @@ export const ReportList: React.FC<ReportListProps> = (props) => {
   const [items, setItems] = React.useState<Report[] | undefined>([]);
   const { server } = useFhirContext();
 
-  const defaultRenderItem = (
-    item: Report,
-    key: any,
-    onItemPress: (item: Report) => void
-  ) => (
+  const defaultRenderItem = (item: Report, key: any, onItemPress: (item: Report) => void) => (
     <ListItem key={key} onPress={() => onItemPress(item)}>
       <Body>
         <Text>{item.getTitle()}</Text>

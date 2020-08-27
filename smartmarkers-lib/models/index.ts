@@ -26,6 +26,7 @@ export * from "./Money";
 export * from "./Narrative";
 export * from "./Observation";
 export * from "./Organization";
+export * from "./Patient";
 export * from "./ParameterDefinition";
 export * from "./Period";
 export * from "./Quantity";

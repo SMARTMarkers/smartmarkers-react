@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, useHistory } from "../react-router";
 import { List, ListItem, Text, Body, Right, Icon } from "native-base";
-import { useFhirContext } from "../smartmarkers-lib";
-import { ReportList, Report, ReportType } from "../smartmarkers-lib/reports";
+import { useFhirContext, ReportList } from "../smartmarkers-lib";
+import { Report, ReportType } from "../smartmarkers-lib/reports";
 
 interface RouteParams {
   completed: string;

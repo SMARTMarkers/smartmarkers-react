@@ -1,11 +1,12 @@
 import React from "react";
 import { Spinner, ListItem, Body, Right, Text, Icon } from "native-base";
 import { useFhirContext } from "../context";
-import { Instrument, InstrumentType } from "./Instrument";
+import { Instrument, InstrumentType } from "../instruments/Instrument";
 
 export interface InstrumentListProps {
   type: InstrumentType;
   filter?: string;
+  usePromis?: boolean;
   renderItem?: (
     item: Instrument,
     key: any,
@@ -15,10 +16,12 @@ export interface InstrumentListProps {
 }
 
 export const InstrumentList: React.FC<InstrumentListProps> = (props) => {
-  const { type, renderItem, filter, onItemPress } = props;
+  const { type, renderItem, filter, onItemPress, usePromis } = props;
   const [isReady, setIsReady] = React.useState(false);
   const [items, setItems] = React.useState<Instrument[] | undefined>([]);
-  const { server } = useFhirContext();
+  const { server, proimisServer } = useFhirContext();
+
+  const getServer = () => (usePromis ? proimisServer : server);
 
   const defaultRenderItem = (
     item: Instrument,
@@ -39,7 +42,7 @@ export const InstrumentList: React.FC<InstrumentListProps> = (props) => {
 
   React.useEffect(() => {
     const loadItems = async () => {
-      const items = await server?.getInstruments(type, filter);
+      const items = await getServer()?.getInstruments(type, filter);
       setItems(items);
       setIsReady(true);
     };

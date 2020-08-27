@@ -1,5 +1,7 @@
 import { ServiceRequest, ResourceType } from "../models";
 import { Report } from "../reports";
+import { TaskSchedule } from "../models/internal";
+import { User } from "../context";
 
 export enum InstrumentType {
   ValueSet,
@@ -13,5 +15,8 @@ export interface Instrument {
   getTitle: () => string;
   getNote: () => string;
   getReports: (serviceRequestId?: string) => Promise<Report[]>;
-  createServiceRequest: () => Exclude<ServiceRequest, "id">;
+  createServiceRequest: (
+    schedule: TaskSchedule,
+    patientId: string
+  ) => Exclude<ServiceRequest, "id">;
 }

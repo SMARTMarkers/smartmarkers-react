@@ -2,6 +2,7 @@ import { ready, authorize, init } from "fhirclient/lib/smart";
 import Client from "fhirclient/lib/Client";
 import { fhirclient } from "fhirclient/lib/types";
 import { ExpoStorage } from "./ExpoStorage";
+import * as Linking from "expo-linking";
 
 /**
  * Expo Adapter
@@ -69,7 +70,11 @@ export class ExpoAdapter implements fhirclient.Adapter {
    */
   getUrl(): URL {
     if (!this._url) {
-      this._url = new URL(location + "");
+      if (location) {
+        this._url = new URL(location + "");
+      } else {
+        this._url = new URL(Linking.makeUrl());
+      }
     }
     return this._url;
   }
@@ -79,7 +84,11 @@ export class ExpoAdapter implements fhirclient.Adapter {
    * path
    */
   redirect(to: string): void {
-    location.href = to;
+    if (location) {
+      location.href = to;
+    } else {
+      Linking.openURL(to);
+    }
   }
 
   /**

@@ -29,15 +29,14 @@ const App: React.FC = () => {
   const redirectUri = Linking.makeUrl("auth-callback");
   // Practitioner
   // const iss =
-  //   "https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEsMTU1ZDNkODAtZjNmMC00YjM5LTkyMDctMGQxMjJjZjk0YTExIiwiZSI6IjM3ODgxMDg2LTdiMDUtNGIxOC1hMjc5LTA4ZTMzMWY1MGU5YiJ9/fhir";
+  // "https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEsMTU1ZDNkODAtZjNmMC00YjM5LTkyMDctMGQxMjJjZjk0YTExIiwiZSI6IjM3ODgxMDg2LTdiMDUtNGIxOC1hMjc5LTA4ZTMzMWY1MGU5YiJ9/fhir";
   // Patient
   // const iss =
   //  "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6Ijg3YTMzOWQwLThjYWUtNDE4ZS04OWM3LTg2NTFlNmFhYjNjNiJ9/fhir";
 
-  // const iss =
-  //   "https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpIjoiMSIsImoiOiIxIiwiZSI6ImVmYjVkNGNlLWRmZmMtNDdkZi1hYTZkLTA1ZDM3MmZkYjQwNyJ9/fhir";
   const iss =
-    "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir";
+    "https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImIiOiIzMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpIjoiMSIsImoiOiIxIiwiZSI6ImVmYjVkNGNlLWRmZmMtNDdkZi1hYTZkLTA1ZDM3MmZkYjQwNyJ9/fhir";
+  // const iss = "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir";
   const scope =
     "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile";
   const settings: FhirProviderProps = {

@@ -7,11 +7,13 @@ export interface DateTimeProps {
   value?: Date | string;
   onChange?: (date?: Date) => void;
   error?: string;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 export const DateTime: React.FC<DateTimeProps> = (props) => {
   const [show, setShow] = React.useState(false);
-  const { mode, value, onChange, error } = props;
+  const { mode, value, onChange, error, minDate, maxDate } = props;
   const onLocalChange = (event: Event, date?: Date) => {
     setShow(false);
     if (onChange) {
@@ -39,8 +41,8 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
       {show && (
         <DateTimePicker
           value={dateValue}
-          minimumDate={new Date(1890, 1, 1)}
-          maximumDate={new Date()}
+          minimumDate={minDate}
+          maximumDate={maxDate}
           locale={"en"}
           timeZoneOffsetInMinutes={0}
           onChange={onLocalChange}

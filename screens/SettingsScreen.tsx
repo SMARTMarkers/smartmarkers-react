@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Text,
-  List,
-  ListItem,
-  Left,
-  Button,
-  Icon,
-  Body,
-  Right,
-  Switch,
-} from "native-base";
+import { Text, List, ListItem, Left, Button, Icon, Body, Right } from "native-base";
 import { useFhirContext } from "../smartmarkers-lib";
 
 const SettingsScreen: React.FC<any> = () => {

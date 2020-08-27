@@ -6,6 +6,8 @@ export interface DateTimeProps {
   value?: Date | string;
   onChange?: (date?: Date) => void;
   error?: string;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 const formatDate = (date: string | Date | null | undefined) => {
@@ -22,11 +24,9 @@ const formatDate = (date: string | Date | null | undefined) => {
 };
 
 export const DateTime: React.FC<DateTimeProps> = (props) => {
-  const { mode, value, onChange, error } = props;
+  const { mode, value, onChange, error, minDate, maxDate } = props;
   const onLocalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const date = event.target.valueAsDate
-      ? event.target.valueAsDate
-      : undefined;
+    const date = event.target.valueAsDate ? event.target.valueAsDate : undefined;
     if (onChange) {
       onChange(date);
     }
@@ -46,14 +46,14 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
           backgroundColor: "transparent",
           border: 0,
         }}
-        type={mode}
+        type={mode ? mode : "date"}
         autoComplete="none"
         autoCorrect="none"
         autoCapitalize="one"
         value={formatDate(value)}
         onChange={onLocalChange}
-        max={formatDate(new Date())}
-        min={"1880-01-01"}
+        max={maxDate ? formatDate(maxDate) : undefined}
+        min={minDate ? formatDate(minDate) : undefined}
       />
       {hasError && <Icon name="close-circle" />}
     </Item>

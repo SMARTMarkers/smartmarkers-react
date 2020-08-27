@@ -9,15 +9,11 @@ import {
   Reference,
 } from "../models";
 import { ReportFactory } from "../reports/ReportFactory";
-import { Server } from "../models/internal";
+import { Server, TaskSchedule } from "../models/internal";
 import { Questionnaire } from "./Questionnaire";
 
 export class PromisQuestionnaire extends Questionnaire {
-  constructor(
-    item: IQuestionnaire,
-    server: Server,
-    private promisServer?: Server
-  ) {
+  constructor(item: IQuestionnaire, server: Server, private promisServer?: Server) {
     super(item, server);
   }
 
@@ -32,37 +28,50 @@ export class PromisQuestionnaire extends Questionnaire {
     return true;
   }
 
-  public createServiceRequest() {
-    return {
+  public createServiceRequest(schedule: TaskSchedule, patientId: string) {
+    const serviceRequest = {
       resourceType: "ServiceRequest",
       modifierExtension: [
         {
-          url:
-            "http://hl7.org/fhir/StructureDefinition/servicerequest-questionnaireRequest",
+          url: "http://hl7.org/fhir/StructureDefinition/servicerequest-questionnaireRequest",
           valueReference: {
-            reference: `${this.resourceType}/${this.id}`,
+            reference: this.url,
+            display: this.getTitle(),
           },
         },
       ],
       status: RequestStatus.Active,
-      intent: RequestIntent.Directive,
+      intent: RequestIntent.Order,
       subject: {
-        reference: `Patient/${this.getServer().client.patient.id}`,
+        reference: `Patient/${patientId}`,
       },
       requester: {
-        reference: this.getServer().client.getFhirUser(),
+        reference: this.server.client.getFhirUser(),
       },
     } as Exclude<ServiceRequest, "id">;
+
+    if (schedule.occurrenceDateTime) {
+      serviceRequest.occurrenceDateTime = schedule.occurrenceDateTime;
+    } else if (schedule.occurrencePeriod) {
+      serviceRequest.occurrencePeriod = schedule.occurrencePeriod;
+    } else if (schedule.occurrenceTiming) {
+      serviceRequest.occurrenceTiming = schedule.occurrenceTiming;
+    }
+
+    return serviceRequest;
   }
 
   public getTitle() {
     if (this.title) {
-      return `PROMIS ${this.title}`;
+      return this.title;
     }
     if (this.name) {
-      return `PROMIS ${this.name}`;
+      return this.name;
     }
-    return `PROMIS ${this.id}`;
+    if (this.text && this.text.textContent) {
+      return this.text.textContent;
+    }
+    return this.id;
   }
 
   public getNote() {
@@ -74,10 +83,7 @@ export class PromisQuestionnaire extends Questionnaire {
       return this.reports;
     }
 
-    const response = await this.server.getQuestionnaireReports(
-      this.id,
-      serviceRequestId
-    );
+    const response = await this.server.getQuestionnaireReports(this.id, serviceRequestId);
 
     const reportFactory = new ReportFactory(this.server);
     this.reports = response.map((item) => reportFactory.createReport(item));
@@ -100,9 +106,7 @@ export class PromisQuestionnaire extends Questionnaire {
       id: "",
       meta: {
         id: qid,
-        profile: [
-          "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse-adapt",
-        ],
+        profile: ["http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse-adapt"],
       },
       contained: [
         {
@@ -110,9 +114,7 @@ export class PromisQuestionnaire extends Questionnaire {
           id: qid,
           meta: {
             ...this.meta,
-            profile: [
-              "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-adapt",
-            ],
+            profile: ["http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-adapt"],
           },
           url: this.url,
           title: this.title,
@@ -121,13 +123,9 @@ export class PromisQuestionnaire extends Questionnaire {
           subjectType: this.subjectType,
         } as Resource,
       ],
-      questionnaire:
-        "http://hl7.org/fhir/us/sdc/StructureDefinition/sdc-questionnaire-dynamic",
+      questionnaire: "http://hl7.org/fhir/us/sdc/StructureDefinition/sdc-questionnaire-dynamic",
       status: QuestionnaireResponseStatus.InProgress,
       subject: "TestPatient" as Reference,
-      // subject: {
-      //   reference: `Patient/${this.getServer().client.patient.id}`,
-      // },
       authored: new Date(),
     };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { Questionnaire } from "../instruments/Questionnaire";
-import { PromisQuestionnaire } from "../instruments/PromisQuestionnaire";
 import { QuestionnaireField } from "./fields";
 import { Form as NativeBaseForm, Button, Text } from "native-base";
 import { FieldsMap } from "../FieldsMap";
@@ -40,12 +39,8 @@ export const Form: React.FC<FormProps> = (props) => {
     ? props.mode
     : FormMode.Form;
   const isFormMode = formMode === FormMode.Form;
-  const [formData, setFormData] = React.useState<any>(
-    props.formData ? props.formData : {}
-  );
-  const [errorData, setErrorData] = React.useState<any>(
-    validate(formData, questionnaire)
-  );
+  const [formData, setFormData] = React.useState<any>(props.formData ? props.formData : {});
+  const [errorData, setErrorData] = React.useState<any>(validate(formData, questionnaire));
   const submitTitle = "Submit";
 
   const onChange = (formData: FormData, linkId: string) => {
@@ -77,8 +72,7 @@ export const Form: React.FC<FormProps> = (props) => {
     onSubmit(formData);
   };
 
-  const hasNoError =
-    Object.keys(errorData).length === 0 && errorData.constructor === Object;
+  const hasNoError = Object.keys(errorData).length === 0 && errorData.constructor === Object;
   return (
     <NativeBaseForm testID="nativeBaseForm">
       {isFormMode && (
@@ -94,11 +88,7 @@ export const Form: React.FC<FormProps> = (props) => {
         />
       )}
       {isFormMode && (
-        <Button
-          testID="submitButton"
-          onPress={onSubmitPress}
-          disabled={!hasNoError}
-        >
+        <Button testID="submitButton" onPress={onSubmitPress} disabled={!hasNoError}>
           <Text>{submitTitle}</Text>
         </Button>
       )}
