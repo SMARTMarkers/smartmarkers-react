@@ -1,63 +1,65 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    "name": "smartmarkers-lib",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build-ts": "tsc",
+        "build": "expo-module build",
+        "clean": "expo-module clean",
+        "test": "expo-module test",
+        "prepare": "expo-module prepare",
+        "prepublishOnly": "expo-module prepublishOnly",
+        "expo-module": "expo-module",
+        "format": "prettier --write ./src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/SMARTMarkers/smartmarkers-react.git"
+    },
+    "keywords": [
+        "FHIR"
     ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/smartmarkers-lib/**/*.{js,jsx,ts,tsx}",
-      "!**/smartmarkers-lib/models/**",
-      "!**/smartmarkers-lib/**/index.{js,ts}",
-      "!**/coverage/**",
-      "!**/node_modules/**",
-      "!**/babel.config.js",
-      "!**/jest.setup.js"
-    ]
-  },
-  "dependencies": {
-    "@expo/vector-icons": "Kaushald4/vector-icons#master",
-    "@react-native-community/datetimepicker": "2.2.2",
-    "expo": "~37.0.12",
-    "expo-font": "^8.1.1",
-    "expo-linking": "^1.0.1",
-    "fhirclient": "^2.3.1",
-    "native-base": "^2.13.12",
-    "react": "~16.9.0",
-    "react-dom": "~16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
-    "react-native-autocomplete-input": "^4.1.0",
-    "react-native-screens": "~2.2.0",
-    "react-native-url-polyfill": "^1.1.2",
-    "react-native-web": "~0.11.7",
-    "react-router-dom": "^5.1.2",
-    "react-router-native": "^5.1.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@types/jest": "^25.2.1",
-    "@types/react": "~16.9.23",
-    "@types/react-dom": "^16.9.6",
-    "@types/react-native": "~0.61.17",
-    "@types/react-native-autocomplete-input": "^4.0.1",
-    "@types/react-router-dom": "^5.1.4",
-    "@types/react-router-native": "^5.1.0",
-    "babel-preset-expo": "~8.1.0",
-    "eslint": "^6.8.0",
-    "jest-expo": "^37.0.0",
-    "prettier": "^2.0.4",
-    "react-native-testing-library": "^1.13.0",
-    "react-test-renderer": "~16.9.0",
-    "typescript": "~3.8.3"
-  },
-  "private": true
+    "author": "SMARTMarkers",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SMARTMarkers/smartmarkers-react/issues"
+    },
+    "homepage": "https://github.com/SMARTMarkers/smartmarkers-react#readme",
+    "devDependencies": {
+        "@babel/core": "^7.11.5",
+        "@types/jest": "^26.0.13",
+        "@types/react": "^16.9.49",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-native": "^0.63.13",
+        "@types/react-native-autocomplete-input": "^4.0.1",
+        "babel-preset-expo": "^8.2.3",
+        "expo-module-scripts": "^1.2.0",
+        "husky": "^4.2.5",
+        "jest-expo": "^38.0.2",
+        "prettier": "^2.1.1",
+        "pretty-quick": "^3.0.0",
+        "react-native-testing-library": "^6.0.0",
+        "react-test-renderer": "^16.13.1",
+        "typescript": "~3.9.5"
+    },
+    "dependencies": {
+        "@react-native-community/datetimepicker": "^3.0.1",
+        "fhirclient": "^2.3.1",
+        "native-base": "2.13.12",
+        "react-native-autocomplete-input": "^4.2.0"
+    },
+    "peerDependencies": {
+        "@unimodules/core": "*",
+        "react": "*",
+        "react-dom": "*",
+        "react-native": "*",
+        "react-native-web": "*"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    }
 }
