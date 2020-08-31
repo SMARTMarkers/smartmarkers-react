@@ -6,6 +6,7 @@ import { QuestionnaireItem } from "../../models";
 import { setFormValue, getLabel, getFormValue, extractChoices } from "./utils";
 import { DropDown, ButtonGroup } from "../inputs";
 import { Autocomplete } from "../inputs/Autocomplete";
+import { QuestionsLayout } from "../Form";
 
 const DROP_DOWN_CODE = "drop-down";
 const AUTOCOMPLETE_CODE = "autocomplete";
@@ -64,7 +65,8 @@ const renderChoice = (
   type: ChoiceType,
   item: QuestionnaireItem,
   onChange: (value: any) => void,
-  value: any
+  value: any,
+  questionsLayout?: QuestionsLayout
 ) => {
   if (type === ChoiceType.Autocomplete) {
     return renderAutocomplete(item, onChange, value);
@@ -76,13 +78,13 @@ const renderChoice = (
     return <DropDown items={choices} onChange={onChange} value={value} />;
   }
 
-  return <ButtonGroup items={choices} onChange={onChange} value={value} />;
+  return <ButtonGroup questionsLayout={questionsLayout} items={choices} onChange={onChange} value={value} />;
 };
 
-export interface ChoiceFieldProps extends BaseFieldProps {}
+export interface ChoiceFieldProps extends BaseFieldProps { }
 
 export const ChoiceField: React.FC<ChoiceFieldProps> = (props) => {
-  const { item, id, ...propsToPass } = props;
+  const { item, id, questionsLayout, ...propsToPass } = props;
   const choiceType = calculateChoiceType(item);
   const onChange = (value: any) => {
     const newFormData = setFormValue(props.formData, item.linkId, value);
@@ -94,7 +96,7 @@ export const ChoiceField: React.FC<ChoiceFieldProps> = (props) => {
   return (
     <View>
       <Text>{getLabel(item)}</Text>
-      {renderChoice(choiceType, item, onChange, value)}
+      {renderChoice(choiceType, item, onChange, value, questionsLayout)}
       <QuestionnaireItemFields items={item.item} {...propsToPass} />
     </View>
   );
