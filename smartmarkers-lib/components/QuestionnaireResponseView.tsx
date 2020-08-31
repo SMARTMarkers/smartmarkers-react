@@ -35,8 +35,10 @@ const QuestionnaireResponseView: React.FC<QuestionnaireResponseViewProps> = ({
     else if (answer.valueString) answerValue = answer.valueString
     else if (answer.valueUri) answerValue = answer.valueUri
     else if (answer.valueQuantity)
-      answerValue = `${answer.valueQuantity.comparator} ${answer.valueQuantity.value} ${answer.valueQuantity.unit}`;
-    else if (answer.valueCoding) answerValue = answer.valueCoding.display;
+      answerValue = `${answer.valueQuantity.comparator} ${answer.valueQuantity.value} ${answer.valueQuantity.unit}`
+    else if (answer.valueCoding) answerValue = answer.valueCoding.display
+    else if (answer.valueAttachment) answerValue = answer.valueAttachment.url
+    else if (answer.valueReference) answerValue = answer.valueReference.display;
 
     if (question && answerValue) listOfElements.push({
       question,
