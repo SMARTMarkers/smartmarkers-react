@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from '../react-router'
 import { View, Text, Spinner, ListItem, Body, List, Right, Icon } from 'native-base'
-import { useFhirContext, Report, QuestionnaireResponse, QuestionnaireResponseView } from 'smartmarkers-lib'
+import { useFhirContext, Report, QuestionnaireResponse, QuestionnaireResponseView } from 'smartmarkers'
 import { useHistory } from 'react-router-dom'
 
 interface RouteParams {

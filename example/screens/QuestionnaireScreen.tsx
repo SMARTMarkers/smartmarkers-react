@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Spinner } from 'native-base'
 import { useParams, useHistory } from '../react-router'
-import { useFhirContext, SessionWizard, Task } from 'smartmarkers-lib'
+import { useFhirContext, SessionWizard, Task } from 'smartmarkers'
 
 interface RouteParams {
     rid: string

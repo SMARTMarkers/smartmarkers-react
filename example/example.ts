@@ -7,7 +7,7 @@ import RealWorld from './data/real-world.json'
 import SurgeonGeneral from './data/surgeon_general.json'
 import UssgFht from './data/ussg-fht.json'
 import ZikaVirusExposureAssessment from './data/zika-virus-exposure-assessment.json'
-import { Questionnaire } from 'smartmarkers-lib'
+import { Questionnaire } from 'smartmarkers'
 
 export enum ExampleType {
     General = 'general',

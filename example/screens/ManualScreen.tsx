@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from '../react-router'
-import { useFhirContext, User, SessionWizard, Task, Server, InstrumentFactory } from 'smartmarkers-lib'
+import { useFhirContext, User, SessionWizard, Task, Server, InstrumentFactory } from 'smartmarkers'
 import { ExampleMap, ExampleType } from '../example'
 
 const ManualScreen: React.FC<any> = props => {

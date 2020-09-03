@@ -1,4 +1,4 @@
 {
-    "name": "smartmarkers-lib",
+    "name": "smartmarkers",
     "platforms": ["ios", "android", "web"]
 }

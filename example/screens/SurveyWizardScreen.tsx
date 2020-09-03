@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from '../react-router'
 import { ExampleType, ExampleMap } from '../example'
-import { Form, FormMode, FormData, IQuestionnaireResponse } from 'smartmarkers-lib'
+import { Form, FormMode, FormData, IQuestionnaireResponse } from 'smartmarkers'
 import { View } from 'native-base'
 
 interface RouteParams {

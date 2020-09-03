@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from '../react-router'
 import { List, ListItem, Text, Body, Spinner } from 'native-base'
-import { useFhirContext, TaskScheduleForm , TaskSchedule, Instrument, InstrumentType } from 'smartmarkers-lib'
+import { useFhirContext, TaskScheduleForm , TaskSchedule, Instrument, InstrumentType } from 'smartmarkers'
 
 interface RouteParams {
     instrumentId: string

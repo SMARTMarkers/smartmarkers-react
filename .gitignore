@@ -11,7 +11,9 @@ web-build/
 web-report/
 .dist
 dist
-
+.expo
+.idea
+.vscode
 # macOS
 .DS_Store
 

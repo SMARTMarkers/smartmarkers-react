@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from '../react-router'
 import { List, ListItem, Text } from 'native-base'
-import { IPatient, PatientList } from 'smartmarkers-lib'
+import { IPatient, PatientList } from 'smartmarkers'
 
 
 interface RouteParams {

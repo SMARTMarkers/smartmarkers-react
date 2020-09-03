@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from '../react-router'
 import { List, ListItem, Text, Body } from 'native-base'
-import { useFhirContext, RequestList, Task, TaskScheduleStatus } from 'smartmarkers-lib'
+import { useFhirContext, RequestList, Task, TaskScheduleStatus } from 'smartmarkers'
 
 const DashboardScreen: React.FC<any> = () => {
     const { user } = useFhirContext()

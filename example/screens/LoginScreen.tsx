@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Button, Form } from 'native-base'
-import { useFhirContext } from 'smartmarkers-lib'
+import { useFhirContext } from 'smartmarkers'
 import { Redirect } from 'react-router-dom'
 
 const LoginScreen: React.FC<any> = () => {
