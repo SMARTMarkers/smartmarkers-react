@@ -14,7 +14,7 @@ import {
     Body,
 } from 'native-base'
 import { FooterRoutes } from '../../navigation/FooterRoutes'
-import { useFhirContext } from 'smartmarkers-lib'
+import { useFhirContext } from 'smartmarkers'
 
 interface MainProps {
     children: React.ReactNode

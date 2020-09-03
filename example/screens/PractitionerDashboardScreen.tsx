@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from '../react-router'
 import { List, ListItem, Text, Body } from 'native-base'
-import { useFhirContext, InstrumentList, InstrumentType, Instrument } from 'smartmarkers-lib'
+import { useFhirContext, InstrumentList, InstrumentType, Instrument } from 'smartmarkers'
 
 const PractitionerDashboardScreen: React.FC<any> = () => {
     const { user } = useFhirContext()

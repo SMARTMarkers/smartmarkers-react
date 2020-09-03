@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, List, ListItem, Left, Button, Icon, Body, Right } from 'native-base'
-import { useFhirContext } from 'smartmarkers-lib'
+import { useFhirContext } from 'smartmarkers'
 
 const SettingsScreen: React.FC<any> = () => {
     const { user, logout } = useFhirContext()

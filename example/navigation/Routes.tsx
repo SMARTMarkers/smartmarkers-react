@@ -20,7 +20,7 @@ import {
     ChoosePatientScreen,
     CreateServiceRequestScreen,
 } from '../screens'
-import { useFhirContext, LoginCallback } from 'smartmarkers-lib'
+import { useFhirContext, LoginCallback } from 'smartmarkers'
 import ManualScreen from '../screens/ManualScreen'
 
 const Routes: React.FC = () => {
