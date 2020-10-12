@@ -1,38 +1,42 @@
-import React from 'react'
-import { IQuestionnaire, QuestionnaireItemType } from '../../models'
-import { QuestionnaireItemFields } from './QuestionnaireItemFields'
-import { View, Content, Text } from 'native-base'
-import { EnumDictionary, QuestionsLayout } from '../Form'
-import { BaseFieldProps } from './BaseFieldProps'
+import React from "react";
+import { IQuestionnaire, QuestionnaireItemType } from "../../models";
+import { QuestionnaireItemFields } from "./QuestionnaireItemFields";
+import { View, Content, Text } from "native-base";
+import { EnumDictionary } from "../Form";
+import { BaseFieldProps } from "./BaseFieldProps";
+import { QuestionsLayout } from "../QuestionsLayout";
 
 export interface QuestionnaireFieldProps {
-    id?: string
-    testID?: string
-    questionnaire: IQuestionnaire
-    fieldsMap: EnumDictionary<QuestionnaireItemType, React.FC<BaseFieldProps>>
-    formData?: any
-    errorData?: any
-    onChange?: (formData: any, linkId: string) => void
-    onSubmit?: Function
-    onFocus?: Function
-    onBlur?: Function
-    questionsLayout?: QuestionsLayout
+  id?: string;
+  testID?: string;
+  questionnaire: IQuestionnaire;
+  fieldsMap: EnumDictionary<QuestionnaireItemType, React.FC<BaseFieldProps>>;
+  formData?: any;
+  errorData?: any;
+  onChange?: (formData: any, linkId: string) => void;
+  onSubmit?: Function;
+  onFocus?: Function;
+  onBlur?: Function;
+  questionsLayout?: QuestionsLayout;
+  quitWithErrorMessage: (error: string) => void;
 }
 
-export const QuestionnaireField: React.FC<QuestionnaireFieldProps> = props => {
-    const { questionnaire } = props
-    const { id, testID, ...propsToPass } = props
+export const QuestionnaireField: React.FC<QuestionnaireFieldProps> = (
+  props
+) => {
+  const { questionnaire } = props;
+  const { id, testID, ...propsToPass } = props;
 
-    return (
-        <Content testID={testID}>
-            {questionnaire.item && (
-                <QuestionnaireItemFields
-                    id={props.id}
-                    items={questionnaire.item}
-                    {...propsToPass}
-                />
-            )}
-            {!questionnaire.item && <Text>No items to render</Text>}
-        </Content>
-    )
-}
+  return (
+    <Content testID={testID}>
+      {questionnaire.item && (
+        <QuestionnaireItemFields
+          id={props.id}
+          items={questionnaire.item}
+          {...propsToPass}
+        />
+      )}
+      {!questionnaire.item && <Text>No items to render</Text>}
+    </Content>
+  );
+};

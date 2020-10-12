@@ -1,5 +1,5 @@
-import React from "react";
-import { Item, Text, Button, Left, Right, Icon } from "native-base";
+import React, { useEffect, useState } from "react";
+import { Item, Text, Button, Left, Right, Icon, View } from "native-base";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 
 export interface DateTimeProps {
@@ -15,10 +15,19 @@ export interface DateTimeProps {
 export const DateTime: React.FC<DateTimeProps> = (props) => {
   const [show, setShow] = React.useState(false);
   const { mode, value, onChange, error, minDate, maxDate, buttonColor } = props;
-  const onLocalChange = (event: Event, date?: Date) => {
+
+  const [date, setDate] = useState(value);
+  useEffect(() => {
+    setDate(value);
+  }, [value]);
+
+  const onLocalChange = (event, newDate) => {
+    setDate(newDate);
+  };
+  const onApply = () => {
     setShow(false);
     if (onChange) {
-      onChange(date);
+      onChange(date as Date);
     }
   };
 
@@ -28,6 +37,36 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
 
   const dateValue = value ? new Date(value) : new Date();
   const hasError = !!error;
+
+  if (show)
+    return (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        <View style={{ width: 270 }}>
+          <DateTimePicker
+            value={date as Date}
+            minimumDate={minDate}
+            maximumDate={maxDate}
+            locale={"en"}
+            timeZoneOffsetInMinutes={0}
+            onChange={onLocalChange}
+            mode={mode ? mode : "date"}
+          />
+        </View>
+        <Button
+          style={buttonColor ? { backgroundColor: buttonColor } : {}}
+          onPress={onApply}
+        >
+          <Text>Apply</Text>
+        </Button>
+      </View>
+    );
   return (
     <Item regular error={hasError}>
       <Left>
@@ -44,17 +83,6 @@ export const DateTime: React.FC<DateTimeProps> = (props) => {
           <Text>Select</Text>
         </Button>
       </Right>
-      {show && (
-        <DateTimePicker
-          value={dateValue}
-          minimumDate={minDate}
-          maximumDate={maxDate}
-          locale={"en"}
-          timeZoneOffsetInMinutes={0}
-          onChange={onLocalChange}
-          mode={mode ? mode : "date"}
-        />
-      )}
     </Item>
   );
 };
