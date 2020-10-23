@@ -32,6 +32,7 @@ export interface WizardFormProps {
   onBlur?: Function;
   questionsLayout?: QuestionsLayout;
   quitWithErrorMessage: (error: string) => void;
+  onCancel?: () => void;
 }
 
 export type EnumDictionary<T extends string | symbol | number, U> = {
@@ -39,7 +40,7 @@ export type EnumDictionary<T extends string | symbol | number, U> = {
 };
 
 export const WizardForm: React.FC<WizardFormProps> = (props) => {
-  const { questionnaire, mode, quitWithErrorMessage } = props;
+  const { questionnaire, mode, quitWithErrorMessage, onCancel } = props;
   const isAdaptive = mode == FormMode.Adaptive;
   const [formData, setFormData] = React.useState<any>(
     props.formData ? props.formData : {}
@@ -167,9 +168,16 @@ export const WizardForm: React.FC<WizardFormProps> = (props) => {
           <Text>{submitTitle}</Text>
         </Button>
       ) : (
-        <Button onPress={onNext}>
-          <Text>{nextTitle}</Text>
-        </Button>
+        <>
+          <Button onPress={onNext}>
+            <Text>{nextTitle}</Text>
+          </Button>
+          {!!onCancel && (
+            <Button style={{ backgroundColor: "#f22e3b" }} onPress={onCancel}>
+              <Text>Cancel</Text>
+            </Button>
+          )}
+        </>
       )}
     </NativeBaseForm>
   );

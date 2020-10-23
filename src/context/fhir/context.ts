@@ -17,7 +17,11 @@ export interface FhirContextProps {
   proimisServer: Server | null;
   login: () => Promise<void>;
   logout: () => Promise<void>;
-  loginCallback: (tokenResponse: any, serverUrl: string) => Promise<void>;
+  loginCallback: (
+    tokenResponse: any,
+    serverUrl: string,
+    tokenUri: string
+  ) => Promise<void>;
 }
 
 export const FhirContext = React.createContext<FhirContextProps>({
@@ -28,8 +32,11 @@ export const FhirContext = React.createContext<FhirContextProps>({
   proimisServer: null,
   login: async () => new Promise<void>((resole) => {}),
   logout: async () => new Promise<void>((resole) => {}),
-  loginCallback: async (tokenResponse: any, serverUrl: string) =>
-    new Promise<void>((resole) => {}),
+  loginCallback: async (
+    tokenResponse: any,
+    serverUrl: string,
+    tokenUri: string
+  ) => new Promise<void>((resole) => {}),
 });
 
 export const useFhirContext = () =>

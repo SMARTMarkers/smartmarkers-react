@@ -20,8 +20,8 @@ import {
   IPatient,
 } from "..";
 import { User } from "../../context";
-import { Task } from "./Task";
-import { TaskSchedule } from "./TaskSchedule";
+import { Task } from "../../task/Task";
+import { TaskSchedule } from "../../task/TaskSchedule";
 
 export class Server {
   public client: Client;

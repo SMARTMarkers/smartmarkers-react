@@ -9,7 +9,8 @@ import {
   IReference,
 } from "../models";
 import { ReportFactory } from "../reports/ReportFactory";
-import { Server, TaskSchedule } from "../models/internal";
+import { Server } from "../models/internal";
+import { TaskSchedule } from "../task";
 import { Questionnaire } from "./Questionnaire";
 
 export class PromisQuestionnaire extends Questionnaire {

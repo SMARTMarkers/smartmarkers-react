@@ -1,6 +1,6 @@
 import { IServiceRequest, ResourceType } from "../models";
 import { Report } from "../reports";
-import { TaskSchedule } from "../models/internal";
+import { TaskSchedule } from "../task";
 
 export enum InstrumentType {
   ValueSet,

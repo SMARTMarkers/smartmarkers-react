@@ -57,7 +57,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps<any>> = (props) => {
             if (item.value && value && item.value.display === value.display) {
               active = item.value.display === value.display;
             } else {
-              item.value == value;
+              active = item.value == value;
             }
           }
           return (

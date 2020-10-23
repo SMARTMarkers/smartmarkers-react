@@ -42,6 +42,7 @@ export class ServiceRequest implements IServiceRequest {
   intent: RequestIntent;
   subject: IReference;
   requester?: IReference;
+  requestingPractitioner?: string | undefined;  
   instantiatesCanonical?: string[] | undefined;
   instantiatesUri?: string[] | undefined;
   basedOn?: IReference[] | undefined;
@@ -98,7 +99,36 @@ export class ServiceRequest implements IServiceRequest {
     if (this.category && this.category[0] && this.category[0].text)
       return this.category[0].text;
 
-    return `REQ ${this.id}`;
+    if (
+      this.modifierExtension &&
+      this.modifierExtension.length > 0 &&
+      this.modifierExtension[0] &&
+      this.modifierExtension[0].valueReference &&
+      this.modifierExtension[0].valueReference.reference
+    ) {
+      return this.modifierExtension[0].valueReference.display;
+    }
+
+    return `RequestID ${this.id}`;
+  }
+
+  // TODO-RS:
+  // Need to resolve the practitioner and get Name which is referenced in this service request
+  public getRequester() {
+    if (this.requestingPractitioner)
+      return this.requestingPractitioner;
+
+    if (this.requester) {
+      if (this.requester.display) {
+        this.requestingPractitioner = this.requester.display;
+      } else {
+        this.requestingPractitioner = "Dr. Toney Fahey, MD"
+      }
+    } else {
+      this.requestingPractitioner = "Dr. Toney Fahey, MD"
+    }
+    // Resolve the Practitioner using this.server and get return his/her name
+    return this.requestingPractitioner;
   }
 
   public getNote() {
@@ -158,8 +188,8 @@ export class ServiceRequest implements IServiceRequest {
           .startsWith("https://mss.fsm.northwestern.edu") && this.promisServer
           ? await this.promisServer.getPromisResource<IQuestionnaire>(reference)
           : await this.server.getInstrumentByReference<IQuestionnaire>(
-              reference
-            );
+            reference
+          );
 
       if (response && response.resourceType) {
         const instrumentFactory = new InstrumentFactory(

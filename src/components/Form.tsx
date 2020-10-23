@@ -28,6 +28,7 @@ export interface FormProps {
   onBlur?: Function;
   questionsLayout?: QuestionsLayout;
   quitWithErrorMessage: (error: string) => void;
+  onCancel?: () => void;
 }
 
 export type EnumDictionary<T extends string | symbol | number, U> = {
@@ -35,7 +36,7 @@ export type EnumDictionary<T extends string | symbol | number, U> = {
 };
 
 export const Form: React.FC<FormProps> = (props) => {
-  const { questionnaire, quitWithErrorMessage } = props;
+  const { questionnaire, quitWithErrorMessage, onCancel } = props;
   const formMode = questionnaire.isAdaptive()
     ? FormMode.Adaptive
     : props.mode
@@ -115,6 +116,7 @@ export const Form: React.FC<FormProps> = (props) => {
           onFocus={props.onFocus}
           onSubmit={props.onSubmit}
           quitWithErrorMessage={quitWithErrorMessage}
+          onCancel={onCancel}
         />
       )}
     </NativeBaseForm>

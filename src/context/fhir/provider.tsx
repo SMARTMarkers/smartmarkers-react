@@ -35,6 +35,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
   const IS_AUTHENTICATED = "isAuthenticated";
   const TOKEN_RESPONSE = "tokenResponse";
   const SERVET_URL = "serverUrl";
+  const TOKEN_URI = "tokenUri";
   const store = new ExpoStorage();
   const defaultScope =
     "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile";
@@ -62,11 +63,13 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
       const value = await store.get<boolean>(IS_AUTHENTICATED);
       const tokenResponseJSON: string | null = await store.get(TOKEN_RESPONSE);
       const serverUrl: string | null = await store.get(SERVET_URL);
+      const tokenUri: string | null = await store.get(TOKEN_URI);
       if (value && tokenResponseJSON && serverUrl) {
         new Promise((resolve, reject) => {
           const client: Client = FHIR.client({
             serverUrl,
             tokenResponse: JSON.parse(tokenResponseJSON),
+            tokenUri: tokenUri || undefined,
           });
           setFhirClient(client);
           setServer(new Server(client, fhirPromisClient));
@@ -138,11 +141,16 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
     });
   };
 
-  const loginCallback = async (tokenResponse: any, serverUrl: string) => {
+  const loginCallback = async (
+    tokenResponse: any,
+    serverUrl: string,
+    tokenUri: string
+  ) => {
     await new Promise((resolve, reject) => {
       const client: Client = FHIR.client({
         serverUrl,
         tokenResponse,
+        tokenUri,
       });
       setFhirClient(client);
       setServer(new Server(client, fhirPromisClient));
@@ -152,6 +160,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
         await store.set(IS_AUTHENTICATED, true);
         await store.set(TOKEN_RESPONSE, JSON.stringify(tokenResponse));
         await store.set(SERVET_URL, serverUrl);
+        await store.set(TOKEN_URI, tokenUri);
         return (client as Client).user.read();
       })
       .then((user) => {

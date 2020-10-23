@@ -24,6 +24,7 @@ export class QuestionnaireResponse implements IQuestionnaireResponse, Report {
     subject?: IReference | undefined
     encounter?: IReference | undefined
     authored?: Date | undefined
+    authoredDate?: Date | undefined
     author?: IReference | undefined
     source?: IReference | undefined
     item?: IQuestionnaireResponseItem[] | undefined
@@ -38,6 +39,7 @@ export class QuestionnaireResponse implements IQuestionnaireResponse, Report {
     constructor(item: IQuestionnaireResponse, public server: Server) {
         this.id = item.id
         this.status = item.status
+        this.authoredDate = item.authored
         Object.assign(this, item)
     }
     public getSummary() {
