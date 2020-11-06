@@ -13,6 +13,7 @@ export interface Report {
     subject?: IReference
     basedOn?: IReference[]
     id: string
+    authoredDate?: Date | undefined
     getTitle: () => string
     getNote: () => string
     getSummary: () => string
