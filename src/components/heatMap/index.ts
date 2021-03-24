@@ -1,4 +1,3 @@
-export * from './ChartScreen'
-export * from './HeatMap'
-export * from './choicetype'
-export * from './dynamicSize'
+export * as ChartScreen from './ChartScreen'
+export * as LoadResource from './choicetype'
+export * as DynamicSize from './dynamicSize'
