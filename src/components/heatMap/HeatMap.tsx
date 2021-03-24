@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
 import { ScrollView, View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
 import { Row, Col, Badge } from 'native-base'
 import { useWindowSize } from './dynamicSize'
@@ -120,7 +120,7 @@ const HeatMap: React.FC<HeatMapprops> = ({
     }
 
     const generateBlocks = (atualBlock: number) => {
-        const blocks = []
+        const blocks: any = []
         for (let j = 0; j < numberOfLines; j++) {
             blocks.push(
                 <HeatMapBlock
@@ -162,7 +162,7 @@ const HeatMap: React.FC<HeatMapprops> = ({
     const generateColumns = () => {
         const actualColumns = section.answer?.length / numberOfLines
         const numberOfColumns = 5
-        const columns = []
+        const columns: any = []
         let atualBlock = 0
         for (let i = 0; i < numberOfColumns; i++) {
             columns.push(

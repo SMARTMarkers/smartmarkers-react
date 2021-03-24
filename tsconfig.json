@@ -2,7 +2,8 @@
     "extends": "expo-module-scripts/tsconfig.base",
     "compilerOptions": {
         "jsx": "react",
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "noImplicitReturns": false
     },
     "include": ["./src"],
     "exclude": ["example", "node_modules", "dist", "**/__mocks__/*", "**/__tests__/*"]

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
 import { Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, View } from 'react-native'
 import HeatMap from './HeatMap'
 import { Col, Grid, Row } from 'native-base'
@@ -34,8 +34,8 @@ const ChartScreen: React.FC<ChartScreenProps> = ({
     xAxisOptions,
     numberRange,
 }) => {
-    const [activeSections, setActiveSections] = useState([])
-    const [colorsPercentage, setColorsPercentage] = useState<number[]>([])
+    const [activeSections, setActiveSections] = React.useState([])
+    const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
 
     const dynamicSize = useWindowSize()
 
@@ -43,7 +43,7 @@ const ChartScreen: React.FC<ChartScreenProps> = ({
         console.log('abcd', value)
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         getColorPercentage()
     }, [])
 
