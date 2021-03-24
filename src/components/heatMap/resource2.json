@@ -1,0 +1,1130 @@
+[
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055063",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T08:21:30.456-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055061",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T07:59:12.552-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?"
+            }
+        ]
+    },
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055061",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T07:59:12.552-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?"
+            }
+        ]
+    },
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055063",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T08:21:30.456-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055061",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T07:59:12.552-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?"
+            }
+        ]
+    },
+    {
+        "server": {
+            "client": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/fhir",
+                    "tokenResponse": {
+                        "need_patient_banner": true,
+                        "smart_style_url": "https://launch.smarthealthit.org/smart-style.json",
+                        "patient": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                        "encounter": "8be25597-c240-44ad-899e-77e290e3407c",
+                        "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7Im5lZWRfcGF0aWVudF9iYW5uZXIiOnRydWUsInNtYXJ0X3N0eWxlX3VybCI6Imh0dHBzOi8vbGF1bmNoLnNtYXJ0aGVhbHRoaXQub3JnL3NtYXJ0LXN0eWxlLmpzb24iLCJwYXRpZW50IjoiMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiZW5jb3VudGVyIjoiOGJlMjU1OTctYzI0MC00NGFkLTg5OWUtNzdlMjkwZTM0MDdjIn0sImNsaWVudF9pZCI6Im15X3dlYl9hcHAiLCJzY29wZSI6Im9wZW5pZCBmaGlyVXNlciBvZmZsaW5lX2FjY2VzcyB1c2VyLyouKiBwYXRpZW50LyouKiBsYXVuY2gvZW5jb3VudGVyIGxhdW5jaC9wYXRpZW50IHByb2ZpbGUiLCJ1c2VyIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJpYXQiOjE2MTQ2ODkwNjEsImV4cCI6MTY0NzM0ODA3M30.2xukVFobnCjpdSjJ9oUNPQaULxj5jz4mBG_C1BW9ksk",
+                        "token_type": "bearer",
+                        "scope": "openid fhirUser offline_access user/*.* patient/*.* launch/encounter launch/patient profile",
+                        "client_id": "my_web_app",
+                        "expires_in": 3600,
+                        "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJwcm9maWxlIjoiUGF0aWVudC8zMjZiNDY3NS0wYmM4LTRkYmQtYjQwNi1hNTU2NGMyODI0MDEiLCJmaGlyVXNlciI6IlBhdGllbnQvMzI2YjQ2NzUtMGJjOC00ZGJkLWI0MDYtYTU1NjRjMjgyNDAxIiwiYXVkIjoibXlfd2ViX2FwcCIsInN1YiI6IjRkMTVjNmRlMDliYzFlYWEyYjUxMDU2YjZkNTg2YWE5NTNlZGMyOWU4YTZlOGZjZjJjMjgzZjU1NGM1OTkzYWMiLCJpc3MiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.DSnPawEDD2jjXGjeIpgctuY4mYJiDpAylZVKVJjDurWT0LdrfHIv0o6UUIDi8z6fDRUZXwRcZ37PRhmqflvYglPji8-yzkimAmMbPYN7AaAuaVOZzvJzvJSDhezo28ww58pXF3Pa5zUAxYP-2y8aW4sd2J1ejHCFFTFxHBECRcGSHACbjYNSiPW08ogc1w46709b0p8Fy_FDjIQP72G6HxtSebOOrtvw7czi28k0lyX8ZL5VYvL1vzODXJjr31snQbuNPNI8_8AHYCe4SlTJJyljej_nJfyCHSXG--OTAwuMuY949bdlEKXbVuNr3bJ8O8JZJk95X1ndvKbqmi45Hg",
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuZWVkX3BhdGllbnRfYmFubmVyIjp0cnVlLCJzbWFydF9zdHlsZV91cmwiOiJodHRwczovL2xhdW5jaC5zbWFydGhlYWx0aGl0Lm9yZy9zbWFydC1zdHlsZS5qc29uIiwicGF0aWVudCI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSIsImVuY291bnRlciI6IjhiZTI1NTk3LWMyNDAtNDRhZC04OTllLTc3ZTI5MGUzNDA3YyIsInJlZnJlc2hfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKamIyNTBaWGgwSWpwN0ltNWxaV1JmY0dGMGFXVnVkRjlpWVc1dVpYSWlPblJ5ZFdVc0luTnRZWEowWDNOMGVXeGxYM1Z5YkNJNkltaDBkSEJ6T2k4dmJHRjFibU5vTG5OdFlYSjBhR1ZoYkhSb2FYUXViM0puTDNOdFlYSjBMWE4wZVd4bExtcHpiMjRpTENKd1lYUnBaVzUwSWpvaU16STJZalEyTnpVdE1HSmpPQzAwWkdKa0xXSTBNRFl0WVRVMU5qUmpNamd5TkRBeElpd2laVzVqYjNWdWRHVnlJam9pT0dKbE1qVTFPVGN0WXpJME1DMDBOR0ZrTFRnNU9XVXROemRsTWprd1pUTTBNRGRqSW4wc0ltTnNhV1Z1ZEY5cFpDSTZJbTE1WDNkbFlsOWhjSEFpTENKelkyOXdaU0k2SW05d1pXNXBaQ0JtYUdseVZYTmxjaUJ2Wm1ac2FXNWxYMkZqWTJWemN5QjFjMlZ5THlvdUtpQndZWFJwWlc1MEx5b3VLaUJzWVhWdVkyZ3ZaVzVqYjNWdWRHVnlJR3hoZFc1amFDOXdZWFJwWlc1MElIQnliMlpwYkdVaUxDSjFjMlZ5SWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSnBZWFFpT2pFMk1UUTJPRGt3TmpFc0ltVjRjQ0k2TVRZME56TTBPREEzTTMwLjJ4dWtWRm9ibkNqcGRTako5b1VOUFFhVUx4ajVqejRtQkdfQzFCVzlrc2siLCJ0b2tlbl90eXBlIjoiYmVhcmVyIiwic2NvcGUiOiJvcGVuaWQgZmhpclVzZXIgb2ZmbGluZV9hY2Nlc3MgdXNlci8qLiogcGF0aWVudC8qLiogbGF1bmNoL2VuY291bnRlciBsYXVuY2gvcGF0aWVudCBwcm9maWxlIiwiZXhwaXJlc19pbiI6MzYwMCwiaWRfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpTVXpJMU5pSjkuZXlKd2NtOW1hV3hsSWpvaVVHRjBhV1Z1ZEM4ek1qWmlORFkzTlMwd1ltTTRMVFJrWW1RdFlqUXdOaTFoTlRVMk5HTXlPREkwTURFaUxDSm1hR2x5VlhObGNpSTZJbEJoZEdsbGJuUXZNekkyWWpRMk56VXRNR0pqT0MwMFpHSmtMV0kwTURZdFlUVTFOalJqTWpneU5EQXhJaXdpWVhWa0lqb2liWGxmZDJWaVgyRndjQ0lzSW5OMVlpSTZJalJrTVRWak5tUmxNRGxpWXpGbFlXRXlZalV4TURVMllqWmtOVGcyWVdFNU5UTmxaR015T1dVNFlUWmxPR1pqWmpKak1qZ3paalUxTkdNMU9Ua3pZV01pTENKcGMzTWlPaUpvZEhSd2N6b3ZMMnhoZFc1amFDNXpiV0Z5ZEdobFlXeDBhR2wwTG05eVp5SXNJbWxoZENJNk1UWXhOVGd4TWpBM015d2laWGh3SWpveE5qRTFPREUxTmpjemZRLkRTblBhd0VERDJqalhHamVJcGdjdHVZNG1ZSmlEcEF5bFpWS1ZKakR1cldUMExkcmZISXYwbzZVVUlEaTh6NmZEUlVaWHdSY1ozN1BSaG1xZmx2WWdsUGppOC15emtpbUFtTWJQWU43QWFBdWFWT1p6dkp6dkpTRGhlem8yOHd3NThwWEYzUGE1elVBeFlQLTJ5OGFXNHNkMkoxZWpIQ0ZGVEZ4SEJFQ1JjR1NIQUNiallOU2lQVzA4b2djMXc0NjcwOWIwcDhGeV9GRGpJUVA3Mkc2SHh0U2ViT09ydHZ3N2N6aTI4azBseVg4Wkw1Vll2TDF2ek9EWEpqcjMxc25RYnVOUE5JOF84QUhZQ2U0U2xUSkp5bGplal9uSmZ5Q0hTWEctLU9UQXd1TXVZOTQ5YmRsRUtYYlZ1TnIzYko4TzhKWkprOTVYMW5kdkticW1pNDVIZyIsImlhdCI6MTYxNTgxMjA3MywiZXhwIjoxNjE1ODE1NjczfQ.PHD08T75n9e-fxCa0VuAzrU600JL7iBDSefprvy3Psg"
+                    },
+                    "tokenUri": "https://launch.smarthealthit.org/v/r4/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjMyNmI0Njc1LTBiYzgtNGRiZC1iNDA2LWE1NTY0YzI4MjQwMSJ9/auth/token"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401"
+                },
+                "encounter": {
+                    "id": "8be25597-c240-44ad-899e-77e290e3407c"
+                },
+                "user": {
+                    "fhirUser": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "id": "326b4675-0bc8-4dbd-b406-a5564c282401",
+                    "resourceType": "Patient"
+                }
+            },
+            "promisClient": {
+                "units": {},
+                "state": {
+                    "serverUrl": "https://www.assessmentcenter.net/ac_api/2018-10/",
+                    "password": "489C3013-EB5D-4ADF-87F9-F9A9C726D703",
+                    "username": "528E055F-F2E3-4489-88F2-48559CA58A0F"
+                },
+                "environment": {
+                    "_url": null,
+                    "_storage": null,
+                    "options": {
+                        "replaceBrowserHistory": true,
+                        "fullSessionStorageSupport": true
+                    }
+                },
+                "_refreshTask": null,
+                "patient": {
+                    "id": null
+                },
+                "encounter": {
+                    "id": null
+                },
+                "user": {
+                    "fhirUser": null,
+                    "id": null,
+                    "resourceType": null
+                }
+            }
+        },
+        "resourceType": "QuestionnaireResponse",
+        "id": "1055061",
+        "status": "completed",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2021-03-15T07:59:12.552-04:00"
+        },
+        "basedOn": [
+            {
+                "reference": "ServiceRequest/1055060"
+            }
+        ],
+        "questionnaire": "Questionnaire/1055059",
+        "subject": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "source": {
+            "reference": "Patient/326b4675-0bc8-4dbd-b406-a5564c282401"
+        },
+        "item": [
+            {
+                "linkId": "http://snomed.info/id/225876004",
+                "text": "Over the past month, have you wished you were dead or wished you could go to sleep and not wake up?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/6471006",
+                "text": "Over the past month, have you had any actual thoughts of killing yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/661000205103",
+                "text": "Over the past month, have you been thinking about what you might do?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373066001",
+                            "display": "Yes"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/304594002",
+                "text": "Over the past month, have you had these thoughts and some intention of acting on them?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "http://snomed.info/id/247650009",
+                "text": "Over the past month, have you started to work out or worked out the details of how to kill yourself?",
+                "answer": [
+                    {
+                        "id": "1",
+                        "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "373067005",
+                            "display": "No"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "linkId": "http://snomed.info/id/247650009",
+                        "text": "If yes, at any time in the past month, did you intend to carry out this plan?",
+                        "answer": [
+                            {
+                                "id": "1",
+                                "valueCoding": {
+                                    "system": "http://snomed.info/sct",
+                                    "code": "373067005",
+                                    "display": "No"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "linkId": "1",
+                "text": "Do you have allergies?",
+                "answer": [{ "id": "1", "valueBoolean": false }]
+            },
+            {
+                "linkId": "3.1",
+                "text": "Do you smoke?",
+                "answer": [{ "id": "1", "valueBoolean": true }]
+            },
+            {
+                "linkId": "http://snomed.info/id/425104003",
+                "text": "In your lifetime, have you ever done anything, started to do anything, or prepared to do anything to end your life?"
+            }
+        ]
+    }
+]
