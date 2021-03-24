@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, View } from 'react-native'
-import HeatMap from './HeatMap'
+import { HeatMap } from './HeatMap'
 import { Col, Grid, Row } from 'native-base'
 import Accordion from 'react-native-collapsible/Accordion'
 import { useWindowSize } from './dynamicSize'
@@ -26,7 +26,7 @@ const defaultProps: ChartScreenProps = {
     xAxisOptions: ['A', 'B', 'C', 'D', 'E'],
 }
 
-const ChartScreen: React.FC<ChartScreenProps> = ({
+export const ChartScreen: React.FC<ChartScreenProps> = ({
     sections,
     colors,
     // colorsPercentage,
@@ -192,7 +192,6 @@ const ChartScreen: React.FC<ChartScreenProps> = ({
 }
 
 ChartScreen.defaultProps = defaultProps
-export default ChartScreen
 
 const styles = StyleSheet.create({
     row: {

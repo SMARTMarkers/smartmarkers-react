@@ -42,7 +42,7 @@ interface HeatMapBlockProps {
     sectionLabel: string
 }
 
-const HeatMap: React.FC<HeatMapprops> = ({
+export const HeatMap: React.FC<HeatMapprops> = ({
     numberOfLines,
     indexStart,
     colors,
@@ -180,7 +180,6 @@ const HeatMap: React.FC<HeatMapprops> = ({
 }
 
 HeatMap.defaultProps = defaultProps
-export default HeatMap
 
 const styles = StyleSheet.create({
     heatMapBlock: {
