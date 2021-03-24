@@ -30,7 +30,6 @@
     "devDependencies": {
         "@babel/core": "^7.11.5",
         "@types/jest": "^26.0.13",
-        "@types/lodash": "^4.14.168",
         "@types/react": "^16.9.49",
         "@types/react-dom": "^16.9.8",
         "@types/react-native": "^0.63.13",
@@ -49,6 +48,7 @@
     "dependencies": {
         "@react-native-community/datetimepicker": "^3.0.1",
         "fhirclient": "^2.3.1",
+        "@types/lodash": "^4.14.168",
         "native-base": "2.13.12",
         "react-native-autocomplete-input": "^4.2.0",
         "react-native-chart-kit": "^6.6.1",
