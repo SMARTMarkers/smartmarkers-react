@@ -1,191 +1,229 @@
 import * as React from 'react'
-import { ScrollView, View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
-import { Row, Col, Badge } from 'native-base'
-import { useWindowSize } from './dynamicSize'
+import { Text, StyleSheet, View } from 'react-native'
+import { HeatMapView } from './HeatMapView'
+import { Col, Row } from 'native-base'
+import Accordion from 'react-native-collapsible/Accordion'
+import { useWindowSize } from './WindowSize'
 
-interface HeatMapprops {
-    numberOfLines: number
+interface HeatMapProps {
+    sections: any[]
     colors: string[]
-    colorsPercentage: number[]
-    section: any
-    maximumValue: number
-    blocksSize?: number
-    // Optionals
-    indexStart?: number
-    onBlockPress?: (value: number) => void
-    blocksStyle?: object
+    numberRange: number[]
+    //optionals
+    underlayColor?: String
+    expandMultiple?: boolean
+    xAxisOptions?: string[]
 }
 
-const defaultProps: HeatMapprops = {
-    numberOfLines: 7,
-    // values: [],
-    colors: ['gray', 'orange', 'red'],
-    colorsPercentage: [0, 25, 50, 75, 100],
-    maximumValue: -1,
-    blocksSize: 30,
-    section: [],
-    // Optionals
-    indexStart: 0,
-    onBlockPress: () => {},
-    blocksStyle: {},
+const defaultProps: HeatMapProps = {
+    sections: [],
+    colors: ['#F0B22C', '#E77F24', '#E04931', '#732671'],
+    numberRange: [0, 25, 50, 75, 100],
+    underlayColor: '#DEDEDE',
+    expandMultiple: false,
+    xAxisOptions: ['A', 'B', 'C', 'D', 'E'],
 }
 
-interface HeatMapBlockProps {
-    style?: Object
-    size?: number
-    index: number
-    value: number
-    colors: string[]
-    colorsPercentage: number[]
-    onBlockPress?: (value: number) => void
-    maximumValue: number
-    sectionLabel: string
-}
-
-export const HeatMap: React.FC<HeatMapprops> = ({
-    numberOfLines,
-    indexStart,
+export const HeatMap: React.FC<HeatMapProps> = ({
+    sections,
     colors,
-    colorsPercentage,
-    maximumValue,
-    blocksSize,
-    onBlockPress,
-    blocksStyle,
-    section,
+    underlayColor,
+    xAxisOptions,
+    numberRange,
 }) => {
-    const HeatMapBlock: React.FC<HeatMapBlockProps> = ({
-        style,
-        size,
-        index,
-        value,
-        colors,
-        colorsPercentage,
-        onBlockPress,
-        maximumValue,
-        sectionLabel,
-    }) => {
-        const dynamicSize = useWindowSize()
-        const valuePercentage = (value / maximumValue) * 100
-        let color
+    const [activeSections, setActiveSections] = React.useState([])
+    const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
 
-        for (let i = 0; i < colorsPercentage.length; i++) {
-            if (valuePercentage > colorsPercentage[i]) {
-                color = colors[i]
-            } else break
+    const dynamicSize = useWindowSize()
+
+    const click = (value: number) => {
+        // console.log('abcd', value)
+    }
+
+    React.useEffect(() => {
+        getColorPercentage()
+    }, [])
+
+    const getColorPercentage = () => {
+        let colorArray: number[] = []
+        let colorLength = colors.length
+        let colorSections = 100 / colorLength
+        console.log(colorSections, colorLength)
+        for (let i = 0; i <= colorLength; i++) {
+            colorArray.push(Math.round(colorSections * i))
         }
+        setColorsPercentage(colorArray)
+    }
 
-        if (!color) return null
-        return (
-            <>
-                <TouchableOpacity
-                    onPress={() => {
-                        if (onBlockPress) {
-                            return onBlockPress(value)
-                        }
-                    }}
-                    style={[
-                        styles.heatMapBlock,
-                        {
-                            backgroundColor: color,
-                            height: 45,
-                        },
-                        style,
-                    ]}
-                >
-                    <Text
-                        numberOfLines={1}
-                        style={{
-                            textAlign: 'right',
-                            fontSize: 10,
-                            paddingRight: 6,
-                            paddingBottom: 0,
-                        }}
-                    >
-                        {value}
-                    </Text>
-                    <Text
-                        numberOfLines={1}
-                        style={{
-                            textAlign: 'center',
-                            fontSize: 12,
-                            paddingBottom: 10,
-                            paddingHorizontal: 4,
-                        }}
-                    >
-                        {sectionLabel}
-                    </Text>
-                </TouchableOpacity>
-            </>
+    const _renderContent = (section: any) => {
+        return section && section.answer ? (
+            <View style={{ flex: 1 }}>
+                <Row style={styles.row}>
+                    <Col style={[styles.rowCol]}></Col>
+                    <Col style={styles.contentCol}>
+                        <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>
+                            {'Question :'}
+                            {section.question}
+                        </Text>
+                        {/* <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>{'Answer : '}</Text> */}
+                        {section.answer.map((item: any, index: string) => {
+                            return <Text key={index}>{`${index + 1} : ${item.label}`}</Text>
+                        })}
+                    </Col>
+                </Row>
+            </View>
+        ) : (
+            <Text>No answers found</Text>
         )
     }
 
-    const generateBlocks = (atualBlock: number) => {
-        const blocks: any = []
-        for (let j = 0; j < numberOfLines; j++) {
-            blocks.push(
-                <HeatMapBlock
-                    key={Math.random()}
-                    style={blocksStyle}
-                    size={blocksSize}
-                    index={j + atualBlock}
-                    value={section.answer[j + atualBlock]?.count}
-                    colors={colors}
-                    colorsPercentage={colorsPercentage}
-                    onBlockPress={onBlockPress}
-                    maximumValue={maximumValue}
-                    sectionLabel={section.answer[j + atualBlock]?.label}
-                />
-            )
-        }
-        return blocks
+    const _updateSections = (activeSections: any) => {
+        setActiveSections(activeSections)
     }
 
-    const generateDummyBlocks = () => {
+    const _renderHeader = (section: any) => {
         return (
-            <>
-                <TouchableOpacity
-                    style={[
-                        styles.heatMapBlock,
-                        {
-                            backgroundColor: '#DEDEDE',
-                            height: 45,
-                            opacity: 0.5,
-                        },
-                    ]}
-                >
-                    <Text>{}</Text>
-                </TouchableOpacity>
-            </>
+            <View>
+                <Row style={styles.row}>
+                    <Col style={[styles.rowCol]}>
+                        <Text
+                            numberOfLines={2}
+                            style={{
+                                justifyContent: 'center',
+                                flexWrap: 'wrap',
+                            }}
+                        >
+                            {section.question}
+                        </Text>
+                    </Col>
+                    <Col style={{ flex: 0.65, padding: 0 }}>
+                        <HeatMapView
+                            numberOfLines={1}
+                            section={section}
+                            colors={colors}
+                            colorsPercentage={colorsPercentage}
+                            maximumValue={numberRange[numberRange.length - 1]}
+                            onBlockPress={value => click(value)}
+                        />
+                    </Col>
+                </Row>
+            </View>
         )
     }
 
-    const generateColumns = () => {
-        const actualColumns = section.answer?.length / numberOfLines
-        const numberOfColumns = 5
-        const columns: any = []
-        let atualBlock = 0
-        for (let i = 0; i < numberOfColumns; i++) {
-            columns.push(
-                <Col size={3} key={Math.random()}>
-                    {actualColumns > i ? generateBlocks(atualBlock) : generateDummyBlocks()}
+    const _getUnderlayColor = (): string => {
+        return underlayColor ? (underlayColor as string) : (defaultProps.underlayColor as string)
+    }
+
+    const generateNumberRange = () => {
+        let shiftedArray = numberRange ? [...numberRange] : [...colorsPercentage]
+        shiftedArray.shift()
+        return shiftedArray.map(item => {
+            return (
+                <Col key={Math.random()}>
+                    <Text style={{ textAlign: 'right' }}>{item}</Text>
                 </Col>
             )
-            atualBlock += numberOfLines
-        }
-
-        return columns
+        })
     }
 
-    return <View style={{ flex: 1, flexDirection: 'row' }}>{generateColumns()}</View>
+    const generateColorRange = () => {
+        return colors.map(item => {
+            return (
+                <Col
+                    key={Math.random()}
+                    style={{ backgroundColor: item, flex: 1 / colors.length, height: 25 }}
+                ></Col>
+            )
+        })
+    }
+
+    const displayXAxisOptions = () => {
+        let xAxisLength = xAxisOptions?.length || 0
+        let options = xAxisLength > 0 ? xAxisOptions : defaultProps.xAxisOptions
+        return options?.map((item: any) => {
+            return (
+                <Col key={Math.random()} style={{ justifyContent: 'center' }}>
+                    <Text style={{ textAlign: 'center', marginVertical: 8 }}>{item}</Text>
+                </Col>
+            )
+        })
+    }
+
+    return (
+        <>
+            <View>
+                <Row style={[styles.row, { marginVertical: 10 }]}>
+                    <Col style={styles.rowCol}></Col>
+                    <Col style={styles.rangeCol}>
+                        <Row style={[{ width: dynamicSize.width * 0.5 }]}>
+                            <Text style={{ textAlign: 'left' }}>{colorsPercentage?.[0]}</Text>
+                            {generateNumberRange()}
+                        </Row>
+                        <Row style={{ width: dynamicSize.width * 0.5 }}>{generateColorRange()}</Row>
+                    </Col>
+                </Row>
+            </View>
+            <View style={{ paddingHorizontal: 20 }}>
+                <Row style={styles.row}>
+                    <Col style={styles.rowCol}></Col>
+                    <Col style={{ flex: 0.65, flexDirection: 'row', paddingRight: 5 }}>
+                        {displayXAxisOptions()}
+                    </Col>
+                </Row>
+            </View>
+            <Accordion
+                key={Math.random()}
+                sections={sections}
+                activeSections={activeSections}
+                renderHeader={_renderHeader}
+                renderContent={_renderContent}
+                onChange={_updateSections}
+                underlayColor={_getUnderlayColor()}
+                expandMultiple={true}
+                containerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
+                duration={300}
+            />
+        </>
+    )
 }
 
 HeatMap.defaultProps = defaultProps
 
 const styles = StyleSheet.create({
-    heatMapBlock: {
-        borderRadius: 3,
-        margin: 1,
-        marginTop: 0,
-        justifyContent: 'center',
+    row: {
+        marginHorizontal: 5,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        width: '100%',
+    },
+    rowCol: {
+        flex: 0.35,
+        justifyContent: 'flex-end',
+        padding: 5,
+        // paddingRight:0,
+        flexWrap: 'wrap',
+    },
+    itemText: {
+        color: '#000',
+        marginLeft: 10,
+        margin: 5,
+        flex: 1,
+        flexWrap: 'nowrap',
+    },
+    contentCol: {
+        flex: 0.65,
+        marginLeft: 10,
+        marginVertical: 1,
+        padding: 8,
+        backgroundColor: '#DEDEDE',
+        borderRadius: 5,
+    },
+    rangeCol: {
+        flex: 0.65,
+        marginLeft: 10,
+        marginVertical: 1,
+        padding: 8,
+        borderRadius: 5,
     },
 })

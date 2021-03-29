@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 
-export interface HeatMapArray {
+export interface IHeatMap {
     id: string
     question: string
     answer: {
@@ -36,9 +36,8 @@ interface FinalAnswer {
     count: number | undefined
 }
 
-let finalArray: HeatMapArray[] = []
-
-export const loadResource = (reports: any): HeatMapArray[] => {
+export const TransformReports = (reports: any): IHeatMap[] => {
+    let heatMapArray: IHeatMap[] = []
     let modArr: ModifiedArrayByResource[] = []
 
     // modify the array of items from the Resource
@@ -125,10 +124,10 @@ export const loadResource = (reports: any): HeatMapArray[] => {
             question: groupByAnswer[i].ques,
             answer: _.uniqWith(finalAnswerObj, _.isEqual),
         }
-        finalArray.push(obj)
+        heatMapArray.push(obj)
     }
-    console.log(finalArray)
-    return finalArray
+    console.log(heatMapArray)
+    return heatMapArray
 }
 
 const getCount = (quesObj: { ans: any }, ansObj: { label: string }) => {
