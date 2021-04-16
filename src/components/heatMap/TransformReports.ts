@@ -36,36 +36,55 @@ interface FinalAnswer {
     count: number | undefined
 }
 
-export const TransformReports = (reports: any): IHeatMap[] => {
+interface HeatMapCountObj {
+    heatMapArray: IHeatMap[]
+    maxCount: number
+}
+
+class Count {
+    static divValue: number = 10
+
+    static getMaxCount() {
+        return maxCount + this.divValue - (maxCount % this.divValue)
+    }
+}
+
+let maxCount = 0
+
+export const TransformReports = (reports: any): HeatMapCountObj => {
     let heatMapArray: IHeatMap[] = []
     let modArr: ModifiedArrayByResource[] = []
 
     // modify the array of items from the Resource
 
     _.forEach(reports, function (resource, k) {
-        let questionArray = [...resource.item]
-        _.forEach(questionArray, function (ques, q) {
-            let linkId =
-                questionArray[q].linkId.substring(questionArray[q].linkId.lastIndexOf('/') + 1) ||
-                Math.random().toString()
-            let answerArray = questionArray[q].answer
-            if (answerArray) {
-                _.forEach(answerArray, function (ans, a) {
-                    console.log(answerArray[a], '++')
-                    let obj = {
-                        id: linkId,
-                        question: questionArray[q].text,
-                        answer: {
-                            id: answerArray[a]?.id,
-                            label: answerArray[a]?.valueCoding
-                                ? answerArray[a]?.valueCoding.display
-                                : answerArray[a].valueBoolean.toString(),
-                        },
-                    }
-                    modArr.push(obj)
-                })
-            }
-        })
+        if (resource?.item) {
+            let questionArray = [...resource?.item]
+            _.forEach(questionArray, function (ques, q) {
+                let linkId =
+                    questionArray[q].linkId.substring(
+                        questionArray[q].linkId.lastIndexOf('/') + 1
+                    ) || Math.random().toString()
+                let answerArray = questionArray[q].answer
+                if (answerArray) {
+                    _.forEach(answerArray, function (ans, a) {
+                        let obj = {
+                            id: linkId,
+                            question: questionArray[q].text,
+                            answer: {
+                                id: a.toString(),
+                                label: answerArray[a]?.valueCoding
+                                    ? answerArray[a]?.valueCoding?.dispaly
+                                        ? answerArray[a]?.valueCoding.dispaly
+                                        : answerArray[a]?.valueCoding.code
+                                    : answerArray[a].valueBoolean.toString(),
+                            },
+                        }
+                        modArr.push(obj)
+                    })
+                }
+            })
+        }
     })
 
     //grouping the multiple questions By ID
@@ -104,7 +123,6 @@ export const TransformReports = (reports: any): IHeatMap[] => {
         }
         groupByAnswer.push(groupByAnswerObj)
     }
-    console.log(groupByAnswer, 'adasdsa+++++')
 
     // Getting Final Array with count for each answer in each question
 
@@ -126,8 +144,8 @@ export const TransformReports = (reports: any): IHeatMap[] => {
         }
         heatMapArray.push(obj)
     }
-    console.log(heatMapArray)
-    return heatMapArray
+    console.log(heatMapArray, Count.getMaxCount())
+    return { heatMapArray: heatMapArray, maxCount: Count.getMaxCount() }
 }
 
 const getCount = (quesObj: { ans: any }, ansObj: { label: string }) => {
@@ -144,6 +162,10 @@ const getCount = (quesObj: { ans: any }, ansObj: { label: string }) => {
     let filteredArray = _.filter(mapGroupByAns, function (u) {
         return u !== undefined
     })
+
+    if (maxCount < filteredArray[0]?.length) {
+        maxCount = filteredArray[0]?.length
+    }
 
     return filteredArray[0]?.length
 }

@@ -8,7 +8,7 @@ import { useWindowSize } from './WindowSize'
 interface HeatMapProps {
     sections: any[]
     colors: string[]
-    numberRange: number[]
+    maxValue: number
     //optionals
     underlayColor?: String
     expandMultiple?: boolean
@@ -18,7 +18,7 @@ interface HeatMapProps {
 const defaultProps: HeatMapProps = {
     sections: [],
     colors: ['#F0B22C', '#E77F24', '#E04931', '#732671'],
-    numberRange: [0, 25, 50, 75, 100],
+    maxValue: 10,
     underlayColor: '#DEDEDE',
     expandMultiple: false,
     xAxisOptions: ['A', 'B', 'C', 'D', 'E'],
@@ -27,12 +27,13 @@ const defaultProps: HeatMapProps = {
 export const HeatMap: React.FC<HeatMapProps> = ({
     sections,
     colors,
+    maxValue,
     underlayColor,
     xAxisOptions,
-    numberRange,
 }) => {
     const [activeSections, setActiveSections] = React.useState([])
     const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
+    const [numberRange, setNumberRange] = React.useState<number[]>([])
 
     const dynamicSize = useWindowSize()
 
@@ -42,17 +43,26 @@ export const HeatMap: React.FC<HeatMapProps> = ({
 
     React.useEffect(() => {
         getColorPercentage()
+        getNumberRange()
     }, [])
 
     const getColorPercentage = () => {
         let colorArray: number[] = []
         let colorLength = colors.length
         let colorSections = 100 / colorLength
-        console.log(colorSections, colorLength)
         for (let i = 0; i <= colorLength; i++) {
             colorArray.push(Math.round(colorSections * i))
         }
         setColorsPercentage(colorArray)
+    }
+
+    const getNumberRange = () => {
+        let range = Math.round(maxValue / colors.length)
+        let numArray: number[] = []
+        for (let i = 0; i <= colors.length; i++) {
+            numArray.push(i * range)
+        }
+        setNumberRange(numArray)
     }
 
     const _renderContent = (section: any) => {
@@ -62,12 +72,12 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                     <Col style={[styles.rowCol]}></Col>
                     <Col style={styles.contentCol}>
                         <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>
-                            {'Question :'}
+                            {'Question: '}
                             {section.question}
                         </Text>
                         {/* <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>{'Answer : '}</Text> */}
                         {section.answer.map((item: any, index: string) => {
-                            return <Text key={index}>{`${index + 1} : ${item.label}`}</Text>
+                            return <Text key={index}>{`${index + 1}: ${item.label}`}</Text>
                         })}
                     </Col>
                 </Row>
