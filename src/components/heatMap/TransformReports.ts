@@ -74,8 +74,9 @@ export const TransformReports = (reports: any): HeatMapCountObj => {
                             answer: {
                                 id: a.toString(),
                                 label: answerArray[a]?.valueCoding
-                                    ? answerArray[a]?.valueCoding?.dispaly
-                                        ? answerArray[a]?.valueCoding.dispaly
+                                    ? answerArray[a]?.valueCoding?.code &&
+                                      answerArray[a]?.valueCoding?.display
+                                        ? answerArray[a]?.valueCoding.display
                                         : answerArray[a]?.valueCoding.code
                                     : answerArray[a].valueBoolean.toString(),
                             },
