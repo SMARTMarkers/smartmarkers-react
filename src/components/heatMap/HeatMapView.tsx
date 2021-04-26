@@ -164,10 +164,18 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
         const numberOfColumns = 5
         const columns: any = []
         let atualBlock = 0
-        for (let i = 0; i < numberOfColumns; i++) {
+        for (let i = 0; i < section.answer?.length; i++) {
             columns.push(
-                <Col size={3} key={Math.random()}>
-                    {actualColumns > i ? generateBlocks(atualBlock) : generateDummyBlocks()}
+                <Col key={Math.random()}>
+                    {/* 
+                        ** Note : 
+                        Generate Columns with fixed length 
+                        generateBlocks is the function to generate Actual Blocks which equals answers
+                        generateDummyBlocks is the function to generate blocks other than actual answers which will be less than fixed length
+                    */}
+
+                    {/* {actualColumns > i ? generateBlocks(atualBlock) : generateDummyBlocks()} */}
+                    {generateBlocks(atualBlock)}
                 </Col>
             )
             atualBlock += numberOfLines

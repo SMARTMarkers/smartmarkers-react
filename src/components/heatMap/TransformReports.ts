@@ -78,7 +78,11 @@ export const TransformReports = (reports: any): HeatMapCountObj => {
                                       answerArray[a]?.valueCoding?.display
                                         ? answerArray[a]?.valueCoding.display
                                         : answerArray[a]?.valueCoding.code
-                                    : answerArray[a].valueBoolean.toString(),
+                                    : answerArray[a]?.valueCoding?.code
+                                    ? answerArray[a]?.valueCoding.code
+                                    : answerArray[a].valueBoolean
+                                    ? answerArray[a].valueBoolean?.toString()
+                                    : answerArray[a].valueInteger?.toString(),
                             },
                         }
                         modArr.push(obj)
