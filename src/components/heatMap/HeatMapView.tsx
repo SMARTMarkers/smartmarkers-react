@@ -168,7 +168,7 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
             columns.push(
                 <Col key={Math.random()}>
                     {/* 
-                        ** Note : 
+                        ** Note :
                         Generate Columns with fixed length 
                         generateBlocks is the function to generate Actual Blocks which equals answers
                         generateDummyBlocks is the function to generate blocks other than actual answers which will be less than fixed length
