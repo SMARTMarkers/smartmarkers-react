@@ -82,7 +82,7 @@ export const Autocomplete: React.FC<AutocompleteProps<any>> = props => {
                 onFocus={() => setHideResults(false)}
                 renderTextInput={props => (
                     <Item regular error={hasError}>
-                        <Input {...props} value={query} style={{ borderWidth: 0 }} />
+                        <Input {...props} value={query as any} style={{ borderWidth: 0 }} />
                         {loading && <Spinner style={{ height: 50 }} />}
                         {hasError && <Icon name="close-circle" />}
                     </Item>

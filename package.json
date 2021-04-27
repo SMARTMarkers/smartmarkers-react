@@ -1,67 +1,69 @@
 {
-  "name": "smartmarkers",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build-ts": "tsc",
-    "build": "expo-module build",
-    "clean": "expo-module clean",
-    "test": "expo-module test",
-    "prepare": "expo-module prepare",
-    "prepublishOnly": "expo-module prepublishOnly",
-    "expo-module": "expo-module",
-    "format": "prettier --write ./src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/SMARTMarkers/smartmarkers-react.git"
-  },
-  "keywords": [
-    "FHIR"
-  ],
-  "author": "SMARTMarkers",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SMARTMarkers/smartmarkers-react/issues"
-  },
-  "homepage": "https://github.com/SMARTMarkers/smartmarkers-react#readme",
-  "devDependencies": {
-    "@babel/core": "^7.11.5",
-    "@types/jest": "^26.0.13",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-native": "^0.63.13",
-    "@types/react-native-autocomplete-input": "^4.0.1",
-    "babel-preset-expo": "^8.2.3",
-    "expo-module-scripts": "^1.2.0",
-    "husky": "^4.2.5",
-    "jest-expo": "^38.0.2",
-    "prettier": "^2.1.1",
-    "pretty-quick": "^3.0.0",
-    "react-native-testing-library": "^6.0.0",
-    "react-test-renderer": "^16.13.1",
-    "typescript": "~3.9.5"
-  },
-  "dependencies": {
-    "@react-native-community/datetimepicker": "^3.0.1",
-    "fhirclient": "^2.3.1",
-    "native-base": "2.13.12",
-    "react-native-autocomplete-input": "^4.2.0",
-    "react-native-chart-kit": "^6.6.1",
-    "react-native-svg": "^12.1.0"
-  },
-  "peerDependencies": {
-    "@unimodules/core": "*",
-    "react": "*",
-    "react-dom": "*",
-    "react-native": "*",
-    "react-native-web": "*"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
+    "name": "smartmarkers",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build-ts": "tsc",
+        "build": "expo-module build",
+        "clean": "expo-module clean",
+        "test": "expo-module test",
+        "prepare": "expo-module prepare",
+        "prepublishOnly": "expo-module prepublishOnly",
+        "expo-module": "expo-module",
+        "format": "prettier --write ./src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/SMARTMarkers/smartmarkers-react.git"
+    },
+    "keywords": [
+        "FHIR"
+    ],
+    "author": "SMARTMarkers",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SMARTMarkers/smartmarkers-react/issues"
+    },
+    "homepage": "https://github.com/SMARTMarkers/smartmarkers-react#readme",
+    "devDependencies": {
+        "@babel/core": "^7.11.5",
+        "@types/jest": "^26.0.13",
+        "@types/react": "^16.9.49",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-native": "^0.63.13",
+        "react-native-collapsible": "^1.5.3",
+        "babel-preset-expo": "^8.2.3",
+        "expo-module-scripts": "^1.2.0",
+        "husky": "^4.2.5",
+        "jest-expo": "^38.0.2",
+        "prettier": "^2.1.1",
+        "pretty-quick": "^3.0.0",
+        "react-native-testing-library": "^6.0.0",
+        "react-test-renderer": "^16.13.1",
+        "typescript": "~3.9.5"
+    },
+    "dependencies": {
+        "@react-native-community/datetimepicker": "^3.0.1",
+        "fhirclient": "^2.3.1",
+        "@types/lodash": "^4.14.168",
+        "native-base": "2.13.12",
+        "react-native-autocomplete-input": "^4.2.0",
+        "react-native-chart-kit": "^6.6.1",
+        "react-native-collapsible": "^1.5.3",
+        "react-native-svg": "^12.1.0"
+    },
+    "peerDependencies": {
+        "@unimodules/core": "*",
+        "react": "*",
+        "react-dom": "*",
+        "react-native": "*",
+        "react-native-web": "*"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
     }
-  }
 }
