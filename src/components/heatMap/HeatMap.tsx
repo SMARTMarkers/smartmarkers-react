@@ -76,9 +76,17 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                             {section.question}
                         </Text>
                         {/* <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>{'Answer : '}</Text> */}
-                        {section.answer.map((item: any, index: string) => {
-                            return <Text key={index}>{`${index + 1}: ${item.label}`}</Text>
-                        })}
+                        <View style={styles.contentView}>
+                            {section.answer.map((item: any, index: string) => {
+                                return (
+                                    <View style={styles.contentWidth}>
+                                        <Text style={{ marginVertical: 4 }} key={index}>{`${
+                                            index + 1
+                                        }: ${item.label}`}</Text>
+                                    </View>
+                                )
+                            })}
+                        </View>
                     </Col>
                 </Row>
             </View>
@@ -163,25 +171,29 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     return (
         <>
             <View>
-                <Row style={[styles.row, { marginVertical: 10 }]}>
+                <Row style={[styles.row, { marginBottom: 20 }]}>
                     <Col style={styles.rowCol}></Col>
-                    <Col style={styles.rangeCol}>
-                        <Row style={[{ width: dynamicSize.width * 0.5 }]}>
+                    <Col style={[styles.rangeCol, { marginHorizontal: 15 }]}>
+                        <Row>
                             <Text style={{ textAlign: 'left' }}>{colorsPercentage?.[0]}</Text>
                             {generateNumberRange()}
                         </Row>
-                        <Row style={{ width: dynamicSize.width * 0.5 }}>{generateColorRange()}</Row>
+                        <Row>{generateColorRange()}</Row>
                     </Col>
                 </Row>
             </View>
-            <View style={{ paddingHorizontal: 20 }}>
+
+            {/* Below code display's the X Axis lables */}
+
+            {/* <View style={{ paddingHorizontal: 20 }}>
                 <Row style={styles.row}>
                     <Col style={styles.rowCol}></Col>
                     <Col style={{ flex: 0.65, flexDirection: 'row', paddingRight: 5 }}>
                         {displayXAxisOptions()}
                     </Col>
                 </Row>
-            </View>
+            </View> */}
+
             <Accordion
                 key={Math.random()}
                 sections={sections}
@@ -235,5 +247,13 @@ const styles = StyleSheet.create({
         marginVertical: 1,
         padding: 8,
         borderRadius: 5,
+    },
+    contentView: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    contentWidth: {
+        width: '50%',
     },
 })

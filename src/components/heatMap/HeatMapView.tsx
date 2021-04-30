@@ -99,6 +99,7 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
                             fontSize: 10,
                             paddingRight: 6,
                             paddingBottom: 0,
+                            fontStyle: 'italic',
                         }}
                     >
                         {value}
@@ -110,6 +111,7 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
                             fontSize: 12,
                             paddingBottom: 10,
                             paddingHorizontal: 4,
+                            fontWeight: 'bold',
                         }}
                     >
                         {sectionLabel}

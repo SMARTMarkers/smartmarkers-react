@@ -68,24 +68,47 @@ export const TransformReports = (reports: any): HeatMapCountObj => {
                 let answerArray = questionArray[q].answer
                 if (answerArray) {
                     _.forEach(answerArray, function (ans, a) {
-                        let obj = {
-                            id: linkId,
-                            question: questionArray[q].text,
-                            answer: {
-                                id: a.toString(),
-                                label: answerArray[a]?.valueCoding
-                                    ? answerArray[a]?.valueCoding?.code &&
-                                      answerArray[a]?.valueCoding?.display
-                                        ? answerArray[a]?.valueCoding.display
-                                        : answerArray[a]?.valueCoding.code
-                                    : answerArray[a]?.valueCoding?.code
-                                    ? answerArray[a]?.valueCoding.code
-                                    : answerArray[a].valueBoolean
-                                    ? answerArray[a].valueBoolean?.toString()
-                                    : answerArray[a].valueInteger?.toString(),
-                            },
+                        // it enables the code and choice type values
+                        if (answerArray[a]?.valueCoding) {
+                            let obj = {
+                                id: linkId,
+                                question: questionArray[q].text,
+                                answer: {
+                                    id: a.toString(),
+                                    label: answerArray[a]?.valueCoding
+                                        ? answerArray[a]?.valueCoding?.code &&
+                                          answerArray[a]?.valueCoding?.display
+                                            ? answerArray[a]?.valueCoding.display
+                                            : answerArray[a]?.valueCoding.code
+                                        : answerArray[a]?.valueCoding?.code,
+                                },
+                            }
+                            modArr.push(obj)
                         }
-                        modArr.push(obj)
+                        // it enables the boolean values
+                        else if (answerArray[a].valueBoolean) {
+                            let obj = {
+                                id: linkId,
+                                question: questionArray[q].text,
+                                answer: {
+                                    id: a.toString(),
+                                    label: answerArray[a].valueBoolean?.toString(),
+                                },
+                            }
+                            modArr.push(obj)
+                        }
+                        // it enables the integer values
+                        // else if(answerArray[a].valueInteger){
+                        //     let obj = {
+                        //         id: linkId,
+                        //         question: questionArray[q].text,
+                        //         answer: {
+                        //             id: a.toString(),
+                        //             label: answerArray[a].valueInteger?.toString()
+                        //         },
+                        //     }
+                        //     modArr.push(obj)
+                        // }
                     })
                 }
             })
@@ -168,7 +191,7 @@ const getCount = (quesObj: { ans: any }, ansObj: { label: string }) => {
         return u !== undefined
     })
 
-    if (maxCount < filteredArray[0]?.length) {
+    if (filteredArray[0] && maxCount < filteredArray[0]?.length) {
         maxCount = filteredArray[0]?.length
     }
 
