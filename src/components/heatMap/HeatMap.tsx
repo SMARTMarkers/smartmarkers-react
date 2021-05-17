@@ -34,12 +34,11 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     const [activeSections, setActiveSections] = React.useState([])
     const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
     const [numberRange, setNumberRange] = React.useState<number[]>([])
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(false)
 
     const dynamicSize = useWindowSize()
 
-    const click = (value: number) => {
-        // console.log('abcd', value)
-    }
+    const click = (value: number) => {}
 
     React.useEffect(() => {
         getColorPercentage()
@@ -66,7 +65,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     }
 
     const _renderContent = (section: any) => {
-        return section && section.answer ? (
+        return section && section.answer && section.type !== 'integer' ? (
             <View style={{ flex: 1 }}>
                 <Row style={styles.row}>
                     <Col style={[styles.rowCol]}></Col>
@@ -91,7 +90,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                 </Row>
             </View>
         ) : (
-            <Text>No answers found</Text>
+            <Text>{section.type !== 'integer' ? 'No answers found' : ''}</Text>
         )
     }
 
@@ -175,7 +174,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                     <Col style={styles.rowCol}></Col>
                     <Col style={[styles.rangeCol, { marginHorizontal: 15 }]}>
                         <Row>
-                            <Text style={{ textAlign: 'left' }}>{colorsPercentage?.[0]}</Text>
+                            <Text style={{ textAlign: 'left' }}>{'1'}</Text>
                             {generateNumberRange()}
                         </Row>
                         <Row>{generateColorRange()}</Row>
@@ -205,6 +204,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                 expandMultiple={true}
                 containerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
                 duration={300}
+                // disabled={isDisabled}
             />
         </>
     )
