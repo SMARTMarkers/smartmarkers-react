@@ -34,12 +34,11 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     const [activeSections, setActiveSections] = React.useState([])
     const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
     const [numberRange, setNumberRange] = React.useState<number[]>([])
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(false)
 
     const dynamicSize = useWindowSize()
 
-    const click = (value: number) => {
-        // console.log('abcd', value)
-    }
+    const click = (value: number) => {}
 
     React.useEffect(() => {
         getColorPercentage()
@@ -66,7 +65,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     }
 
     const _renderContent = (section: any) => {
-        return section && section.answer ? (
+        return section && section.answer && section.type !== 'integer' ? (
             <View style={{ flex: 1 }}>
                 <Row style={styles.row}>
                     <Col style={[styles.rowCol]}></Col>
@@ -76,14 +75,22 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                             {section.question}
                         </Text>
                         {/* <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>{'Answer : '}</Text> */}
-                        {section.answer.map((item: any, index: string) => {
-                            return <Text key={index}>{`${index + 1}: ${item.label}`}</Text>
-                        })}
+                        <View style={styles.contentView}>
+                            {section.answer.map((item: any, index: string) => {
+                                return (
+                                    <View style={styles.contentWidth}>
+                                        <Text style={{ marginVertical: 4 }} key={index}>{`${
+                                            index + 1
+                                        }: ${item.label}`}</Text>
+                                    </View>
+                                )
+                            })}
+                        </View>
                     </Col>
                 </Row>
             </View>
         ) : (
-            <Text>No answers found</Text>
+            <Text>{section.type !== 'integer' ? 'No answers found' : ''}</Text>
         )
     }
 
@@ -163,25 +170,29 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     return (
         <>
             <View>
-                <Row style={[styles.row, { marginVertical: 10 }]}>
+                <Row style={[styles.row, { marginBottom: 20 }]}>
                     <Col style={styles.rowCol}></Col>
-                    <Col style={styles.rangeCol}>
-                        <Row style={[{ width: dynamicSize.width * 0.5 }]}>
-                            <Text style={{ textAlign: 'left' }}>{colorsPercentage?.[0]}</Text>
+                    <Col style={[styles.rangeCol, { marginHorizontal: 15 }]}>
+                        <Row>
+                            <Text style={{ textAlign: 'left' }}>{'1'}</Text>
                             {generateNumberRange()}
                         </Row>
-                        <Row style={{ width: dynamicSize.width * 0.5 }}>{generateColorRange()}</Row>
+                        <Row>{generateColorRange()}</Row>
                     </Col>
                 </Row>
             </View>
-            <View style={{ paddingHorizontal: 20 }}>
+
+            {/* Below code display's the X Axis lables */}
+
+            {/* <View style={{ paddingHorizontal: 20 }}>
                 <Row style={styles.row}>
                     <Col style={styles.rowCol}></Col>
                     <Col style={{ flex: 0.65, flexDirection: 'row', paddingRight: 5 }}>
                         {displayXAxisOptions()}
                     </Col>
                 </Row>
-            </View>
+            </View> */}
+
             <Accordion
                 key={Math.random()}
                 sections={sections}
@@ -193,6 +204,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                 expandMultiple={true}
                 containerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
                 duration={300}
+                // disabled={isDisabled}
             />
         </>
     )
@@ -235,5 +247,13 @@ const styles = StyleSheet.create({
         marginVertical: 1,
         padding: 8,
         borderRadius: 5,
+    },
+    contentView: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    contentWidth: {
+        width: '50%',
     },
 })

@@ -71,6 +71,8 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
         for (let i = 0; i < colorsPercentage.length; i++) {
             if (valuePercentage > colorsPercentage[i]) {
                 color = colors[i]
+            } else if (valuePercentage == 0) {
+                color = '#DEDEDE'
             } else break
         }
 
@@ -99,9 +101,11 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
                             fontSize: 10,
                             paddingRight: 6,
                             paddingBottom: 0,
+                            fontStyle: 'italic',
                         }}
                     >
-                        {value}
+                        {/* {value > 0 && value} */}
+                        {value > 0 ? value : ''}
                     </Text>
                     <Text
                         numberOfLines={1}
@@ -110,6 +114,7 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
                             fontSize: 12,
                             paddingBottom: 10,
                             paddingHorizontal: 4,
+                            fontWeight: 'bold',
                         }}
                     >
                         {sectionLabel}
