@@ -82,6 +82,17 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
             },
         ],
     }
+    const integerData: any = {
+        answerOption: [
+            {
+                integer: {
+                    system: 'http://snomed.info/sct',
+                    code: '1',
+                    display: 'Free input answers',
+                },
+            },
+        ],
+    }
     // modify the array of items from the Resource
     //checking the "selectedTasks" is defined or not
 
@@ -94,6 +105,10 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
             if (data.type === 'boolean') {
                 let tasks = selectedTasks?.instrument?.item[i]
                 selectedTasks.instrument.item[i]['answerOption'] = booleanData.answerOption
+            }
+            if (data.type === 'integer') {
+                let tasks = selectedTasks?.instrument?.item[i]
+                selectedTasks.instrument.item[i]['answerOption'] = integerData.answerOption
             }
         })
     }
@@ -173,14 +188,14 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                             modArr.push(obj)
                         }
                         // it enables the integer values
-                        else if (answerArray[a].valueInteger) {
+                        else if (answerArray[a].valueInteger || answerArray[a]?.integer) {
                             let obj = {
                                 id: linkId,
                                 question: ques.text,
                                 type: 'integer',
                                 answer: {
                                     id: '0',
-                                    label: 'Free input answers',
+                                    label: integerData.answerOption[0].integer.display,
                                 },
                             }
                             modArr.push(obj)
@@ -189,7 +204,6 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                 }
             }
         })
-
         //grouping the multiple questions By ID
         let groupByQuesId = _.map(
             _.groupBy(modArr, function (mod) {
