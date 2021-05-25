@@ -63,13 +63,47 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
     let modArr: ModifiedArrayByResource[] = []
     let isexecution: Boolean = false
     maxCount = 0
+
+    const booleanData: any = {
+        answerOption: [
+            {
+                boolean: {
+                    system: 'http://snomed.info/sct',
+                    code: '1',
+                    display: 'true',
+                },
+            },
+            {
+                boolean: {
+                    system: 'http://snomed.info/sct',
+                    code: '0',
+                    display: 'false',
+                },
+            },
+        ],
+    }
     // modify the array of items from the Resource
+    //checking the "selectedTasks" is defined or not
+
     if (selectedTasks === undefined) {
         selectedTasks = {}
+    } else {
+        _.forEach(selectedTasks?.instrument?.item, function (data, i) {
+            //if data.type is boolean then insert defined "booleanData"
+
+            if (data.type === 'boolean') {
+                let tasks = selectedTasks?.instrument?.item[i]
+                selectedTasks.instrument.item[i]['answerOption'] = booleanData.answerOption
+            }
+        })
     }
     let qArray: any = []
 
+    //combining the Questionnaire response and Questionnaire
+
     _.forEach(reports, function (resource, k) {
+        // Strict check for Resource and recource Type should be "QuestionnaireResponse"
+
         if (resource?.resourceType === 'QuestionnaireResponse') {
             if (resource?.item) {
                 qArray.push(...resource?.item)
@@ -78,6 +112,8 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
             isexecution = true
         }
     })
+
+    //Check 'selectedTasks' is empty or not
 
     if (!isexecution) {
         let selectedTasksSize = _.size(selectedTasks)
@@ -89,6 +125,8 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
         } else {
             someArray = _.filter([...qArray, ...selectedTasks?.instrument?.item], _.size)
         }
+
+        // Looping the combined array(Questionnaire response and Questionnaire array)
 
         _.forEach(someArray, function (ques, k) {
             let linkId =
@@ -111,7 +149,6 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                                             ? answerArray[a]?.valueCoding.display
                                             : answerArray[a]?.valueCoding.code
                                         : answerArray[a]?.valueCoding?.code,
-                                    // type: gettype(ques)
                                 },
                             }
                             modArr.push(obj)
@@ -119,7 +156,8 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                         // it enables the boolean values
                         else if (
                             answerArray[a].valueBoolean === true ||
-                            answerArray[a].valueBoolean === false
+                            answerArray[a].valueBoolean === false ||
+                            answerArray[a].boolean
                         ) {
                             let obj = {
                                 id: linkId,
@@ -127,8 +165,9 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                                 type: 'boolean',
                                 answer: {
                                     id: '0',
-                                    label: answerArray[a].valueBoolean?.toString(),
-                                    // type: gettype(ques)
+                                    label: answerArray[a]?.boolean
+                                        ? answerArray[a]?.boolean?.display
+                                        : answerArray[a].valueBoolean?.toString(),
                                 },
                             }
                             modArr.push(obj)
@@ -142,7 +181,6 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                                 answer: {
                                     id: '0',
                                     label: 'Free input answers',
-                                    // label: answerArray[a].valueInteger?.toString()
                                 },
                             }
                             modArr.push(obj)
@@ -240,7 +278,10 @@ const getCount = (quesObj: { ans: any; type: string }, ansObj: { label: string }
         maxCount = filteredArray[0]?.length
     }
 
-    return filteredArray[0] && quesObj.type == 'choice'
+    //if type choice or boolean need to decrease by '1' from filteredArray[0]?.length
+    //if type is integer filtered array length is set to explicitly '0'
+
+    return filteredArray[0] && (quesObj.type == 'choice' || quesObj.type == 'boolean')
         ? filteredArray[0]?.length - 1
         : quesObj.type == 'integer'
         ? 0
