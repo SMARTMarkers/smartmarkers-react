@@ -61,7 +61,7 @@ let maxCount: number
 export const TransformReports = (reports: any, selectedTasks: any): HeatMapCountObj => {
     let heatMapArray: IHeatMap[] = []
     let modArr: ModifiedArrayByResource[] = []
-    let isexecution: Boolean = false
+    let isexecution: Boolean = true
     maxCount = 0
 
     const booleanData: any = {
@@ -96,7 +96,7 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
     // modify the array of items from the Resource
     //checking the "selectedTasks" is defined or not
 
-    if (selectedTasks === undefined) {
+    if (selectedTasks === undefined || selectedTasks === {}) {
         selectedTasks = {}
     } else {
         _.forEach(selectedTasks?.instrument?.item, function (data, i) {
@@ -113,23 +113,19 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
         })
     }
     let qArray: any = []
-
     //combining the Questionnaire response and Questionnaire
 
     _.forEach(reports, function (resource, k) {
         // Strict check for Resource and recource Type should be "QuestionnaireResponse"
 
         if (resource?.resourceType === 'QuestionnaireResponse') {
+            isexecution = false
             if (resource?.item) {
                 qArray.push(...resource?.item)
             }
-        } else {
-            isexecution = true
         }
     })
-
     //Check 'selectedTasks' is empty or not
-
     if (!isexecution) {
         let selectedTasksSize = _.size(selectedTasks)
 
@@ -142,7 +138,6 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
         }
 
         // Looping the combined array(Questionnaire response and Questionnaire array)
-
         _.forEach(someArray, function (ques, k) {
             let linkId =
                 ques.linkId.substring(ques.linkId.lastIndexOf('/') + 1) || Math.random().toString()
