@@ -74,7 +74,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                             {'Question: '}
                             {section.question}
                         </Text>
-                        {/* <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>{'Answer : '}</Text> */}
+
                         <View style={styles.contentView}>
                             {section.answer.map((item: any, index: string) => {
                                 return (
@@ -182,16 +182,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                 </Row>
             </View>
 
-            {/* Below code display's the X Axis lables */}
-
-            {/* <View style={{ paddingHorizontal: 20 }}>
-                <Row style={styles.row}>
-                    <Col style={styles.rowCol}></Col>
-                    <Col style={{ flex: 0.65, flexDirection: 'row', paddingRight: 5 }}>
-                        {displayXAxisOptions()}
-                    </Col>
-                </Row>
-            </View> */}
+           
 
             <Accordion
                 key={Math.random()}
@@ -204,7 +195,6 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                 expandMultiple={true}
                 containerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
                 duration={300}
-                // disabled={isDisabled}
             />
         </>
     )
@@ -223,7 +213,6 @@ const styles = StyleSheet.create({
         flex: 0.35,
         justifyContent: 'flex-end',
         padding: 5,
-        // paddingRight:0,
         flexWrap: 'wrap',
     },
     itemText: {

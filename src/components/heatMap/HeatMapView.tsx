@@ -18,7 +18,6 @@ interface HeatMapViewprops {
 
 const defaultProps: HeatMapViewprops = {
     numberOfLines: 7,
-    // values: [],
     colors: ['gray', 'orange', 'red'],
     colorsPercentage: [0, 25, 50, 75, 100],
     maximumValue: -1,
@@ -104,7 +103,7 @@ export const HeatMapView: React.FC<HeatMapViewprops> = ({
                             fontStyle: 'italic',
                         }}
                     >
-                        {/* {value > 0 && value} */}
+
                         {value > 0 ? value : ''}
                     </Text>
                     <Text

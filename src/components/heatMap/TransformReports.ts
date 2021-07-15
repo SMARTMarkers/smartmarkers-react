@@ -259,7 +259,7 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
             }
             heatMapArray.push(obj)
         }
-        console.log(heatMapArray, Count.getMaxCount(isexecution))
+       
     }
     return {
         heatMapArray: heatMapArray,
