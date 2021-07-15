@@ -164,7 +164,7 @@ export const FhirProvider: React.FC<FhirProviderProps> = (props) => {
         return (client as Client).user.read();
       })
       .then((user) => {
-        console.log(user);
+       
         const item = user.name[0];
         const name = [
           item.prefix.join(" "),
