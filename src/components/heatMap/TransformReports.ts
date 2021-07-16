@@ -88,7 +88,7 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                 integer: {
                     system: 'http://snomed.info/sct',
                     code: '1',
-                    display: 'Free input answers',
+                    display: 'NOT APPLICABLE (User Input Text)',
                 },
             },
         ],

@@ -22,6 +22,8 @@ import {
 import { User } from "../../context";
 import { Task } from "../../task/Task";
 import { TaskSchedule } from "../../task/TaskSchedule";
+import axios from 'axios';
+
 
 export class Server {
   public client: Client;
@@ -51,6 +53,24 @@ export class Server {
         // console.error(err);
         return [] as IPatient[];
       });
+  }
+
+
+  async getPatientsbyaxios(filter?: string, url:string){
+    const reqUrl = filter ? `Patient?${filter}` : `Patient`;
+    const reqOptions = {
+      pageLimit: 0,
+      flat: true,
+    };
+    let PatientUrl = '' 
+    if (url.length === 0) {
+      PatientUrl = `https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImoiOiIxIiwiZSI6ImVmYjVkNGNlLWRmZmMtNDdkZi1hYTZkLTA1ZDM3MmZkYjQwNyJ9/fhir/Patient?_summary=True` 
+    }
+    else if (url.length >0) {
+      PatientUrl = url
+    }
+    const data = axios.get(PatientUrl)
+    return data;
   }
 
   async getPatientTasksByRequests(filter?: string, patientId?: string) {
