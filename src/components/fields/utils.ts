@@ -225,11 +225,9 @@ export const extractChoices = async <
   }
 
   if (item.answerOption) {
-    // console.log(item)
     const key = item.prefix
     return item.answerOption.map((option) => {
       if (option.valueCoding) {
-        // console.log(option)
         const data = key
         return {
           value: option.valueCoding,

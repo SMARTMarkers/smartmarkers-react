@@ -139,12 +139,9 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
 
         // Looping the combined array(Questionnaire response and Questionnaire array)
         _.forEach(someArray, function (ques, k) {
-            // console.log(someArray)
-            // console.log(ques)
             let linkId =
                 ques.linkId.substring(ques.linkId.lastIndexOf('/') + 1) || Math.random().toString()
             if (ques?.answer || ques?.answerOption) {
-                // console.log(ques)
                 let answerArray = ques?.answer ? ques.answer : ques.answerOption
                 if (answerArray) {
                     _.forEach(answerArray, function (ans, a) {

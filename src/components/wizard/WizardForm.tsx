@@ -70,22 +70,6 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
         }
     }, [])
 
-
-
-    // React.useEffect(() => {
-    //     if (isAdaptive) {
-    //     (async () => {
-    //         const response = await (questionnaire as PromisQuestionnaire).getFirstNextStep()
-    //         if (response && response.contained) {
-    //             const q = response.contained[0] as IQuestionnaire
-    //             setQuestionnaireResponse(response)
-    //             setQuestions(getActiveQuestions(q.item, formData))
-    //         }
-    //         setIsReady(true)
-    //     })()
-    // }
-    //   }, [])
-
     const onNext = async () => {
         if (isAdaptive) {
             if (questionnaireResponse) {
@@ -112,9 +96,6 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
                 }
                 setStep(step + 1)
                 setIsReady(true)
-                // if (response.status === "completed") {
-                //     onSubmit(formData)
-                // }
             }
         } else {
             setStep(step + 1)
