@@ -157,7 +157,7 @@ export class Server {
     const requests = await Promise.all(
       items.map(async (item: IDomainResource) => {
         const s = instrumentFactory.createInstrument(item);
-        const i = await s.getReports(undefined, patientId);
+        // const i = await s.getReports(undefined, patientId);
         return s;
       })
     );
@@ -322,6 +322,7 @@ export class Server {
     questionnaireId: string,
     postResponse: IQuestionnaireResponse
   ) {
+    console.log(postResponse)
     return await this.client
       .request<IQuestionnaireResponse>({
         url: `Questionnaire/${questionnaireId}/next-q`,

@@ -15,6 +15,8 @@ import {
 import { FormMode } from '../Form'
 import { IQuestionnaireItem } from '../../models'
 import { QuestionsLayout } from '../QuestionsLayout'
+import * as _ from 'lodash'
+
 
 export interface WizardFormProps {
     questionnaire: Questionnaire
@@ -79,6 +81,10 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
 
                 if (response && response.contained) {
                     if (response.status == QuestionnaireResponseStatus.Completed) {
+                       const promisresponse =  getResponse(questionnaire, formData)
+                        const item = response.item.filter(obj1 => !promisresponse.item.some(obj2 => obj1.linkId === obj2.linkId))
+                        const newitem = [...item, ...promisresponse.item]
+                        response['item'] = newitem
                         if (props.onSubmit) {
                             props.onSubmit(formData, response)
                         }

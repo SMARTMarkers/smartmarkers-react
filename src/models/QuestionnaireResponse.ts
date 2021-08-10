@@ -28,6 +28,19 @@ export interface IQuestionnaireResponse extends IDomainResource {
   source?: IReference;
   item?: Array<IQuestionnaireResponseItem>;
 }
+interface Todo {
+  identified?: IIdentifier;
+  basedOn?: Array<IReference>;
+  partOf?: Array<IReference>;
+  questionnaire?: string;
+  status: QuestionnaireResponseStatus;
+  subject?: IReference;
+  encounter?: IReference;
+  authored?: Date;
+  author?: IReference;
+  source?: IReference;
+  item?: Array<IQuestionnaireResponseItem>;
+}
 
 export interface IQuestionnaireResponseItem extends IBackboneElement {
   linkId: string;

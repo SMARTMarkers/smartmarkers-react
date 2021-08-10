@@ -198,6 +198,29 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
                     })
                 }
             }
+            else if (ques?.item) {
+                _.forEach(ques.item, function (ques, a) {
+                    if (ques?.answer || ques?.answerOption) {
+                        let answerArray = ques?.answer ? ques?.answer : ques?.answerOption
+                        if (answerArray) {
+                            _.forEach(answerArray, function (ans, a) {
+                                if (answerArray[a]?.valueString) {
+                                    let obj = {
+                                        id: linkId,
+                                        question: ques?.text,
+                                        type: 'choice',
+                                        answer: {
+                                            id: '0',
+                                            label: answerArray[a]?.valueString
+                                        },
+                                    }
+                                    modArr.push(obj)
+                                }
+                            })
+                        }
+                    }
+                })
+            }            
         })
         //grouping the multiple questions By ID
         let groupByQuesId = _.map(
@@ -242,7 +265,7 @@ export const TransformReports = (reports: any, selectedTasks: any): HeatMapCount
 
         for (let i = 0; i < groupByAnswer.length; i++) {
             let finalAnswerObj: FinalAnswer[] = []
-
+            
             for (let j = 0; j < groupByAnswer[i].ans.length; j++) {
                 let countAnswers = {
                     id: groupByAnswer[i].ans[j].id,
