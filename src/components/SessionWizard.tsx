@@ -56,6 +56,7 @@ export const SessionWizard: React.FC<SessionWizardProps> = (props) => {
     formData: FormData,
     response: IQuestionnaireResponse
   ) => {
+    console.log(response)
     const reportFactory = new ReportFactory(server);
     const report = reportFactory.createReport(response);
     const bundle = new ResultBundle(task, report);

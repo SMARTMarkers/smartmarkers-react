@@ -15,6 +15,8 @@ import {
 import { FormMode } from '../Form'
 import { IQuestionnaireItem } from '../../models'
 import { QuestionsLayout } from '../QuestionsLayout'
+import * as _ from 'lodash'
+
 
 export interface WizardFormProps {
     questionnaire: Questionnaire
@@ -68,6 +70,22 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
         }
     }, [])
 
+
+
+    // React.useEffect(() => {
+    //     if (isAdaptive) {
+    //     (async () => {
+    //         const response = await (questionnaire as PromisQuestionnaire).getFirstNextStep()
+    //         if (response && response.contained) {
+    //             const q = response.contained[0] as IQuestionnaire
+    //             setQuestionnaireResponse(response)
+    //             setQuestions(getActiveQuestions(q.item, formData))
+    //         }
+    //         setIsReady(true)
+    //     })()
+    // }
+    //   }, [])
+
     const onNext = async () => {
         if (isAdaptive) {
             if (questionnaireResponse) {
@@ -79,6 +97,10 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
 
                 if (response && response.contained) {
                     if (response.status == QuestionnaireResponseStatus.Completed) {
+                       const promisresponse =  getResponse(questionnaire, formData)
+                        const item = response.item.filter(obj1 => !promisresponse.item.some(obj2 => obj1.linkId === obj2.linkId))
+                        const newitem = [...item, ...promisresponse.item]
+                        response['item'] = newitem
                         if (props.onSubmit) {
                             props.onSubmit(formData, response)
                         }
@@ -90,6 +112,9 @@ export const WizardForm: React.FC<WizardFormProps> = props => {
                 }
                 setStep(step + 1)
                 setIsReady(true)
+                // if (response.status === "completed") {
+                //     onSubmit(formData)
+                // }
             }
         } else {
             setStep(step + 1)
