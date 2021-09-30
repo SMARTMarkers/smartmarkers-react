@@ -9,7 +9,6 @@ interface HeatMapProps {
     sections: any[]
     colors: string[]
     maxValue: number
-    //optionals
     underlayColor?: String
     expandMultiple?: boolean
     xAxisOptions?: string[]
@@ -35,7 +34,6 @@ export const HeatMap: React.FC<HeatMapProps> = ({
     const [colorsPercentage, setColorsPercentage] = React.useState<number[]>([])
     const [numberRange, setNumberRange] = React.useState<number[]>([])
     const [isDisabled, setIsDisabled] = React.useState<boolean>(false)
-
     const dynamicSize = useWindowSize()
 
     const click = (value: number) => {}
@@ -181,8 +179,6 @@ export const HeatMap: React.FC<HeatMapProps> = ({
                     </Col>
                 </Row>
             </View>
-
-           
 
             <Accordion
                 key={Math.random()}
