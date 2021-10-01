@@ -50,7 +50,6 @@ export class Server {
     return await this.client
       .request<IPatient[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return [] as IPatient[];
       });
   }
@@ -73,7 +72,7 @@ export class Server {
     return data;
   }
 
-  async getPatientTasksByRequests(filter?: string, patientId?: string) {
+  async getPatientTasksByRequests(filter?: string, patientId?: string,data: any) {
     const serviceRequestFactory = new ServiceRequestFactory(
       this,
       this.getPromisServer()
@@ -89,7 +88,47 @@ export class Server {
     const items: IServiceRequest[] = await this.client
       .request<IServiceRequest[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
+        return [] as IServiceRequest[];
+      });
+
+    const tasks = await Promise.all(
+      items.map(async (serviceRequest) => {
+        const request = serviceRequestFactory.createServiceRequest(
+          serviceRequest
+        );
+        if (data == "data") {
+        const instrument = await request.getInstrument();
+        const reports = await instrument?.getReports(undefined, patientId);
+        const task = new Task({ request,instrument,reports, server: this });
+        return task;
+        }
+        else{
+        const task = new Task({ request, server: this });
+        return task;
+        }
+      })
+    );
+
+    return tasks;
+  }
+
+
+  async getPatientTasksByRequest(filter?: string, patientId?: string) {
+    const serviceRequestFactory = new ServiceRequestFactory(
+      this,
+      this.getPromisServer()
+    );
+    const ptId = patientId ? patientId : this.client.patient.id;
+    const reqUrl = filter
+      ? `ServiceRequest?patient=${ptId}&${filter}`
+      : `ServiceRequest?patient=${ptId}`;
+    const reqOptions = {
+      pageLimit: 0,
+      flat: true,
+    };
+    const items: IServiceRequest[] = await this.client
+      .request<IServiceRequest[]>(reqUrl, reqOptions)
+      .catch((err: any) => {
         return [] as IServiceRequest[];
       });
 
@@ -121,7 +160,6 @@ export class Server {
     const item = await this.client
       .request<IServiceRequest>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return {} as IServiceRequest;
       });
     const request = serviceRequestFactory.createServiceRequest(item);
@@ -150,14 +188,12 @@ export class Server {
     const items: IDomainResource[] = await this.client
       .request<IDomainResource[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return [] as IDomainResource[];
       });
 
     const requests = await Promise.all(
       items.map(async (item: IDomainResource) => {
         const s = instrumentFactory.createInstrument(item);
-        // const i = await s.getReports(undefined, patientId);
         return s;
       })
     );
@@ -178,7 +214,6 @@ export class Server {
     const item = await this.client
       .request<IDomainResource>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
     if (item) {
@@ -261,7 +296,6 @@ export class Server {
         { flat: true }
       )
       .catch((err: any) => {
-        // console.error(err);
         return [] as IQuestionnaireResponse[];
       });
   }
@@ -281,7 +315,6 @@ export class Server {
     return await this.client
       .request<IQuestionnaireResponse[]>(url, { flat: true })
       .catch((err: any) => {
-        // console.error(err);
         return [] as IQuestionnaireResponse[];
       });
   }
@@ -301,7 +334,6 @@ export class Server {
 
   async getInstrumentByReference<T>(reference: string) {
     return await this.client.request<T>(reference).catch((err: any) => {
-      // console.error(err);
       return undefined;
     });
   }
@@ -322,7 +354,6 @@ export class Server {
     questionnaireId: string,
     postResponse: IQuestionnaireResponse
   ) {
-    console.log(postResponse)
     return await this.client
       .request<IQuestionnaireResponse>({
         url: `Questionnaire/${questionnaireId}/next-q`,
@@ -335,7 +366,6 @@ export class Server {
         },
       })
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
   }
@@ -352,7 +382,6 @@ export class Server {
         },
       })
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
   }
