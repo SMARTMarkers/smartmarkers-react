@@ -23,7 +23,7 @@ import { User } from "../../context";
 import { Task } from "../../task/Task";
 import { TaskSchedule } from "../../task/TaskSchedule";
 import axios from 'axios';
-
+import { serverUrl } from "./utils";
 
 export class Server {
   public client: Client;
@@ -63,7 +63,7 @@ export class Server {
     };
     let PatientUrl = '' 
     if (url.length === 0) {
-      PatientUrl = `https://launch.smarthealthit.org/v/r4/sim/eyJoIjoiMSIsImoiOiIxIiwiZSI6ImVmYjVkNGNlLWRmZmMtNDdkZi1hYTZkLTA1ZDM3MmZkYjQwNyJ9/fhir/Patient?_summary=True` 
+      PatientUrl = serverUrl + `/Patient?_summary=True`
     }
     else if (url.length >0) {
       PatientUrl = url
