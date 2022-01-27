@@ -178,7 +178,7 @@ export const getLabel = (item: IQuestionnaireItem) => {
 };
 
 export const extractChoices = async <
-  T extends { label: string; value: any } = GroupItem<any>
+  T extends { label: string; value: any ; prefix: any} = GroupItem<any>
 >(
   item: IQuestionnaireItem,
   questionnaire: IQuestionnaire,
@@ -225,15 +225,18 @@ export const extractChoices = async <
   }
 
   if (item.answerOption) {
+    const key = item.prefix
     return item.answerOption.map((option) => {
       if (option.valueCoding) {
+        const data = key
         return {
           value: option.valueCoding,
           label: option.valueCoding.display,
+          prefix : data
         } as T;
       } else if (option.valueString) {
         return {
-          value: { display: option.valueString, value: option.valueString },
+          value: option.valueString ,
           label: option.valueString,
         } as T;
       } else {
@@ -363,7 +366,15 @@ const getResponseItemAnswers = (
       valueProp = "valueAttachment";
       break;
     case QuestionnaireItemType.Choice:
-      valueProp = "valueCoding";
+    let valueCoding = item.answerOption  
+    for (let i = 0; i < valueCoding.length; i++) {
+      if (valueCoding[i].hasOwnProperty('valueCoding')) {
+        valueProp = "valueCoding"
+      }
+      else if (valueCoding[i].hasOwnProperty('valueString')) {
+        valueProp = "valueString"
+      }
+    }
       break;
     case QuestionnaireItemType.OpenChoice:
       valueProp = "valueCoding";

@@ -115,9 +115,9 @@ export class Task {
           "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse-adapt"
         )
       ) {
-        console.log({ server: this.server });
+        
         const serverUrl = this.server.promisClient?.state?.serverUrl;
-        console.log(serverUrl);
+       
         (result.report as QuestionnaireResponse).questionnaire = `${serverUrl}Questionnaire/${this.instrument.id}`;
       } else {
         (result.report as QuestionnaireResponse).questionnaire = `Questionnaire/${this.instrument.id}`;

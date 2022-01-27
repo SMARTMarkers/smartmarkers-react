@@ -22,6 +22,8 @@ import {
 import { User } from "../../context";
 import { Task } from "../../task/Task";
 import { TaskSchedule } from "../../task/TaskSchedule";
+import axios from 'axios';
+import { serverUrl } from "./utils";
 
 export class Server {
   public client: Client;
@@ -48,12 +50,29 @@ export class Server {
     return await this.client
       .request<IPatient[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return [] as IPatient[];
       });
   }
 
-  async getPatientTasksByRequests(filter?: string, patientId?: string) {
+
+  async getPatientsbyaxios(filter?: string, url:string){
+    const reqUrl = filter ? `Patient?${filter}` : `Patient`;
+    const reqOptions = {
+      pageLimit: 0,
+      flat: true,
+    };
+    let PatientUrl = '' 
+    if (url.length === 0) {
+      PatientUrl = serverUrl + `/Patient?_summary=True`
+    }
+    else if (url.length >0) {
+      PatientUrl = url
+    }
+    const data = axios.get(PatientUrl)
+    return data;
+  }
+
+  async getPatientTasksByRequests(filter?: string, patientId?: string,data: any) {
     const serviceRequestFactory = new ServiceRequestFactory(
       this,
       this.getPromisServer()
@@ -69,7 +88,47 @@ export class Server {
     const items: IServiceRequest[] = await this.client
       .request<IServiceRequest[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
+        return [] as IServiceRequest[];
+      });
+
+    const tasks = await Promise.all(
+      items.map(async (serviceRequest) => {
+        const request = serviceRequestFactory.createServiceRequest(
+          serviceRequest
+        );
+        if (data == "data") {
+        const instrument = await request.getInstrument();
+        const reports = await instrument?.getReports(undefined, patientId);
+        const task = new Task({ request,instrument,reports, server: this });
+        return task;
+        }
+        else{
+        const task = new Task({ request, server: this });
+        return task;
+        }
+      })
+    );
+
+    return tasks;
+  }
+
+
+  async getPatientTasksByRequest(filter?: string, patientId?: string) {
+    const serviceRequestFactory = new ServiceRequestFactory(
+      this,
+      this.getPromisServer()
+    );
+    const ptId = patientId ? patientId : this.client.patient.id;
+    const reqUrl = filter
+      ? `ServiceRequest?patient=${ptId}&${filter}`
+      : `ServiceRequest?patient=${ptId}`;
+    const reqOptions = {
+      pageLimit: 0,
+      flat: true,
+    };
+    const items: IServiceRequest[] = await this.client
+      .request<IServiceRequest[]>(reqUrl, reqOptions)
+      .catch((err: any) => {
         return [] as IServiceRequest[];
       });
 
@@ -101,7 +160,6 @@ export class Server {
     const item = await this.client
       .request<IServiceRequest>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return {} as IServiceRequest;
       });
     const request = serviceRequestFactory.createServiceRequest(item);
@@ -130,14 +188,12 @@ export class Server {
     const items: IDomainResource[] = await this.client
       .request<IDomainResource[]>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return [] as IDomainResource[];
       });
 
     const requests = await Promise.all(
       items.map(async (item: IDomainResource) => {
         const s = instrumentFactory.createInstrument(item);
-        const i = await s.getReports(undefined, patientId);
         return s;
       })
     );
@@ -158,7 +214,6 @@ export class Server {
     const item = await this.client
       .request<IDomainResource>(reqUrl, reqOptions)
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
     if (item) {
@@ -241,7 +296,6 @@ export class Server {
         { flat: true }
       )
       .catch((err: any) => {
-        // console.error(err);
         return [] as IQuestionnaireResponse[];
       });
   }
@@ -261,7 +315,6 @@ export class Server {
     return await this.client
       .request<IQuestionnaireResponse[]>(url, { flat: true })
       .catch((err: any) => {
-        // console.error(err);
         return [] as IQuestionnaireResponse[];
       });
   }
@@ -281,7 +334,6 @@ export class Server {
 
   async getInstrumentByReference<T>(reference: string) {
     return await this.client.request<T>(reference).catch((err: any) => {
-      // console.error(err);
       return undefined;
     });
   }
@@ -314,7 +366,6 @@ export class Server {
         },
       })
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
   }
@@ -331,7 +382,6 @@ export class Server {
         },
       })
       .catch((err: any) => {
-        // console.error(err);
         return undefined;
       });
   }
